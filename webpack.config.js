@@ -8,7 +8,10 @@ module.exports = {
     context: srcPath,
     resolve: {
         alias: {
-            components: path.resolve(srcPath, 'components')
+            states: path.resolve(srcPath, 'states'),
+            utilities: path.resolve(srcPath, 'utilities'),
+            components: path.resolve(srcPath, 'components'),
+            api: path.resolve(srcPath, 'api')
         }
     },
     entry: {
@@ -37,14 +40,23 @@ module.exports = {
                                 'react'
                             ],
                             plugins: [
-                                'babel-plugin-transform-class-properties'
+                                'babel-plugin-transform-class-properties',
+                                'transform-object-rest-spread'
                             ]
                         }
                     }
                 ]
             }, {
                 test: /\.css$/,
-                use: ['style-loader', 'css-loader']
+                use: [
+                    'style-loader',
+                    {
+                        loader: 'css-loader',
+                        options : {
+                            url: false
+                        }
+                    }
+                ]
             }
         ]
     },
@@ -52,6 +64,7 @@ module.exports = {
     devServer: {
         contentBase: distPath,
         compress: true,
-        port: 7070
-    }
+        port: 8080
+    },
+    devtool: 'cheap-source-map'
 };
