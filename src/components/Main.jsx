@@ -13,97 +13,65 @@ import {
     Nav,
     NavItem,
     NavLink,
-    Input,
     Button
 } from 'reactstrap';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 
-import Today from 'components/Today.jsx';
-import Forecast from 'components/Forecast.jsx';
-import {setSearchText} from 'states/post-actions.js';
-import {toggleNavbar} from 'states/main-actions.js';
+import Collection from 'components/Collection.jsx';
+import Home from 'components/Home.jsx';
 
 import './Main.css';
 
 class Main extends React.Component {
     static propTypes = {
-        searchText: PropTypes.string,
-        navbarToggle: PropTypes.bool,
         store: PropTypes.object,
         dispatch: PropTypes.func
     };
 
     constructor(props) {
         super(props);
-
-        this.searchEl = null;
-
-        this.handleNavbarToggle = this.handleNavbarToggle.bind(this);
-        this.handleSearchKeyPress = this.handleSearchKeyPress.bind(this);
-        this.handleClearSearch = this.handleClearSearch.bind(this);
     }
 
     render() {
         return (
             <Router>
-                <div className='main'>
-                    <div className='bg-faded'>
-                        <div className='container'>
-                            <Navbar color='faded' light toggleable>
-                                <NavbarToggler right onClick={this.handleNavbarToggle}/>
-                                <NavbarBrand className='text-info' href="/">WeatherMood</NavbarBrand>
-                                <Collapse isOpen={this.props.navbarToggle} navbar>
+                <div id="wrapper">
+                    <div className='main'>
+                        <div className='bg-faded'>
+                            <div className='container'>
+                                <Navbar color='faded' light toggleable>
+                                    <NavbarBrand className='text-info' href="/">Photo Exhibition</NavbarBrand>
                                     <Nav navbar>
                                         <NavItem>
-                                            <NavLink tag={Link} to='/'>Today</NavLink>
+                                            <NavLink tag={Link} to='/Home'>Home</NavLink>
                                         </NavItem>
                                         <NavItem>
-                                            <NavLink tag={Link} to='/forecast'>Forecast</NavLink>
+                                            <NavLink tag={Link} to='/Collection'>Collection</NavLink>
                                         </NavItem>
                                     </Nav>
-                                    <div className='search ml-auto'>
-                                        <Input className='ml-auto' type='text' placeholder='Search' onKeyPress={this.handleSearchKeyPress} getRef={e => this.searchEl = e}></Input>{
-                                            this.props.searchText &&
-                                            <i className='navbar-text fa fa-times' onClick={this.handleClearSearch}></i>
-                                        }
-                                    </div>
-                                </Collapse>
-                            </Navbar>
+                                </Navbar>
+                            </div>
                         </div>
-                    </div>
 
-                    <Route exact path="/" render={() => (
-                        <Today />
-                    )}/>
-                    <Route exact path="/forecast" render={() => (
-                        <Forecast />
-                    )}/>
-                    <div className='footer'>
-                        DataLab.
+                        <Route exact path="/Home" render={() => (
+                            <Home />
+                        )} />
+
+                        <Route exact path="/Collection" render={() => (
+                            <Collection />
+                        )} />
+
+                        <footer id="footer">
+                            <p>Welcome to my website</p>
+                        </footer>
                     </div>
                 </div>
             </Router>
         );
     }
 
-    handleNavbarToggle() {
-        this.props.dispatch(toggleNavbar());
-    }
-
-    handleSearchKeyPress(e) {
-        var keyCode = e.keyCode || e.which;
-        if (keyCode === 13){
-            this.props.dispatch(setSearchText(e.target.value));
-        }
-    }
-
-    handleClearSearch() {
-        this.props.dispatch(setSearchText(''));
-        this.searchEl.value = '';
-    }
 }
 
 export default connect(state => ({
-    ...state.main,
-    searchText: state.searchText,
+
 }))(Main);

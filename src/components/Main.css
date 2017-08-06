@@ -1,34 +1,20 @@
-.main {
-    height: 100%;
-}
+	#footer {
+		text-align: center;
+		padding: 4em 0 4em 0;
+	}
 
-.main .footer {
-    text-align: center;
-    color: rgba(255, 255, 255, 0.7);
-    padding: 6rem 2rem 2rem 2rem;
-}
+		#footer:before {
+			content: '';
+			border-top: solid 1px rgba(255, 255, 255, 0.25);
+			width: 10em;
+			display: block;
+			margin: 0 auto 3em auto;
+		}
 
-.main .search {
-    position: relative;
-    width: 100%;
-}
+		@media screen and (max-width: 1280px) {
 
-.main .search input {
-    padding-right: 1.5rem;
-}
+			#footer {
+				padding: 2em 0 2em 0;
+			}
 
-.main .search i {
-    position: absolute;
-    top: 0.25rem;
-    right: 0.5rem;
-}
-
-.main .search i:hover {
-    color: #5bc0de;
-}
-
-@media (min-width: 576px) {
-    .main .search {
-        width: 10rem;
-    }
-}
+		}
