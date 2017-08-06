@@ -1,2 +1,2 @@
-# Photo-Exhibition
-The website to show your photography portfolio.
+# Terry Lin's Side Project
+The website about photography.
