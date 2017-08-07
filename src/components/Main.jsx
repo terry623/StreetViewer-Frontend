@@ -36,20 +36,18 @@ class Main extends React.Component {
         return (
             <Router>
                 <div>
-                    <div className='bg-faded'>
-                        <div className='container'>
-                            <Navbar color='faded' light toggleable>
-                                <NavbarBrand className='text-info' href="/">Photo Exhibition</NavbarBrand>
-                                <Nav navbar>
-                                    <NavItem>
-                                        <NavLink tag={Link} to='/Home'>Home</NavLink>
-                                    </NavItem>
-                                    <NavItem>
-                                        <NavLink tag={Link} to='/Collection'>Collection</NavLink>
-                                    </NavItem>
-                                </Nav>
-                            </Navbar>
-                        </div>
+                    <div className='container'>
+                        <Navbar color='faded' light toggleable>
+                            <NavbarBrand className='text-info' href="/">Photo Exhibition</NavbarBrand>
+                            <Nav navbar>
+                                <NavItem>
+                                    <NavLink tag={Link} to='/Home'>Home</NavLink>
+                                </NavItem>
+                                <NavItem>
+                                    <NavLink tag={Link} to='/Collection'>Collection</NavLink>
+                                </NavItem>
+                            </Nav>
+                        </Navbar>
                     </div>
 
                     <Route exact path="/Home" render={() => (
@@ -60,6 +58,9 @@ class Main extends React.Component {
                         <Collection />
                     )} />
 
+                    <footer id="footer">
+                        <p>Welcome to my website</p>
+                    </footer>
                 </div>
             </Router>
         );
