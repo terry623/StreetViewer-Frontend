@@ -16,10 +16,10 @@ class Banner extends React.Component {
     render() {
 
         return (
-            <div>
-                <span class="avatar"><img src="images/avatar.jpg" alt="" /></span>
+            <div className='banner'>
+                <span className='avatar'><img src="images/avatar.jpg" alt="" /></span>
                 <h1>This is a website about <strong>Photography</strong></h1>
-                <ul class="icons">
+                <ul className="icons">
                     <li><a href="#" class="icon style2 fa-twitter"><span class="label">Twitter</span></a></li>
                     <li><a href="#" class="icon style2 fa-facebook"><span class="label">Facebook</span></a></li>
                     <li><a href="#" class="icon style2 fa-instagram"><span class="label">Instagram</span></a></li>

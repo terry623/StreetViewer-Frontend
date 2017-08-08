@@ -16,7 +16,7 @@ class PhotoDisplay extends React.Component {
 
     render() {
         return (
-            <div className='photo'>
+            <div className='photo-display'>
                 <Photo />
             </div>
         );

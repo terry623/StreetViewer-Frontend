@@ -19,19 +19,8 @@ class Collection extends React.Component {
 
 		return (
 			<div className='collection'>
-
-				<div className='banner'>
-					<Banner />
-				</div>
-
-				<div className='photo-display'>
-					<PhotoDisplay />
-				</div>
-
-				<div className='footer'>
-					<p>Welcome to my website</p>
-				</div>
-
+				<Banner />
+				<PhotoDisplay />
 			</div>
 
 		);

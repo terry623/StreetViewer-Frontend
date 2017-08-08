@@ -1,0 +1,9 @@
+    .photo-display {
+					display: -moz-flex;
+					display: -webkit-flex;
+					display: -ms-flex;
+					display: flex;
+					flex-direction: row;
+					position: relative;
+					margin: 0 0 2em -2em;
+	}

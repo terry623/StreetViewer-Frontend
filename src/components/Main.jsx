@@ -35,13 +35,13 @@ class Main extends React.Component {
     render() {
         return (
             <Router>
-                <div>
+                <div className='main'>
                     <div className='container'>
                         <Navbar color='faded' light toggleable>
                             <NavbarBrand className='text-info' href="/">Photo Exhibition</NavbarBrand>
                             <Nav navbar>
                                 <NavItem>
-                                    <NavLink tag={Link} to='/Home'>Home</NavLink>
+                                    <NavLink tag={Link} to='/'>Home</NavLink>
                                 </NavItem>
                                 <NavItem>
                                     <NavLink tag={Link} to='/Collection'>Collection</NavLink>
@@ -50,7 +50,7 @@ class Main extends React.Component {
                         </Navbar>
                     </div>
 
-                    <Route exact path="/Home" render={() => (
+                    <Route exact path="/" render={() => (
                         <Home />
                     )} />
 
