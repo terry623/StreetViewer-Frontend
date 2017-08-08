@@ -20,11 +20,11 @@ class Banner extends React.Component {
                 <span className='avatar'><img src="images/avatar.jpg" alt="" /></span>
                 <h1>This is a website about <strong>Photography</strong></h1>
                 <ul className="icons">
-                    <li><a href="#" class="icon style2 fa-twitter"><span class="label">Twitter</span></a></li>
-                    <li><a href="#" class="icon style2 fa-facebook"><span class="label">Facebook</span></a></li>
-                    <li><a href="#" class="icon style2 fa-instagram"><span class="label">Instagram</span></a></li>
-                    <li><a href="#" class="icon style2 fa-500px"><span class="label">500px</span></a></li>
-                    <li><a href="#" class="icon style2 fa-envelope-o"><span class="label">Email</span></a></li>
+                    <li><a href="#" className="icon style2 fa-twitter"><span className="label">Twitter</span></a></li>
+                    <li><a href="#" className="icon style2 fa-facebook"><span className="label">Facebook</span></a></li>
+                    <li><a href="#" className="icon style2 fa-instagram"><span className="label">Instagram</span></a></li>
+                    <li><a href="#" className="icon style2 fa-500px"><span className="label">500px</span></a></li>
+                    <li><a href="#" className="icon style2 fa-envelope-o"><span className="label">Email</span></a></li>
                 </ul>
             </div>
         );

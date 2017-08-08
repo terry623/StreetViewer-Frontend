@@ -1,26 +1,19 @@
-    /* .photo {
-            display: -moz-flex;
-            display: -webkit-flex;
-            display: -ms-flex;
-            display: flex;
-            flex-direction: row;
-            position: relative;
-            margin: 0 0 2em -2em;
-	}     */
-
     .photo a {
-            transition: all 0.2s ease;
-            border-bottom: none;
-            display: block;
-            width: 100%;
-            margin: 0 0 2em 0;
-            text-align: center;
-            border-radius: 4px;
-            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.25);
-            background-color: rgba(255, 255, 255, 0.075);
-            cursor: pointer;
-            outline: 0;
-            overflow: hidden;
+			-moz-transition: all 0.2s ease;
+			-webkit-transition: all 0.2s ease;
+			-ms-transition: all 0.2s ease;
+			transition: all 0.2s ease;
+			border-bottom: none;
+			display: block;
+			width: 100%;
+			margin: 0 0 2em 0;
+			text-align: center;
+			border-radius: 4px;
+			box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.25);
+			background-color: rgba(255, 255, 255, 0.075);
+			cursor: pointer;
+			outline: 0;
+			overflow: hidden;
     }
 
     .photo a img {
@@ -39,6 +32,24 @@
         box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.25), 0 0 0.5em 0 #FF6382;
     }
 
+    .photo > div {
+        display: -moz-flex;
+        display: -webkit-flex;
+        display: -ms-flex;
+        display: flex;
+        -moz-flex-direction: column;
+        -webkit-flex-direction: column;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        width: calc(100% / 3);
+        padding-left: 2em;
+    }
+
+    .photo > div > :last-child {
+        margin-bottom: 0;
+    }
+
+
     @media screen and (max-width: 1280px) {
 
         .photo {
@@ -47,6 +58,43 @@
 
             .photo a {
                 margin: 0 0 1.5em 0;
+            }
+
+            .photo > div {
+                padding-left: 1.5em;
+            }
+
+    }
+
+    @media screen and (max-width: 980px) {
+
+        .photo h3 {
+            font-size: 0.8em;
+        }
+
+    }
+
+    @media screen and (max-width: 480px) {
+
+        .photo {
+            display: block;
+        }
+
+            .photo a {
+                margin: 0 0 2em 0 !important;
+            }
+
+            .photo > div {
+                display: block;
+                width: 100%;
+            }
+
+                .photo > div:last-child > :last-child {
+                    margin-bottom: 0 !important;
+                }
+
+            .photo h3 {
+                font-size: 1em;
             }
 
     }

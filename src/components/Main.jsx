@@ -58,7 +58,7 @@ class Main extends React.Component {
                         <Collection />
                     )} />
 
-                    <footer id="footer">
+                    <footer className="footer">
                         <p>Welcome to my website</p>
                     </footer>
                 </div>

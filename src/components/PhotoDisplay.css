@@ -1,9 +1,12 @@
     .photo-display {
-					display: -moz-flex;
-					display: -webkit-flex;
-					display: -ms-flex;
-					display: flex;
-					flex-direction: row;
-					position: relative;
-					margin: 0 0 2em -2em;
+			display: -moz-flex;
+			display: -webkit-flex;
+			display: -ms-flex;
+			display: flex;
+			-moz-flex-direction: row;
+			-webkit-flex-direction: row;
+			-ms-flex-direction: row;
+			flex-direction: row;
+			position: relative;
+			margin: 0 0 2em -2em;
 	}
