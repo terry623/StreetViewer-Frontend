@@ -1,7 +1,7 @@
 {
-  "name": "lab-react-weathermood",
+  "name": "terrylin-side-project",
   "version": "1.0.0",
-  "description": "WeatherMood allows people to share moods under different weather conditions.",
+  "description": "The website about the photography.",
   "main": "src/index.jsx",
   "scripts": {
     "build": "webpack -p",

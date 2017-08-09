@@ -1,3 +1,17 @@
+
+.photo {
+			display: -moz-flex;
+			display: -webkit-flex;
+			display: -ms-flex;
+			display: flex;
+			-moz-flex-direction: row;
+			-webkit-flex-direction: row;
+			-ms-flex-direction: row;
+			flex-direction: row;
+			position: relative;
+			margin: 0 0 2em -2em;
+	}    
+
     .photo a {
 			-moz-transition: all 0.2s ease;
 			-webkit-transition: all 0.2s ease;
@@ -25,6 +39,7 @@
 
     .photo a h3 {
         margin: 1em;
+        color: rgba(255, 255, 255, 0.65);
     }
 
     .photo a:hover {
@@ -62,39 +77,6 @@
 
             .photo > div {
                 padding-left: 1.5em;
-            }
-
-    }
-
-    @media screen and (max-width: 980px) {
-
-        .photo h3 {
-            font-size: 0.8em;
-        }
-
-    }
-
-    @media screen and (max-width: 480px) {
-
-        .photo {
-            display: block;
-        }
-
-            .photo a {
-                margin: 0 0 2em 0 !important;
-            }
-
-            .photo > div {
-                display: block;
-                width: 100%;
-            }
-
-                .photo > div:last-child > :last-child {
-                    margin-bottom: 0 !important;
-                }
-
-            .photo h3 {
-                font-size: 1em;
             }
 
     }

@@ -58,9 +58,9 @@ class Main extends React.Component {
                         <Collection />
                     )} />
 
-                    <footer className="footer">
+                    <div className="footer">
                         <p>Welcome to my website</p>
-                    </footer>
+                    </div>
                 </div>
             </Router>
         );
