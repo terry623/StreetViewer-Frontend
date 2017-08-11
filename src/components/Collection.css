@@ -1,12 +1,12 @@
     .collection {
-					max-width: 68em;
-					width: 100%;
-					margin: 0 auto;
-					padding: 0 2em;
-					opacity: 1;
-					filter: none;
-					-moz-transition: opacity 1s ease, -moz-filter 1s ease;
-					-webkit-transition: opacity 1s ease, -webkit-filter 1s ease;
-					-ms-transition: opacity 1s ease, -ms-filter 1s ease;
-					transition: opacity 1s ease, filter 1s ease;
+    	max-width: 68em;
+    	width: 100%;
+    	margin: 0 auto;
+    	padding: 0 2em;
+    	opacity: 1;
+    	filter: none;
+    	-moz-transition: opacity 1s ease, -moz-filter 1s ease;
+    	-webkit-transition: opacity 1s ease, -webkit-filter 1s ease;
+    	-ms-transition: opacity 1s ease, -ms-filter 1s ease;
+    	transition: opacity 1s ease, filter 1s ease;
     }

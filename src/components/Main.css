@@ -7,7 +7,8 @@
         
     .footer {
 		text-align: center;
-		padding: 4em 0 4em 0;
+        padding: 4em 0 4em 0;
+        color: rgba(255, 255, 255, 0.65);
     }
 
     @media screen and (max-width: 1280px) {
