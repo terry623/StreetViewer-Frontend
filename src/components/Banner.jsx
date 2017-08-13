@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 import './Banner.css';
 
+
 class Banner extends React.Component {
     static propTypes = {
         dispatch: PropTypes.func
@@ -17,6 +18,7 @@ class Banner extends React.Component {
 
         return (
             <div className='banner'>
+
                 <span className='avatar'><img src="images/avatar.jpg" alt="" /></span>
                 <h1>This is a website about <strong>Photography</strong></h1>
                 <ul className="icons">

@@ -18,9 +18,14 @@ import {
 import { connect } from 'react-redux';
 
 import Collection from 'components/Collection.jsx';
-import Home from 'components/Home.jsx';
+import Camera from 'components/Camera.jsx';
+
+import Badge from 'material-ui/Badge';
+import IconButton from 'material-ui/IconButton';
+import NotificationsIcon from 'material-ui/svg-icons/social/notifications';
 
 import './Main.css';
+
 
 class Main extends React.Component {
     static propTypes = {
@@ -39,19 +44,22 @@ class Main extends React.Component {
                     <div className='container'>
                         <Navbar color='faded' light toggleable>
                             <NavbarBrand className='text-info' href="/">Photo Exhibition</NavbarBrand>
-                            <Nav navbar>
+                            <Nav className="ml-auto">
                                 <NavItem>
-                                    <NavLink tag={Link} to='/'>Home</NavLink>
+                                    <NavLink tag={Link} to='/'>Camera</NavLink>
                                 </NavItem>
                                 <NavItem>
                                     <NavLink tag={Link} to='/Collection'>Collection</NavLink>
                                 </NavItem>
                             </Nav>
+                            <Badge badgeContent={4} primary={true}>
+                                <NotificationsIcon />
+                            </Badge>
                         </Navbar>
-                    </div>
 
+                    </div>
                     <Route exact path="/" render={() => (
-                        <Home />
+                        <Camera />
                     )} />
 
                     <Route exact path="/Collection" render={() => (
@@ -61,8 +69,9 @@ class Main extends React.Component {
                     <div className="footer">
                         <p>Welcome to my website</p>
                     </div>
+
                 </div>
-            </Router>
+            </Router >
         );
     }
 
@@ -71,3 +80,5 @@ class Main extends React.Component {
 export default connect(state => ({
 
 }))(Main);
+
+
