@@ -1,44 +1,16 @@
-export function move(lat, lng) {
+export function screenshot(position_res, heading_res, pitch_res) {
     return {
-        type: '@CAMERA/MOVE',
-        lat,
-        lng
+        type: '@CAMERA/SCREENSHOT',
+        position_res,
+        heading_res,
+        pitch_res
     };
 }
 
-export function rotate_right() {
+export function store_location(position_res) {
+
     return {
-        type: '@CAMERA/ROTATE_RIGHT'
+        type: '@CAMERA/STORE_LOCATION',
+        position_res
     };
 }
-
-export function rotate_left() {
-    return {
-        type: '@CAMERA/ROTATE_LEFT'
-    };
-}
-
-export function change_lens_wide() {
-    return {
-        type: '@CAMERA/CHANGE_LENS_WIDE'
-    };
-}
-
-export function change_lens_narrow() {
-    return {
-        type: '@CAMERA/CHANGE_LENS_NARROW'
-    };
-}
-
-export function change_height_more() {
-    return {
-        type: '@CAMERA/CHANGE_HEIGHT_MORE'
-    };
-}
-
-export function change_height_less() {
-    return {
-        type: '@CAMERA/CHANGE_HEIGHT_LESS'
-    };
-}
-
