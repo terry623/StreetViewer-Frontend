@@ -1,7 +1,8 @@
 const initCameraState = {
-    position_res: "24.239647,120.704232",
-    heading_res: 0, //旋轉
-    pitch_res: 0, //上下
+    lat: 24.239647, //緯度
+    lng: 120.704232, //經度
+    heading: 0, //旋轉
+    pitch: 0, //上下
 };
 
 export function camera(state = initCameraState, action) {
@@ -9,14 +10,16 @@ export function camera(state = initCameraState, action) {
         case '@CAMERA/SCREENSHOT':
             return {
                 ...state,
-                position_res: action.position_res,
-                heading_res: action.heading_res,
-                pitch_res: action.pitch_res
+                lat: action.lat,
+                lng: action.lng,
+                heading: action.heading,
+                pitch: action.pitch
             };
         case '@CAMERA/STORE_LOCATION':
             return {
                 ...state,
-                position_res: action.position_res,
+                lat: action.lat,
+                lng: action.lng,
             };
         default:
             return state;

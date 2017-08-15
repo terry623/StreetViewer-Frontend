@@ -20,9 +20,10 @@ import { screenshot, store_location } from 'states/camera-actions.js';
 
 class StreetView extends React.Component {
 	static propTypes = {
-		position_res: PropTypes.string,
-		heading_res: PropTypes.number, //旋轉
-		pitch_res: PropTypes.number, //上下
+		lat: PropTypes.number, //緯度
+		lng: PropTypes.number, //經度
+		heading: PropTypes.number, //旋轉
+		pitch: PropTypes.number, //上下
 		dispatch: PropTypes.func
 	};
 
@@ -36,33 +37,23 @@ class StreetView extends React.Component {
 
 		this.handle_screenshot = this.handle_screenshot.bind(this);
 		this.handle_store_location = this.handle_store_location.bind(this);
-
 	}
 
 	render() {
 
-		const { heading, pitch } = this.props;
+		const { lat, lng, heading, pitch } = this.props;
 		const google_key = 'AIzaSyB2qGLOwrR1n-FrGskEn47AU1X6Nban0S4';
 		const base_url = `https://maps.googleapis.com/maps/api/streetview?size=337x225`;
 		//var Url = `${base_url}&location=${lat},${lng}&heading=${heading}&pitch=${pitch}&key=${google_key}`;
-		var Url = `${base_url}&location=${this.props.position}&heading=${heading}&pitch=${pitch}&key=${google_key}`;
+		var Url = `${base_url}&location=${lat},${lng}&heading=${heading}&pitch=${pitch}&key=${google_key}`;
 
 		var streetViewPanoramaOptions = {
-			position: { lat: 24.239647, lng: 120.704232 },
+			position: { lat: lat, lng: lng },
 			pov: { heading: heading, pitch: pitch },
 			zoom: 1,
 			disableDefaultUI: true,
 			disableDoubleClickZoom: true
 		};
-
-		var position_str = JSON.stringify(this.state.position);
-		var position_res = position_str.replace(/\"/g, "").replace("{", "").replace("}", "").replace("lat:", "").replace("lng:", "").replace(":", "");
-
-		var pov_str = JSON.stringify(this.state.pov);
-		var pov_res = pov_str.replace(/\"/g, "").replace("{", "").replace("}", "").replace("heading:", "").replace("pitch:", "").replace(":", "");
-		var res = pov_res.split(",");
-		var heading_res = res[0];
-		var pitch_res = res[1];
 
 
 		return (
@@ -85,9 +76,6 @@ class StreetView extends React.Component {
 				Heading_Res:{res[0]}<br/>
 				Pitch_Res:{res[1]}<br/> */}
 
-				{position_res}
-				{heading_res}
-				{pitch_res}
 				<img src={Url}></img>
 
 			</div>
@@ -95,12 +83,23 @@ class StreetView extends React.Component {
 		);
 	}
 
-	handle_screenshot(position_res, heading_res, pitch_res) {
-		this.props.dispatch(screenshot(position_res, heading_res, pitch_res));
+	// handle_screenshot(position_res, heading_res, pitch_res) {
+	// 	this.props.dispatch(screenshot(position_res, heading_res, pitch_res));
+	// }
+
+	handle_screenshot() {
+		this.state.position; 
+		this.state.pov;
+		this.props.dispatch(screenshot(lat, lng, heading, pitch));
 	}
 
-	handle_store_location(position_res) {
-		this.props.dispatch(store_location(position_res));
+	// handle_store_location(position_res) {
+	// 	this.props.dispatch(store_location(position_res));
+	// }
+
+	handle_store_location() {
+		this.state.position; 
+		this.props.dispatch(store_location(lat, lng));
 	}
 
 }
