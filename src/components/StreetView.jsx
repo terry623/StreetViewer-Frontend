@@ -86,7 +86,6 @@ class StreetView extends React.Component {
 			var pitch = Number(this.state.pov.pitch);
 			this.props.dispatch(screenshot(lat, lng, heading, pitch));
 		}
-
 	}
 
 	handle_store_location() {

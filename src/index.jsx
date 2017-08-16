@@ -7,13 +7,14 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 import Main from 'components/Main.jsx';
 import {camera} from 'states/camera-reducers.js';
+import {account} from 'states/account-reducers.js';
 
 import 'bootstrap/dist/css/bootstrap.css';
 
 window.onload = function () {
     const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
     const store = createStore(combineReducers({
-        camera
+        camera,account
     }), composeEnhancers(applyMiddleware(thunkMiddleware)));
 
     ReactDOM.render(

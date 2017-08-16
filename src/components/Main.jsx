@@ -20,11 +20,8 @@ import { connect } from 'react-redux';
 import Collection from 'components/Collection.jsx';
 import Camera from 'components/Camera.jsx';
 import SignUp from 'components/SignUp.jsx';
-import Login from 'components/Login.jsx';
+import LogIn from 'components/LogIn.jsx';
 
-import Badge from 'material-ui/Badge';
-import IconButton from 'material-ui/IconButton';
-import NotificationsIcon from 'material-ui/svg-icons/social/notifications';
 
 import './Main.css';
 
@@ -57,12 +54,9 @@ class Main extends React.Component {
                                     <NavLink tag={Link} to='/SigeUp'>SigeUp</NavLink>
                                 </NavItem>
                                 <NavItem>
-                                    <NavLink tag={Link} to='/Login'>Login</NavLink>
+                                    <NavLink tag={Link} to='/LogIn'>LogIn</NavLink>
                                 </NavItem>
                             </Nav>
-                            <Badge badgeContent={4} primary={true}>
-                                <NotificationsIcon />
-                            </Badge>
                         </Navbar>
 
                     </div>
@@ -75,11 +69,11 @@ class Main extends React.Component {
                     )} />
 
                     <Route exact path="/SigeUp" render={() => (
-                        <SigeUp />
+                        <SignUp />
                     )} />
 
-                    <Route exact path="/Login" render={() => (
-                        <Login />
+                    <Route exact path="/LogIn" render={() => (
+                        <LogIn />
                     )} />
 
                     <div className="footer">

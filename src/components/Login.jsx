@@ -3,66 +3,44 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import TextField from 'material-ui/TextField';
 
-import './Login.css';
+import './LogIn.css';
 
-class Login extends React.Component {
+class LogIn extends React.Component {
     static propTypes = {
         dispatch: PropTypes.func
     };
 
     constructor(props) {
         super(props);
+        this.state = {
+            temp_account: null
+        };
     }
 
     render() {
+        const { account, password } = this.props;
+
         return (
             <div className='login'>
-                <TextField
-                    hintText="Hint Text"
-                /><br />
+                <h3>Log In!</h3>
                 <br />
                 <TextField
-                    hintText="The hint text can be as long as you want, it will wrap."
-                /><br />
+                    className='account'
+                    label='Account'
+                    onChange={event => this.setState({ temp_account: event.target.value })}
+                />
+                <br />
                 <TextField
-                    id="text-field-default"
-                    defaultValue="Default Value"
-                /><br />
-                <TextField
-                    hintText="Hint Text"
-                    floatingLabelText="Floating Label Text"
-                /><br />
-                <TextField
-                    defaultValue="Default Value"
-                    floatingLabelText="Floating Label Text"
-                /><br />
-                <TextField
-                    hintText="Hint Text"
-                    floatingLabelText="Fixed Floating Label Text"
-                    floatingLabelFixed={true}
-                /><br />
-                <TextField
-                    hintText="Password Field"
-                    floatingLabelText="Password"
-                    type="password"
-                /><br />
-                <TextField
-                    hintText="MultiLine with rows: 2 and rowsMax: 4"
-                    multiLine={true}
-                    rows={2}
-                    rowsMax={4}
-                /><br />
-                <TextField
-                    hintText="Message Field"
-                    floatingLabelText="MultiLine and FloatingLabel"
-                    multiLine={true}
-                    rows={2}
-                /><br />
+                    className='password'
+                    label='Password'
+                    type='password'
+                />
+
+                <h1>{this.state.temp_account}</h1>
             </div>
         );
     }
+
 }
 
-export default connect(state => ({
-
-}))(Login);
+export default connect(state => state.account)(LogIn);
