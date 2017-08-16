@@ -43,8 +43,7 @@ class StreetView extends React.Component {
 
 		const { lat, lng, heading, pitch } = this.props;
 		const google_key = 'AIzaSyB2qGLOwrR1n-FrGskEn47AU1X6Nban0S4';
-		const base_url = `https://maps.googleapis.com/maps/api/streetview?size=337x225`;
-		//var Url = `${base_url}&location=${lat},${lng}&heading=${heading}&pitch=${pitch}&key=${google_key}`;
+		const base_url = `https://maps.googleapis.com/maps/api/streetview?size=300x200`;
 		var Url = `${base_url}&location=${lat},${lng}&heading=${heading}&pitch=${pitch}&key=${google_key}`;
 
 		var streetViewPanoramaOptions = {
@@ -58,6 +57,7 @@ class StreetView extends React.Component {
 
 		return (
 			<div className='StreetView'>
+
 				<Button className='btn-form' onClick={this.handle_screenshot}>Screen Shot!</Button>
 				<Button className='btn-form' onClick={this.handle_store_location}>Store Location!</Button>
 
@@ -68,14 +68,6 @@ class StreetView extends React.Component {
 					onPovChanged={pov => this.setState({ pov: pov })}
 				/>
 
-				{/* Position: {JSON.stringify(this.state.position)}<br/>
-				Pos_Res: {position_res}<br/>
-
-				Pov: {JSON.stringify(this.state.pov)}<br/>
-				Pov_Res: {pov_res}<br/>
-				Heading_Res:{res[0]}<br/>
-				Pitch_Res:{res[1]}<br/> */}
-
 				<img src={Url}></img>
 
 			</div>
@@ -83,24 +75,30 @@ class StreetView extends React.Component {
 		);
 	}
 
-	// handle_screenshot(position_res, heading_res, pitch_res) {
-	// 	this.props.dispatch(screenshot(position_res, heading_res, pitch_res));
-	// }
-
 	handle_screenshot() {
-		this.state.position; 
-		this.state.pov;
-		this.props.dispatch(screenshot(lat, lng, heading, pitch));
-	}
+		if (this.state.position !== null && this.state.pov !== null) {
+			var position_str = JSON.stringify(this.state.position);
+			var position_res = position_str.replace(/\"/g, "").replace("{", "").replace("}", "").replace("lat:", "").replace("lng:", "").split(",");
 
-	// handle_store_location(position_res) {
-	// 	this.props.dispatch(store_location(position_res));
-	// }
+			var lat = Number(position_res[0]);
+			var lng = Number(position_res[1]);
+			var heading = Number(this.state.pov.heading);
+			var pitch = Number(this.state.pov.pitch);
+			this.props.dispatch(screenshot(lat, lng, heading, pitch));
+		}
+
+	}
 
 	handle_store_location() {
-		this.state.position; 
-		this.props.dispatch(store_location(lat, lng));
-	}
+		if (this.state.position !== null) {
+			var position_str = JSON.stringify(this.state.position);
+			var position_res = position_str.replace(/\"/g, "").replace("{", "").replace("}", "").replace("lat:", "").replace("lng:", "").split(",");
+
+			var lat = Number(position_res[0]);
+			var lng = Number(position_res[1]);
+			this.props.dispatch(store_location(lat, lng));
+		}
+	}	
 
 }
 

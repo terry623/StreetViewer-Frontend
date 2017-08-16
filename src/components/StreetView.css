@@ -1,8 +1,8 @@
 .StreetView {
-    width: 25%;
-    height: 25%;
-    margin-top: 12%;
-    margin-left: 13%;
+    width: 300px;
+    height: 200px;
+    /* margin-top: 12%;
+    margin-left: 13%; */
     position: fixed;    
 }
 
