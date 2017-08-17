@@ -2,19 +2,26 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import TextField from 'material-ui/TextField';
+import Button from 'material-ui/Button';
+import { log_in } from 'states/account-actions.js';
 
 import './LogIn.css';
 
 class LogIn extends React.Component {
     static propTypes = {
+        account: PropTypes.string,
+        password: PropTypes.string,
         dispatch: PropTypes.func
     };
 
     constructor(props) {
         super(props);
         this.state = {
-            temp_account: null
+            temp_account: null,
+            temp_password: null
         };
+
+        this.handleLogin = this.handleLogin.bind(this);
     }
 
     render() {
@@ -34,11 +41,23 @@ class LogIn extends React.Component {
                     className='password'
                     label='Password'
                     type='password'
+                    onChange={event => this.setState({ temp_password: event.target.value })}
                 />
+                <br />
+                <Button raised onClick={this.handleLogin}>
+                    Submit
+                </Button>
+                <br />
 
-                <h1>{this.state.temp_account}</h1>
+                Account in DB: {account}<br />
+                Password in DB: {password}<br />
+
             </div>
         );
+    }
+
+    handleLogin() {
+        this.props.dispatch(log_in(this.state.temp_account, this.state.temp_password));
     }
 
 }
