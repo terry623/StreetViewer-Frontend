@@ -9,9 +9,9 @@ import './SignUp.css';
 
 class SignUp extends React.Component {
     static propTypes = {
-        email: PropTypes.string,
-        account: PropTypes.string,
-        password: PropTypes.string,
+        // email: PropTypes.string,
+        // account: PropTypes.string,
+        // password: PropTypes.string,
         dispatch: PropTypes.func
     };
 
@@ -27,7 +27,7 @@ class SignUp extends React.Component {
     }
 
     render() {
-        const { email, account, password } = this.props;
+        // const { email, account, password } = this.props;
 
         return (
             <div className='signup'>
@@ -57,9 +57,9 @@ class SignUp extends React.Component {
                 </Button>
                 <br />
 
-                Email in DB: {email}<br />
+                {/* Email in DB: {email}<br />
                 Account in DB: {account}<br />
-                Password in DB: {password}<br />
+                Password in DB: {password}<br /> */}
             </div>
         );
     }
