@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // Develop server URL
-const postBaseUrl = 'http://localhost:8080/api';
+const BaseUrl = 'http://localhost:8080/api';
 
 // Staging server URL
 // const postBaseUrl = 'http://weathermood-staging.us-west-2.elasticbeanstalk.com/api';
@@ -9,14 +9,12 @@ const postBaseUrl = 'http://localhost:8080/api';
 // Production server URL
 // const postBaseUrl = 'http://weathermood-production.us-west-2.elasticbeanstalk.com/api';
 
-export function sign_up(email, account, password) {
-    let url = `${postBaseUrl}/signup`;
+export function sign_up(username, password) {
+    let url = `${BaseUrl}/signup`;
 
     console.log(`Making POST request to: ${url}`);
-
     return axios.post(url, {
-        email,
-        account,
+        username,
         password
     }).then(function (res) {
         if (res.status !== 200)
@@ -26,13 +24,13 @@ export function sign_up(email, account, password) {
     });
 }
 
-export function log_in(account, password) {
-    let url = `${postBaseUrl}/login`;
+export function log_in(username, password) {
+    let url = `${BaseUrl}/login`;
 
     console.log(`Making POST request to: ${url}`);
 
     return axios.post(url, {
-        account,
+        username,
         password
     }).then(function (res) {
         if (res.status !== 200)

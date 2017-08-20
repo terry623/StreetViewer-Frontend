@@ -9,15 +9,14 @@ import './LogIn.css';
 
 class LogIn extends React.Component {
     static propTypes = {
-        account: PropTypes.string,
-        password: PropTypes.string,
+        infor: PropTypes.string,
         dispatch: PropTypes.func
     };
 
     constructor(props) {
         super(props);
         this.state = {
-            temp_account: null,
+            temp_username: null,
             temp_password: null
         };
 
@@ -25,16 +24,16 @@ class LogIn extends React.Component {
     }
 
     render() {
-        const { account, password } = this.props;
+        const { infor } = this.props;
 
         return (
             <div className='login'>
                 <h3>Log In!</h3>
                 <br />
                 <TextField
-                    className='account'
-                    label='Account'
-                    onChange={event => this.setState({ temp_account: event.target.value })}
+                    className='username'
+                    label='Username'
+                    onChange={event => this.setState({ temp_username: event.target.value })}
                 />
                 <br />
                 <TextField
@@ -49,15 +48,14 @@ class LogIn extends React.Component {
                 </Button>
                 <br />
 
-                Account in DB: {account}<br />
-                Password in DB: {password}<br />
+                <h3>{infor}</h3>
 
             </div>
         );
     }
 
     handleLogin() {
-        this.props.dispatch(log_in(this.state.temp_account, this.state.temp_password));
+        this.props.dispatch(log_in(this.state.temp_username, this.state.temp_password));
     }
 
 }

@@ -10,12 +10,12 @@ function endsignup(infor) {
     };
 }
 
-export function sign_up(email, account, password) {
+export function sign_up(username, password) {
     return (dispatch, getState) => {
-        return signupFromApi(email, account, password).then(infor => {
-            dispatch(endsignup(infor));
+        return signupFromApi(username, password).then(infor => {            
+            dispatch(endsignup("Finish Sign Up!"));
         }).catch(err => {
-            console.error('Error sign up', err);
+            dispatch(endsignup("Account Exist!"));
         });
     };
 }
@@ -27,12 +27,12 @@ function endlogin(infor) {
     };
 }
 
-export function log_in(account, password) {
+export function log_in(username, password) {
     return (dispatch, getState) => {
-        return loginFromApi(account, password).then(infor => {
-            dispatch(endlogin(infor));
+        return loginFromApi(username, password).then(infor => {
+            dispatch(endlogin("Finish Log In!"));
         }).catch(err => {
-            console.error('Error log in', err);
+            dispatch(endsignup("Wrong Account or Password!"));
         });
     };
 }

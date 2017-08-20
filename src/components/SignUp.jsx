@@ -9,17 +9,14 @@ import './SignUp.css';
 
 class SignUp extends React.Component {
     static propTypes = {
-        // email: PropTypes.string,
-        // account: PropTypes.string,
-        // password: PropTypes.string,
+        infor:PropTypes.string,
         dispatch: PropTypes.func
     };
 
     constructor(props) {
         super(props);
         this.state = {
-            temp_email: null,
-            temp_account: null,
+            temp_username: null,
             temp_password: null
         };
 
@@ -27,22 +24,16 @@ class SignUp extends React.Component {
     }
 
     render() {
-        // const { email, account, password } = this.props;
+        const { infor } = this.props;
 
         return (
             <div className='signup'>
                 <h3>Sign Up!</h3>
                 <br />
                 <TextField
-                    className='email'
-                    label='Email'
-                    onChange={event => this.setState({ temp_email: event.target.value })}
-                />
-                <br />
-                <TextField
-                    className='account'
-                    label='Account'
-                    onChange={event => this.setState({ temp_account: event.target.value })}
+                    className='username'
+                    label='Username'
+                    onChange={event => this.setState({ temp_username: event.target.value })}
                 />
                 <br />
                 <TextField
@@ -57,15 +48,14 @@ class SignUp extends React.Component {
                 </Button>
                 <br />
 
-                {/* Email in DB: {email}<br />
-                Account in DB: {account}<br />
-                Password in DB: {password}<br /> */}
+                <h3>{infor}</h3>
+
             </div>
         );
     }
 
     handleSignup() {
-        this.props.dispatch(sign_up(this.state.temp_email, this.state.temp_account, this.state.temp_password));
+        this.props.dispatch(sign_up(this.state.temp_username, this.state.temp_password));
     }
 }
 
