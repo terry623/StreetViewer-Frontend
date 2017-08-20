@@ -8,12 +8,12 @@ export function account(state = initMessageState, action) {
         case '@Account/SIGN_UP':
             return {
                 ...state,
-                infor: action.message
+                message: action.message
             };
         case '@Account/LOG_IN':
             return {
                 ...state,
-                infor: action.message
+                message: action.message
             };
         case '@Account/IDENTITY':
             return {

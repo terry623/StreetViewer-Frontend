@@ -39,7 +39,7 @@ export function log_in(username, password) {
     return (dispatch, getState) => {
         return loginFromApi(username, password).then(infor => {
             dispatch(end_log_in("Finish Log In!"));
-            dispatch(identity(infor.username))            
+            dispatch(identity(infor[0].username))            
         }).catch(err => {
             dispatch(end_log_in("Wrong Account or Password!"));
         });

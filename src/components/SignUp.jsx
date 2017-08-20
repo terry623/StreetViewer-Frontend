@@ -29,6 +29,7 @@ class SignUp extends React.Component {
         return (
             <div className='signup'>
                 <h3>Sign Up!</h3>
+                <h4>{message}</h4>
                 <br />
                 <TextField
                     className='username'
@@ -47,8 +48,6 @@ class SignUp extends React.Component {
                     Submit
                 </Button>
                 <br />
-
-                <h3>{message}</h3>
 
             </div>
         );
