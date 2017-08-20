@@ -3,36 +3,45 @@ import {
     log_in as loginFromApi,
 } from 'api/account.js';
 
-function endsignup(infor) {
+function identity(account) {
+    return {
+        type: '@Account/IDENTITY',
+        account
+    };
+}
+
+function end_sign_up(message) {
     return {
         type: '@Account/SIGN_UP',
-        infor
+        message
     };
 }
 
 export function sign_up(username, password) {
     return (dispatch, getState) => {
-        return signupFromApi(username, password).then(infor => {            
-            dispatch(endsignup("Finish Sign Up!"));
+        return signupFromApi(username, password).then(infor => {     
+            dispatch(end_sign_up("Finish Sign Up!"));
+            dispatch(identity(infor.username))
         }).catch(err => {
-            dispatch(endsignup("Account Exist!"));
+            dispatch(end_sign_up("Account Exist!"));
         });
-    };
+    }; 
 }
 
-function endlogin(infor) {
+function end_log_in(message) {
     return {
         type: '@Account/LOG_IN',
-        infor
+        message
     };
 }
 
 export function log_in(username, password) {
     return (dispatch, getState) => {
         return loginFromApi(username, password).then(infor => {
-            dispatch(endlogin("Finish Log In!"));
+            dispatch(end_log_in("Finish Log In!"));
+            dispatch(identity(infor.username))            
         }).catch(err => {
-            dispatch(endsignup("Wrong Account or Password!"));
+            dispatch(end_log_in("Wrong Account or Password!"));
         });
     };
 }

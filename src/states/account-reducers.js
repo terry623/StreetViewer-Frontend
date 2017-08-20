@@ -1,16 +1,24 @@
-const initInforState = {
-    infor: ""
+const initMessageState = {
+    message: "",
+    account: ""
 };
 
-export function account(state = initInforState, action) {
+export function account(state = initMessageState, action) {
     switch (action.type) {
         case '@Account/SIGN_UP':
             return {
-                infor: action.infor
+                ...state,
+                infor: action.message
             };
         case '@Account/LOG_IN':
             return {
-                infor: action.infor
+                ...state,
+                infor: action.message
+            };
+        case '@Account/IDENTITY':
+            return {
+                ...state,
+                account: action.account
             };
         default:
             return state;

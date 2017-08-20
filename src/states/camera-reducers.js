@@ -3,6 +3,7 @@ const initCameraState = {
     lng: 120.704232, //經度
     heading: 0, //旋轉
     pitch: 0, //上下
+    message: ""
 };
 
 export function camera(state = initCameraState, action) {
@@ -18,8 +19,7 @@ export function camera(state = initCameraState, action) {
         case '@CAMERA/STORE_LOCATION':
             return {
                 ...state,
-                lat: action.lat,
-                lng: action.lng,
+                message: action.message
             };
         default:
             return state;

@@ -45,6 +45,9 @@ class Main extends React.Component {
                             <NavbarBrand className='text-info' href="/">Photo Exhibition</NavbarBrand>
                             <Nav className="ml-auto">
                                 <NavItem>
+                                    <NavLink tag={Link} to='/'>{this.props.account}</NavLink>
+                                </NavItem>
+                                <NavItem>
                                     <NavLink tag={Link} to='/'>Camera</NavLink>
                                 </NavItem>
                                 <NavItem>
@@ -88,7 +91,7 @@ class Main extends React.Component {
 }
 
 export default connect(state => ({
-
+    ...state.account
 }))(Main);
 
 

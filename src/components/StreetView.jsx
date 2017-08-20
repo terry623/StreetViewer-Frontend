@@ -24,6 +24,8 @@ class StreetView extends React.Component {
 		lng: PropTypes.number, //經度
 		heading: PropTypes.number, //旋轉
 		pitch: PropTypes.number, //上下
+		message: PropTypes.string,
+		account: PropTypes.string,
 		dispatch: PropTypes.func
 	};
 
@@ -41,7 +43,7 @@ class StreetView extends React.Component {
 
 	render() {
 
-		const { lat, lng, heading, pitch } = this.props;
+		const { lat, lng, heading, pitch, message } = this.props;
 		const google_key = 'AIzaSyB2qGLOwrR1n-FrGskEn47AU1X6Nban0S4';
 		const base_url = `https://maps.googleapis.com/maps/api/streetview?size=300x200`;
 		var Url = `${base_url}&location=${lat},${lng}&heading=${heading}&pitch=${pitch}&key=${google_key}`;
@@ -70,6 +72,8 @@ class StreetView extends React.Component {
 
 				<img src={Url}></img>
 
+				<h3>{message}</h3>
+
 			</div>
 
 		);
@@ -95,10 +99,13 @@ class StreetView extends React.Component {
 
 			var lat = Number(position_res[0]);
 			var lng = Number(position_res[1]);
-			this.props.dispatch(store_location(lat, lng));
+			this.props.dispatch(store_location(this.props.account, lat, lng));
 		}
-	}	
+	}
 
 }
 
-export default connect(state => state.camera)(StreetView);
+export default connect(state => ({
+	...state.camera,
+	...state.account
+}))(StreetView);

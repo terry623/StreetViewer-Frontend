@@ -9,7 +9,7 @@ import './LogIn.css';
 
 class LogIn extends React.Component {
     static propTypes = {
-        infor: PropTypes.string,
+        message: PropTypes.string,
         dispatch: PropTypes.func
     };
 
@@ -24,7 +24,7 @@ class LogIn extends React.Component {
     }
 
     render() {
-        const { infor } = this.props;
+        const { message } = this.props;
 
         return (
             <div className='login'>
@@ -48,7 +48,7 @@ class LogIn extends React.Component {
                 </Button>
                 <br />
 
-                <h3>{infor}</h3>
+                <h3>{message}</h3>
 
             </div>
         );
