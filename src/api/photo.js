@@ -24,3 +24,19 @@ export function store_location(account, lat, lng) {
         return res.data;
     });
 }
+
+export function listPhotos(account) {
+    // let url = `${BaseUrl}/store_location`;
+
+    // console.log(`Making POST request to: ${url}`);
+    // return axios.post(url, {
+    //     account,
+    //     lat,
+    //     lng
+    // }).then(function (res) {
+    //     if (res.status !== 200)
+    //         throw new Error(`Unexpected response code: ${res.status}`);
+
+    //     return res.data;
+    // });
+}
