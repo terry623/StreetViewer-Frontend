@@ -2,6 +2,7 @@ import {
     store_location as storelocationFromApi,
     store_photo_url as storephotoFromApi,
     get_store_photo_url as getstorelocationFromApi,
+    store_current_position as storecurrentpositionFromApi,
 } from 'api/photo.js';
 
 export function screenshot(account, lat, lng, heading, pitch) {
@@ -31,7 +32,7 @@ export function store_location(account, lat, lng) {
 export function get_store_location(account) {
     return (dispatch, getState) => {
         return getstorelocationFromApi(account).then(infor => {
-            dispatch(start_location(infor.store_lat,infor.store_lng));
+            dispatch(start_location(infor.store_lat, infor.store_lng));
             dispatch(show_message("Finish Get Store Location!"));
         }).catch(err => {
             dispatch(show_message("Get Store Location Error!"));
@@ -39,7 +40,17 @@ export function get_store_location(account) {
     };
 }
 
-export function start_location(lat,lng) {
+export function current_position(account, lat, lng) {
+    return (dispatch, getState) => {
+        return storecurrentpositionFromApi(account, lat, lng).then(infor => {
+            dispatch(show_message("Finish Store Current Postition!"));
+        }).catch(err => {
+            dispatch(show_message("Store Current Postition Error!"));
+        });
+    };
+}
+
+export function start_location(lat, lng) {
     return {
         type: '@CAMERA/START_LOCATION',
         lat,

@@ -6,7 +6,7 @@ import './StreetView.css';
 
 import { Button } from 'reactstrap';
 import ReactStreetview from 'react-streetview';
-import { screenshot, store_location, get_store_location } from 'states/camera-actions.js';
+import { screenshot, store_location, get_store_location, current_position } from 'states/camera-actions.js';
 
 
 class StreetView extends React.Component {
@@ -35,6 +35,19 @@ class StreetView extends React.Component {
 		this.props.dispatch(get_store_location(this.props.account));
 	}
 
+	componentDidUpdate() {
+		if (this.state.position !== null) {
+
+			var position_str = JSON.stringify(this.state.position);
+			var position_res = position_str.replace(/\"/g, "").replace("{", "").replace("}", "").replace("lat:", "").replace("lng:", "").split(",");
+
+			var lat = Number(position_res[0]);
+			var lng = Number(position_res[1]);
+
+			this.props.dispatch(current_position(this.props.account, lat, lng));
+		}
+	}
+
 	render() {
 
 		const { lat, lng, message, url } = this.props;
@@ -58,9 +71,12 @@ class StreetView extends React.Component {
 					apiKey={google_key}
 					streetViewPanoramaOptions={streetViewPanoramaOptions}
 					onPositionChanged={position => this.setState({ position: position })}
+					onPositionChanged={position => this.setState({ position: position })}
 					onPovChanged={pov => this.setState({ pov: pov })}
 				/>
-				<h3>{message}</h3>
+
+				<h4>{message}</h4>
+
 				<img src={url}></img>
 
 			</div>
@@ -70,6 +86,7 @@ class StreetView extends React.Component {
 
 	handle_screenshot() {
 		if (this.state.position !== null && this.state.pov !== null) {
+
 			var position_str = JSON.stringify(this.state.position);
 			var position_res = position_str.replace(/\"/g, "").replace("{", "").replace("}", "").replace("lat:", "").replace("lng:", "").split(",");
 
@@ -84,11 +101,13 @@ class StreetView extends React.Component {
 
 	handle_store_location() {
 		if (this.state.position !== null) {
+
 			var position_str = JSON.stringify(this.state.position);
 			var position_res = position_str.replace(/\"/g, "").replace("{", "").replace("}", "").replace("lat:", "").replace("lng:", "").split(",");
 
 			var lat = Number(position_res[0]);
 			var lng = Number(position_res[1]);
+
 			this.props.dispatch(store_location(this.props.account, lat, lng));
 		}
 	}

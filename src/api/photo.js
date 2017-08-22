@@ -67,3 +67,19 @@ export function get_store_photo_url(account) {
         return res.data;
     });
 }
+
+export function store_current_position(account, lat, lng) {
+    let url = `${BaseUrl}/store_current_position`;
+
+    console.log(`Making POST request to: ${url}`);
+    return axios.post(url, {
+        account,
+        lat,
+        lng
+    }).then(function (res) {
+        if (res.status !== 200)
+            throw new Error(`Unexpected response code: ${res.status}`);
+
+        return res.data;
+    });
+}
