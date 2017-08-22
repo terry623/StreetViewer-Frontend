@@ -25,18 +25,45 @@ export function store_location(account, lat, lng) {
     });
 }
 
+export function store_photo_url(account,url) {
+    let url = `${BaseUrl}/store_photo_url`;
+
+    console.log(`Making POST request to: ${url}`);
+    return axios.post(url, {
+        account,
+        url
+    }).then(function (res) {
+        if (res.status !== 200)
+            throw new Error(`Unexpected response code: ${res.status}`);
+
+        return res.data;
+    });
+}
+
 export function listPhotos(account) {
-    // let url = `${BaseUrl}/store_location`;
+    let url = `${BaseUrl}/photos`;
+    url += `?account=${account}`;
 
-    // console.log(`Making POST request to: ${url}`);
-    // return axios.post(url, {
-    //     account,
-    //     lat,
-    //     lng
-    // }).then(function (res) {
-    //     if (res.status !== 200)
-    //         throw new Error(`Unexpected response code: ${res.status}`);
+    console.log(`Making GET request to: ${url}`);
 
-    //     return res.data;
-    // });
+    return axios.get(url).then(function (res) {
+        if (res.status !== 200)
+            throw new Error(`Unexpected response code: ${res.status}`);
+
+        return res.data;
+    });
+}
+
+export function get_store_photo_url(account) {
+    let url = `${BaseUrl}/get_store_location`;
+
+    console.log(`Making POST request to: ${url}`);
+    return axios.post(url, {
+        account
+    }).then(function (res) {
+        if (res.status !== 200)
+            throw new Error(`Unexpected response code: ${res.status}`);
+
+        return res.data;
+    });
 }

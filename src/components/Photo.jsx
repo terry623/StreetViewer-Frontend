@@ -7,7 +7,9 @@ import './Photo.css';
 
 class Photo extends React.Component {
     static propTypes = {
+        account:PropTypes.string,
         photos: PropTypes.array,
+        account: PropTypes.string,
         dispatch: PropTypes.func
     };
 
@@ -40,5 +42,6 @@ class Photo extends React.Component {
 }
 
 export default connect(state => ({
-    ...state.photos
+    ...state.photos,
+    ...state.account
 }))(Photo);

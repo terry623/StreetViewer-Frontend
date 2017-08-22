@@ -3,28 +3,18 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import './StreetView.css';
-import {
-	move,
-	rotate_right,
-	rotate_left,
-	change_lens_wide,
-	change_lens_narrow,
-	change_height_more,
-	change_height_less
-} from 'states/camera-actions.js';
 
 import { Button } from 'reactstrap';
 import ReactStreetview from 'react-streetview';
-import { screenshot, store_location } from 'states/camera-actions.js';
+import { screenshot, store_location, get_store_location } from 'states/camera-actions.js';
 
 
 class StreetView extends React.Component {
 	static propTypes = {
 		lat: PropTypes.number, //緯度
 		lng: PropTypes.number, //經度
-		heading: PropTypes.number, //旋轉
-		pitch: PropTypes.number, //上下
 		message: PropTypes.string,
+		url: PropTypes.string,
 		account: PropTypes.string,
 		dispatch: PropTypes.func
 	};
@@ -41,16 +31,17 @@ class StreetView extends React.Component {
 		this.handle_store_location = this.handle_store_location.bind(this);
 	}
 
+	componentDidMount() {
+		this.props.dispatch(get_store_location(this.props.account));
+	}
+
 	render() {
 
-		const { lat, lng, heading, pitch, message } = this.props;
-		const google_key = 'AIzaSyB2qGLOwrR1n-FrGskEn47AU1X6Nban0S4';
-		const base_url = `https://maps.googleapis.com/maps/api/streetview?size=300x200`;
-		var Url = `${base_url}&location=${lat},${lng}&heading=${heading}&pitch=${pitch}&key=${google_key}`;
+		const { lat, lng, message, url } = this.props;
 
 		var streetViewPanoramaOptions = {
 			position: { lat: lat, lng: lng },
-			pov: { heading: heading, pitch: pitch },
+			pov: { heading: 0, pitch: 0 },
 			zoom: 1,
 			disableDefaultUI: true,
 			disableDoubleClickZoom: true
@@ -69,10 +60,8 @@ class StreetView extends React.Component {
 					onPositionChanged={position => this.setState({ position: position })}
 					onPovChanged={pov => this.setState({ pov: pov })}
 				/>
-
-				<img src={Url}></img>
-
 				<h3>{message}</h3>
+				<img src={url}></img>
 
 			</div>
 
@@ -88,7 +77,8 @@ class StreetView extends React.Component {
 			var lng = Number(position_res[1]);
 			var heading = Number(this.state.pov.heading);
 			var pitch = Number(this.state.pov.pitch);
-			this.props.dispatch(screenshot(lat, lng, heading, pitch));
+
+			this.props.dispatch(screenshot(this.props.account, lat, lng, heading, pitch));
 		}
 	}
 

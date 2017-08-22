@@ -1,25 +1,27 @@
 const initCameraState = {
     lat: 24.239647, //緯度
     lng: 120.704232, //經度
-    heading: 0, //旋轉
-    pitch: 0, //上下
-    message: ""
+    message: "",
+    url: ""
 };
 
 export function camera(state = initCameraState, action) {
     switch (action.type) {
-        case '@CAMERA/SCREENSHOT':
-            return {
-                ...state,
-                lat: action.lat,
-                lng: action.lng,
-                heading: action.heading,
-                pitch: action.pitch
-            };
-        case '@CAMERA/STORE_LOCATION':
+        case '@CAMERA/SHOW_MESSAGE':
             return {
                 ...state,
                 message: action.message
+            };
+        case '@CAMERA/GET_PHOTO_URL':
+            return {
+                ...state,
+                url: action.url
+            };
+        case '@CAMERA/START_LOCATION':
+            return {
+                ...state,
+                lat: action.lat,
+                lng: action.lng
             };
         default:
             return state;

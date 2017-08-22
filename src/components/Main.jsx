@@ -28,6 +28,7 @@ import './Main.css';
 
 class Main extends React.Component {
     static propTypes = {
+        account: PropTypes.string,
         store: PropTypes.object,
         dispatch: PropTypes.func
     };
