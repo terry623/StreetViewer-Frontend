@@ -26,10 +26,10 @@ window.onload = function () {
     ReactDOM.render(
         <Provider store={store}>
             <MuiThemeProvider>
-                <Socket uri={uri} options={options}>
-                    {/* <Main /> */}
-                    <Chat />
-                </Socket>
+                {/* <Socket uri={uri} options={options}> */}
+                    <Main />
+                    {/* <Chat /> */}
+                {/* </Socket> */}
             </MuiThemeProvider>
         </Provider>,
         document.getElementById('root')

@@ -32,11 +32,13 @@ class StreetView extends React.Component {
 	}
 
 	componentDidMount() {
-		this.props.dispatch(get_store_location(this.props.account));
+		if (this.props.account != null) {
+			this.props.dispatch(get_store_location(this.props.account));
+		}
 	}
 
 	componentDidUpdate() {
-		if (this.state.position !== null) {
+		if (this.props.account != null && this.state.position != null) {
 
 			var position_str = JSON.stringify(this.state.position);
 			var position_res = position_str.replace(/\"/g, "").replace("{", "").replace("}", "").replace("lat:", "").replace("lng:", "").split(",");
@@ -51,6 +53,7 @@ class StreetView extends React.Component {
 	render() {
 
 		const { lat, lng, message, url } = this.props;
+		const google_key = 'AIzaSyB2qGLOwrR1n-FrGskEn47AU1X6Nban0S4';
 
 		var streetViewPanoramaOptions = {
 			position: { lat: lat, lng: lng },
