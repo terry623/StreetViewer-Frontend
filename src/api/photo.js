@@ -26,10 +26,10 @@ export function store_location(account, lat, lng) {
 }
 
 export function store_photo_url(account,url) {
-    let url = `${BaseUrl}/store_photo_url`;
+    let base_url = `${BaseUrl}/store_photo_url`;
 
-    console.log(`Making POST request to: ${url}`);
-    return axios.post(url, {
+    console.log(`Making POST request to: ${base_url}`);
+    return axios.post(base_url, {
         account,
         url
     }).then(function (res) {
