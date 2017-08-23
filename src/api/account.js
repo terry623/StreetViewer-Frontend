@@ -9,7 +9,7 @@ const BaseUrl = 'http://localhost:8080/api';
 // Production server URL
 // const postBaseUrl = 'http://weathermood-production.us-west-2.elasticbeanstalk.com/api';
 
-export function sign_up(username, password) {
+export function signup(username, password) {
     let url = `${BaseUrl}/signup`;
 
     console.log(`Making POST request to: ${url}`);
@@ -24,7 +24,7 @@ export function sign_up(username, password) {
     });
 }
 
-export function log_in(username, password) {
+export function login(username, password) {
     let url = `${BaseUrl}/login`;
 
     console.log(`Making POST request to: ${url}`);

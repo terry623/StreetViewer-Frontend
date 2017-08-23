@@ -6,7 +6,7 @@ import './StreetView.css';
 
 import { Button } from 'reactstrap';
 import ReactStreetview from 'react-streetview';
-import { screenshot, store_location, get_store_location, current_position } from 'states/camera-actions.js';
+import { store_current_position, store_last_position, screenshot, get_current_position, get_last_position } from 'states/camera-actions.js';
 
 
 class StreetView extends React.Component {
@@ -28,12 +28,12 @@ class StreetView extends React.Component {
 		};
 
 		this.handle_screenshot = this.handle_screenshot.bind(this);
-		this.handle_store_location = this.handle_store_location.bind(this);
+		this.handle_store_last_position = this.handle_store_last_position.bind(this);
 	}
 
 	componentDidMount() {
 		if (this.props.account != null) {
-			this.props.dispatch(get_store_location(this.props.account));
+			this.props.dispatch(get_last_position(this.props.account));
 		}
 	}
 
@@ -46,7 +46,7 @@ class StreetView extends React.Component {
 			var lat = Number(position_res[0]);
 			var lng = Number(position_res[1]);
 
-			this.props.dispatch(current_position(this.props.account, lat, lng));
+			this.props.dispatch(store_current_position(this.props.account, lat, lng));
 		}
 	}
 
@@ -102,7 +102,7 @@ class StreetView extends React.Component {
 		}
 	}
 
-	handle_store_location() {
+	handle_store_last_position() {
 		if (this.state.position !== null) {
 
 			var position_str = JSON.stringify(this.state.position);
@@ -111,7 +111,7 @@ class StreetView extends React.Component {
 			var lat = Number(position_res[0]);
 			var lng = Number(position_res[1]);
 
-			this.props.dispatch(store_location(this.props.account, lat, lng));
+			this.props.dispatch(store_last_position(this.props.account, lat, lng));
 		}
 	}
 

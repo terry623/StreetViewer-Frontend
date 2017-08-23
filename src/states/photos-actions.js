@@ -1,18 +1,18 @@
 import {
-    listPhotos as listPhotosFromApi,
+    list_photos as list_photos_FromApi,
 } from 'api/photo.js';
 
-function endListPhotos(photos) {
+function get_photos_list(photos) {
     return {
-        type: '@PHOTO/END_LIST_PHOTOS',
+        type: '@PHOTO/GET_PHOTO_LIST',
         photos
     };
 }
 
-export function listPhotos(account) {
+export function list_photos(account) {
     return (dispatch, getState) => {
-        return listPhotosFromApi(account).then(photos => {
-            dispatch(endListPosts(photos));
+        return list_photos_FromApi(account).then(photos => {
+            dispatch(get_photos_list(photos));
         }).catch(err => {
             console.error('Error listing photos', err);
         });

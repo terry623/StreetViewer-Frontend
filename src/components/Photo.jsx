@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { listPhotos } from 'states/photos-actions.js';
+import { list_photos } from 'states/photos-actions.js';
 
 import './Photo.css';
 
@@ -18,7 +18,7 @@ class Photo extends React.Component {
     }
 
     componentDidMount() {
-        this.props.dispatch(listPhotos(this.props.account));
+        this.props.dispatch(list_photos(this.props.account));
     }
 
     render() {
