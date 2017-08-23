@@ -22,6 +22,8 @@ import Camera from 'components/Camera.jsx';
 import SignUp from 'components/SignUp.jsx';
 import LogIn from 'components/LogIn.jsx';
 
+import { log_out } from 'states/account-actions.js';
+
 
 import './Main.css';
 
@@ -35,6 +37,8 @@ class Main extends React.Component {
 
     constructor(props) {
         super(props);
+
+        this.handleLogout = this.handleLogout.bind(this);
     }
 
     render() {
@@ -60,6 +64,9 @@ class Main extends React.Component {
                                 <NavItem>
                                     <NavLink tag={Link} to='/LogIn'>LogIn</NavLink>
                                 </NavItem>
+                                <Button raised onClick={this.handleLogout}>
+                                    Log Out!
+                                </Button>
                             </Nav>
                         </Navbar>
 
@@ -87,6 +94,11 @@ class Main extends React.Component {
                 </div>
             </Router >
         );
+    }
+
+
+    handleLogout() {
+        this.props.dispatch(log_out());
     }
 
 }

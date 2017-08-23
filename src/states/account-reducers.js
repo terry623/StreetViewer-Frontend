@@ -20,6 +20,11 @@ export function account(state = initMessageState, action) {
                 ...state,
                 account: action.account
             };
+        case '@Account/LOG_OUT':
+            return {
+                ...state,
+                account: ""
+            };
         default:
             return state;
     }
