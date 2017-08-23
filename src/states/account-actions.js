@@ -38,7 +38,7 @@ export function log_in(username, password) {
     };
 }
 
-function log_out() {
+export function log_out() {
     return {
         type: '@Account/LOG_OUT',
     };
