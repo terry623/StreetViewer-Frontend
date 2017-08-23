@@ -29,9 +29,9 @@ export function store_last_position(account, lat, lng) {
 export function screenshot(account, lat, lng, heading, pitch) {
     const google_key = 'AIzaSyB2qGLOwrR1n-FrGskEn47AU1X6Nban0S4';
     const base_url = `https://maps.googleapis.com/maps/api/streetview?size=300x200`;
-    var url = `${base_url}&location=${lat},${lng}&heading=${heading}&pitch=${pitch}&key=${google_key}`;
+    var photo_url = `${base_url}&location=${lat},${lng}&heading=${heading}&pitch=${pitch}&key=${google_key}`;
     return (dispatch, getState) => {
-        return store_photo_url_FromApi(account, url).then(infor => {
+        return store_photo_url_FromApi(account, photo_url).then(infor => {
             dispatch(show_message("Finish Store Photo!"));
         }).catch(err => {
             dispatch(show_message("Store Photo Error!"));

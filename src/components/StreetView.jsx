@@ -27,26 +27,26 @@ class StreetView extends React.Component {
 			pov: null
 		};
 
+		if (this.props.account !== "") {
+			this.props.dispatch(get_last_position(this.props.account));
+		}
+
 		this.handle_screenshot = this.handle_screenshot.bind(this);
 		this.handle_store_last_position = this.handle_store_last_position.bind(this);
 	}
 
-	componentDidMount() {
-		if (this.props.account != null) {
-			this.props.dispatch(get_last_position(this.props.account));
-		}
-	}
+	componentWillUpdate(nextProps, nextState) {
+		if (this.props.account !== "" && this.state.position !== null) {
+			if (nextState.position !== this.state.position) {
 
-	componentDidUpdate() {
-		if (this.props.account != null && this.state.position != null) {
+				var position_str = JSON.stringify(this.state.position);
+				var position_res = position_str.replace(/\"/g, "").replace("{", "").replace("}", "").replace("lat:", "").replace("lng:", "").split(",");
 
-			var position_str = JSON.stringify(this.state.position);
-			var position_res = position_str.replace(/\"/g, "").replace("{", "").replace("}", "").replace("lat:", "").replace("lng:", "").split(",");
+				var lat = Number(position_res[0]);
+				var lng = Number(position_res[1]);
 
-			var lat = Number(position_res[0]);
-			var lng = Number(position_res[1]);
-
-			this.props.dispatch(store_current_position(this.props.account, lat, lng));
+				this.props.dispatch(store_current_position(this.props.account, lat, lng));
+			}
 		}
 	}
 
@@ -63,17 +63,15 @@ class StreetView extends React.Component {
 			disableDoubleClickZoom: true
 		};
 
-
 		return (
 			<div className='StreetView'>
 
 				<Button className='btn-form' onClick={this.handle_screenshot}>Screen Shot!</Button>
-				<Button className='btn-form' onClick={this.handle_store_location}>Store Location!</Button>
+				<Button className='btn-form' onClick={this.handle_store_last_position}>Store Location!</Button>
 
 				<ReactStreetview
 					apiKey={google_key}
 					streetViewPanoramaOptions={streetViewPanoramaOptions}
-					onPositionChanged={position => this.setState({ position: position })}
 					onPositionChanged={position => this.setState({ position: position })}
 					onPovChanged={pov => this.setState({ pov: pov })}
 				/>
@@ -88,7 +86,7 @@ class StreetView extends React.Component {
 	}
 
 	handle_screenshot() {
-		if (this.state.position !== null && this.state.pov !== null) {
+		if (this.props.account !== "" && this.state.position !== null && this.state.pov !== null) {
 
 			var position_str = JSON.stringify(this.state.position);
 			var position_res = position_str.replace(/\"/g, "").replace("{", "").replace("}", "").replace("lat:", "").replace("lng:", "").split(",");
@@ -103,7 +101,7 @@ class StreetView extends React.Component {
 	}
 
 	handle_store_last_position() {
-		if (this.state.position !== null) {
+		if (this.props.account !== "" && this.state.position !== null) {
 
 			var position_str = JSON.stringify(this.state.position);
 			var position_res = position_str.replace(/\"/g, "").replace("{", "").replace("}", "").replace("lat:", "").replace("lng:", "").split(",");
