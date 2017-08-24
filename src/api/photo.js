@@ -9,6 +9,22 @@ const BaseUrl = 'http://localhost:8080/api';
 // Production server URL
 // const postBaseUrl = 'http://weathermood-production.us-west-2.elasticbeanstalk.com/api';
 
+export function initial_position(account, lat, lng) {
+    let url = `${BaseUrl}/initial_position`;
+
+    console.log(`Making POST request to: ${url}`);
+    return axios.post(url, {
+        account,
+        lat,
+        lng
+    }).then(function (res) {
+        if (res.status !== 200)
+            throw new Error(`Unexpected response code: ${res.status}`);
+
+        return res.data;
+    });
+}
+
 export function store_current_position(account, lat, lng) {
     let url = `${BaseUrl}/store_current_position`;
 
@@ -56,7 +72,7 @@ export function store_photo_url(account, photo_url) {
     });
 }
 
-export function get_current_position(account, photo_url) {
+export function get_current_position(account) {
     let url = `${BaseUrl}/get_current_position`;
 
     console.log(`Making POST request to: ${url}`);
@@ -70,7 +86,7 @@ export function get_current_position(account, photo_url) {
     });
 }
 
-export function get_last_position(account, photo_url) {
+export function get_last_position(account) {
     let url = `${BaseUrl}/get_last_position`;
 
     console.log(`Making POST request to: ${url}`);

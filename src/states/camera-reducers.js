@@ -1,7 +1,9 @@
 const initCameraState = {
-    lat: 24.239647, //緯度
-    lng: 120.704232, //經度
+    lat: 24.239660117363,
+    lng: 120.704508544016,
     message: "",
+    start_get_last_position:false,
+    finish_get_last_position: false
 };
 
 export function camera(state = initCameraState, action) {
@@ -15,7 +17,13 @@ export function camera(state = initCameraState, action) {
             return {
                 ...state,
                 lat: action.lat,
-                lng: action.lng
+                lng: action.lng,
+                finish_get_last_position: true
+            };
+        case '@CAMERA/START_GET_LAST_POSITION':
+            return {
+                ...state,
+                start_get_last_position: true
             };
         default:
             return state;
