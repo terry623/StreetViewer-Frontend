@@ -2,7 +2,6 @@ const initCameraState = {
     lat: 24.239647, //緯度
     lng: 120.704232, //經度
     message: "",
-    url: ""
 };
 
 export function camera(state = initCameraState, action) {
@@ -12,12 +11,7 @@ export function camera(state = initCameraState, action) {
                 ...state,
                 message: action.message
             };
-        case '@CAMERA/GET_PHOTO_URL':
-            return {
-                ...state,
-                url: action.url
-            };
-        case '@CAMERA/START_LOCATION':
+        case '@CAMERA/START_LAST_LOCATION':
             return {
                 ...state,
                 lat: action.lat,

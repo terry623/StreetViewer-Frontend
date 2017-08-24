@@ -14,7 +14,6 @@ class StreetView extends React.Component {
 		lat: PropTypes.number, //緯度
 		lng: PropTypes.number, //經度
 		message: PropTypes.string,
-		url: PropTypes.string,
 		account: PropTypes.string,
 		dispatch: PropTypes.func
 	};
@@ -30,7 +29,7 @@ class StreetView extends React.Component {
 		if (this.props.account !== "") {
 			this.props.dispatch(get_last_position(this.props.account));
 		}
-
+		
 		this.handle_screenshot = this.handle_screenshot.bind(this);
 		this.handle_store_last_position = this.handle_store_last_position.bind(this);
 	}
@@ -52,7 +51,7 @@ class StreetView extends React.Component {
 
 	render() {
 
-		const { lat, lng, message, url } = this.props;
+		const { lat, lng, message } = this.props;
 		const google_key = 'AIzaSyB2qGLOwrR1n-FrGskEn47AU1X6Nban0S4';
 
 		var streetViewPanoramaOptions = {
@@ -77,8 +76,6 @@ class StreetView extends React.Component {
 				/>
 
 				<h4>{message}</h4>
-
-				<img src={url}></img>
 
 			</div>
 

@@ -3,7 +3,7 @@ const initPhotoState = {
 };
 export function photos(state = initPhotoState, action) {
     switch (action.type) {
-        case '@PHOTO/END_LIST_PHOTOS':
+        case '@PHOTO/GET_PHOTO_LIST':
             return {
                 ...state,
                 photos: action.photos
