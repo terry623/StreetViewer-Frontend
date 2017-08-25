@@ -43,7 +43,7 @@ class StreetView extends React.Component {
 			if (this.state.position === null) {
 				this.props.dispatch(get_last_position(this.props.account, this.props.lat, this.props.lng, this.props.heading, this.props.pitch));
 			} else {
-				if (nextState.position !== this.state.position || nextState.pov !== this.state.pov) {
+				if (nextState.position !== this.state.position) {
 
 					var position_str = JSON.stringify(this.state.position);
 					var position_res = position_str.replace(/\"/g, "").replace("{", "").replace("}", "").replace("lat:", "").replace("lng:", "").split(",");
@@ -57,6 +57,22 @@ class StreetView extends React.Component {
 					this.props.dispatch(store_current_position(this.props.account, lat, lng, heading, pitch));
 				}
 			}
+		}
+	}
+
+	componentWillUnmount() {
+		if (this.props.account !== "") {
+			
+			var position_str = JSON.stringify(this.state.position);
+			var position_res = position_str.replace(/\"/g, "").replace("{", "").replace("}", "").replace("lat:", "").replace("lng:", "").split(",");
+
+			var lat = Number(position_res[0]);
+			var lng = Number(position_res[1]);
+
+			var heading = Number(this.state.pov.heading);
+			var pitch = Number(this.state.pov.pitch);
+
+			this.props.dispatch(store_current_position(this.props.account, lat, lng, heading, pitch));
 		}
 	}
 
