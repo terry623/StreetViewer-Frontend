@@ -13,7 +13,7 @@ export function camera(state = initCameraState, action) {
                 ...state,
                 message: action.message
             };
-        case '@CAMERA/START_LAST_LOCATION':
+        case '@CAMERA/START_LOCATION':
             return {
                 ...state,
                 lat: action.lat,

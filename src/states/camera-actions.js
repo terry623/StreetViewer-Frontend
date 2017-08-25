@@ -1,7 +1,6 @@
 import {
     initial_position as initial_position_FromApi,
     store_current_position as store_current_position_FromApi,
-    store_last_position as store_last_position_FromApi,
     store_photo_url as store_photo_url_FromApi,
     get_current_position as get_current_position_FromApi,
     get_last_position as get_last_position_FromApi
@@ -10,8 +9,6 @@ import {
 export function initial_position(account, lat, lng) {
     return (dispatch, getState) => {
         return initial_position_FromApi(account, lat, lng).then(infor => {
-            console.log("initial_position lat: " + infor.store_lat);
-            console.log("initial_position lng: " + infor.store_lng);
             dispatch(start_last_location(infor.store_lat, infor.store_lng));
             dispatch(show_message("Finish Initial Postition!"));
         }).catch(err => {
@@ -23,19 +20,10 @@ export function initial_position(account, lat, lng) {
 export function store_current_position(account, lat, lng) {
     return (dispatch, getState) => {
         return store_current_position_FromApi(account, lat, lng).then(infor => {
+            dispatch(start_location(infor.current_lat, infor.current_lng));
             dispatch(show_message("Finish Store Current Postition!"));
         }).catch(err => {
             dispatch(show_message("Store Current Postition Error!"));
-        });
-    };
-}
-
-export function store_last_position(account, lat, lng) {
-    return (dispatch, getState) => {
-        return store_last_position_FromApi(account, lat, lng).then(infor => {
-            dispatch(show_message("Finish Store Last Position!"));
-        }).catch(err => {
-            dispatch(show_message("Store Last Position Error!"));
         });
     };
 }
@@ -66,21 +54,18 @@ export function get_current_position(account) {
 export function get_last_position(account, lat, lng) {
     return (dispatch, getState) => {
         return get_last_position_FromApi(account).then(infor => {
-            dispatch(start_last_location(infor[0].store_lat, infor[0].store_lng));
-
-            console.log("get_last_position lat: " + infor[0].store_lat);
-            console.log("get_last_position lng: " + infor[0].store_lng);
+            if (infor.current_lat !== 0 && infor.current_lng !== 0) dispatch(start_location(infor.current_lat, infor.current_lng));
+            else dispatch(store_current_position(account, lat, lng));
             dispatch(show_message("Finish Get Last Position!"));
         }).catch(err => {
-            dispatch(initial_position(account, lat, lng));
             dispatch(show_message("Get Last Position Error!"));
         });
     };
 }
 
-function start_last_location(lat, lng) {
+function start_location(lat, lng) {
     return {
-        type: '@CAMERA/START_LAST_LOCATION',
+        type: '@CAMERA/START_LOCATION',
         lat,
         lng
     };
