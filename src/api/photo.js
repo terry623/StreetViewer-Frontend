@@ -6,30 +6,16 @@ const BaseUrl = 'http://localhost:8080/api';
 // Production server URL
 // const BaseUrl = '';
 
-export function initial_position(account, lat, lng) {
-    let url = `${BaseUrl}/initial_position`;
-
-    console.log(`Making POST request to: ${url}`);
-    return axios.post(url, {
-        account,
-        lat,
-        lng
-    }).then(function (res) {
-        if (res.status !== 200)
-            throw new Error(`Unexpected response code: ${res.status}`);
-
-        return res.data;
-    });
-}
-
-export function store_current_position(account, lat, lng) {
+export function store_current_position(account, lat, lng, heading, pitch) {
     let url = `${BaseUrl}/store_current_position`;
 
     console.log(`Making POST request to: ${url}`);
     return axios.post(url, {
         account,
         lat,
-        lng
+        lng,
+        heading,
+        pitch
     }).then(function (res) {
         if (res.status !== 200)
             throw new Error(`Unexpected response code: ${res.status}`);

@@ -1,8 +1,10 @@
 const initCameraState = {
     lat: 24.239660117363,
     lng: 120.704508544016,
+    heading: 100,
+    pitch: 0,
     message: "",
-    start_get_last_position:false,
+    start_get_last_position: false,
     finish_get_last_position: false
 };
 
@@ -18,6 +20,8 @@ export function camera(state = initCameraState, action) {
                 ...state,
                 lat: action.lat,
                 lng: action.lng,
+                heading: action.heading,
+                pitch: action.pitch,
                 finish_get_last_position: true
             };
         case '@CAMERA/START_GET_LAST_POSITION':

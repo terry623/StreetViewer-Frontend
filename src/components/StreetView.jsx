@@ -13,6 +13,8 @@ class StreetView extends React.Component {
 	static propTypes = {
 		lat: PropTypes.number,
 		lng: PropTypes.number,
+		heading: PropTypes.number,
+		pitch: PropTypes.number,
 		message: PropTypes.string,
 		finish_get_last_position: PropTypes.bool,
 		account: PropTypes.string,
@@ -24,7 +26,7 @@ class StreetView extends React.Component {
 
 		this.state = {
 			position: null,
-			pov: null
+			pov: { heading: 100, pitch: 0 }
 		};
 
 		this.handle_screenshot = this.handle_screenshot.bind(this);
@@ -39,9 +41,9 @@ class StreetView extends React.Component {
 	componentWillUpdate(nextProps, nextState) {
 		if (this.props.account !== "") {
 			if (this.state.position === null) {
-				this.props.dispatch(get_last_position(this.props.account, this.props.lat, this.props.lng));
+				this.props.dispatch(get_last_position(this.props.account, this.props.lat, this.props.lng, this.props.heading, this.props.pitch));
 			} else {
-				if (nextState.position !== this.state.position) {
+				if (nextState.position !== this.state.position || nextState.pov !== this.state.pov) {
 
 					var position_str = JSON.stringify(this.state.position);
 					var position_res = position_str.replace(/\"/g, "").replace("{", "").replace("}", "").replace("lat:", "").replace("lng:", "").split(",");
@@ -49,7 +51,10 @@ class StreetView extends React.Component {
 					var lat = Number(position_res[0]);
 					var lng = Number(position_res[1]);
 
-					this.props.dispatch(store_current_position(this.props.account, lat, lng));
+					var heading = Number(this.state.pov.heading);
+					var pitch = Number(this.state.pov.pitch);
+
+					this.props.dispatch(store_current_position(this.props.account, lat, lng, heading, pitch));
 				}
 			}
 		}
@@ -57,12 +62,12 @@ class StreetView extends React.Component {
 
 	render() {
 
-		const { lat, lng, message, finish_get_last_position } = this.props;
+		const { lat, lng, heading, pitch, message, finish_get_last_position } = this.props;
 		const google_key = 'AIzaSyB2qGLOwrR1n-FrGskEn47AU1X6Nban0S4';
 
 		var streetViewPanoramaOptions = {
 			position: { lat: lat, lng: lng },
-			pov: { heading: 0, pitch: 0 },
+			pov: { heading: heading, pitch: pitch },
 			zoom: 1,
 			disableDefaultUI: true,
 			disableDoubleClickZoom: true
