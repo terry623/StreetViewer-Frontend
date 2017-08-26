@@ -4,7 +4,6 @@ const initCameraState = {
     heading: 100,
     pitch: 0,
     message: "",
-    start_get_last_position: false,
     finish_get_last_position: false
 };
 
@@ -23,11 +22,6 @@ export function camera(state = initCameraState, action) {
                 heading: action.heading,
                 pitch: action.pitch,
                 finish_get_last_position: true
-            };
-        case '@CAMERA/START_GET_LAST_POSITION':
-            return {
-                ...state,
-                start_get_last_position: true
             };
         default:
             return state;

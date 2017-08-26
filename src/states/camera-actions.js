@@ -1,7 +1,6 @@
 import {
     store_current_position as store_current_position_FromApi,
     store_photo_url as store_photo_url_FromApi,
-    get_current_position as get_current_position_FromApi,
     get_last_position as get_last_position_FromApi
 } from 'api/photo.js';
 
@@ -25,17 +24,6 @@ export function screenshot(account, lat, lng, heading, pitch) {
             dispatch(show_message("Finish Store Photo!"));
         }).catch(err => {
             dispatch(show_message("Store Photo Error!"));
-        });
-    };
-}
-
-//It didn't use
-export function get_current_position(account) {
-    return (dispatch, getState) => {
-        return get_current_position_FromApi(account).then(infor => {
-            dispatch(show_message("Finish Get Current Position!"));
-        }).catch(err => {
-            dispatch(show_message("Get Current Position Error!"));
         });
     };
 }
@@ -69,11 +57,5 @@ function show_message(message) {
     return {
         type: '@CAMERA/SHOW_MESSAGE',
         message
-    };
-}
-
-export function start_get_last_position() {
-    return {
-        type: '@CAMERA/START_GET_LAST_POSITION'
     };
 }

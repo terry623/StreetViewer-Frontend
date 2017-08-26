@@ -6,7 +6,7 @@ import './StreetView.css';
 
 import { Button } from 'reactstrap';
 import ReactStreetview from 'react-streetview';
-import { store_current_position, screenshot, get_current_position, get_last_position, start_get_last_position } from 'states/camera-actions.js';
+import { store_current_position, screenshot, get_last_position} from 'states/camera-actions.js';
 
 
 class StreetView extends React.Component {
@@ -25,6 +25,7 @@ class StreetView extends React.Component {
 		super(props);
 
 		this.state = {
+			travel_time: 0,
 			position: null,
 			pov: { heading: 100, pitch: 0 }
 		};
@@ -32,9 +33,18 @@ class StreetView extends React.Component {
 		this.handle_screenshot = this.handle_screenshot.bind(this);
 	}
 
+	timer() {
+		this.setState({
+			travel_time: this.state.travel_time + 1
+		});
+	}
+
 	componentDidMount() {
 		if (this.props.account !== "") {
-			this.props.dispatch(start_get_last_position());
+			setInterval(
+				() => this.timer(),
+				1000
+			);
 		}
 	}
 
@@ -62,7 +72,7 @@ class StreetView extends React.Component {
 
 	componentWillUnmount() {
 		if (this.props.account !== "") {
-			
+
 			var position_str = JSON.stringify(this.state.position);
 			var position_res = position_str.replace(/\"/g, "").replace("{", "").replace("}", "").replace("lat:", "").replace("lng:", "").split(",");
 
@@ -94,6 +104,10 @@ class StreetView extends React.Component {
 
 				<Button className='btn-form' onClick={this.handle_screenshot}>Screen Shot!</Button>
 
+				<h4>{message}</h4>
+
+				<h1>{this.state.travel_time}</h1>
+
 				{finish_get_last_position === true &&
 					<ReactStreetview
 						apiKey={google_key}
@@ -102,8 +116,6 @@ class StreetView extends React.Component {
 						onPovChanged={pov => this.setState({ pov: pov })}
 					/>
 				}
-
-				<h4>{message}</h4>
 
 			</div>
 

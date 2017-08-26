@@ -39,20 +39,6 @@ export function store_photo_url(account, photo_url) {
     });
 }
 
-export function get_current_position(account) {
-    let url = `${BaseUrl}/get_current_position`;
-
-    console.log(`Making POST request to: ${url}`);
-    return axios.post(url, {
-        account,
-    }).then(function (res) {
-        if (res.status !== 200)
-            throw new Error(`Unexpected response code: ${res.status}`);
-
-        return res.data;
-    });
-}
-
 export function get_last_position(account) {
     let url = `${BaseUrl}/get_last_position`;
 
