@@ -6,7 +6,7 @@ import './StreetView.css';
 
 import { Button } from 'reactstrap';
 import ReactStreetview from 'react-streetview';
-import { store_current_position, screenshot, get_last_position} from 'states/camera-actions.js';
+import { store_current_position, screenshot, get_last_position, store_travel_time } from 'states/camera-actions.js';
 
 
 class StreetView extends React.Component {
@@ -83,6 +83,7 @@ class StreetView extends React.Component {
 			var pitch = Number(this.state.pov.pitch);
 
 			this.props.dispatch(store_current_position(this.props.account, lat, lng, heading, pitch));
+			this.props.dispatch(store_travel_time(this.props.account, this.state.travel_time));
 		}
 	}
 

@@ -1,7 +1,8 @@
 import {
     store_current_position as store_current_position_FromApi,
     store_photo_url as store_photo_url_FromApi,
-    get_last_position as get_last_position_FromApi
+    get_last_position as get_last_position_FromApi,
+    store_travel_time as store_travel_time_FromApi
 } from 'api/photo.js';
 
 export function store_current_position(account, lat, lng, heading, pitch) {
@@ -39,6 +40,16 @@ export function get_last_position(account, lat, lng, heading, pitch) {
             dispatch(show_message("Finish Get Last Position!"));
         }).catch(err => {
             dispatch(show_message("Get Last Position Error!"));
+        });
+    };
+}
+
+export function store_travel_time(account, travel_time) {
+    return (dispatch, getState) => {
+        return store_travel_time_FromApi(account, travel_time).then(infor => {
+            dispatch(show_message("Finish Store Travel Time!"));
+        }).catch(err => {
+            dispatch(show_message("Store Travel Time Error!"));
         });
     };
 }
