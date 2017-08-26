@@ -3,16 +3,17 @@ const initCameraState = {
     lng: 120.704508544016,
     heading: 100,
     pitch: 0,
-    message: "",
+    time: 0,
+    reminder: "",
     finish_get_last_position: false
 };
 
 export function camera(state = initCameraState, action) {
     switch (action.type) {
-        case '@CAMERA/SHOW_MESSAGE':
+        case '@CAMERA/REMIND_ACTION':
             return {
                 ...state,
-                message: action.message
+                reminder: action.reminder
             };
         case '@CAMERA/START_LOCATION':
             return {
@@ -21,6 +22,7 @@ export function camera(state = initCameraState, action) {
                 lng: action.lng,
                 heading: action.heading,
                 pitch: action.pitch,
+                time: action.time,
                 finish_get_last_position: true
             };
         default:

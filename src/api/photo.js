@@ -6,7 +6,7 @@ const BaseUrl = 'http://localhost:8080/api';
 // Production server URL
 // const BaseUrl = '';
 
-export function store_current_position(account, lat, lng, heading, pitch) {
+export function store_current_position(account, lat, lng, heading, pitch, time) {
     let url = `${BaseUrl}/store_current_position`;
 
     console.log(`Making POST request to: ${url}`);
@@ -15,7 +15,8 @@ export function store_current_position(account, lat, lng, heading, pitch) {
         lat,
         lng,
         heading,
-        pitch
+        pitch,
+        time
     }).then(function (res) {
         if (res.status !== 200)
             throw new Error(`Unexpected response code: ${res.status}`);
@@ -45,21 +46,6 @@ export function get_last_position(account) {
     console.log(`Making POST request to: ${url}`);
     return axios.post(url, {
         account,
-    }).then(function (res) {
-        if (res.status !== 200)
-            throw new Error(`Unexpected response code: ${res.status}`);
-
-        return res.data;
-    });
-}
-
-export function store_travel_time(account, travel_time) {
-    let url = `${BaseUrl}/store_travel_time`;
-
-    console.log(`Making POST request to: ${url}`);
-    return axios.post(url, {
-        account,
-        travel_time
     }).then(function (res) {
         if (res.status !== 200)
             throw new Error(`Unexpected response code: ${res.status}`);

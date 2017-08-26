@@ -6,7 +6,7 @@ import './StreetView.css';
 
 import { Button } from 'reactstrap';
 import ReactStreetview from 'react-streetview';
-import { store_current_position, screenshot, get_last_position, store_travel_time } from 'states/camera-actions.js';
+import { store_current_position, screenshot, get_last_position } from 'states/camera-actions.js';
 
 
 class StreetView extends React.Component {
@@ -15,7 +15,8 @@ class StreetView extends React.Component {
 		lng: PropTypes.number,
 		heading: PropTypes.number,
 		pitch: PropTypes.number,
-		message: PropTypes.string,
+		time: PropTypes.number,
+		reminder: PropTypes.string,
 		finish_get_last_position: PropTypes.bool,
 		account: PropTypes.string,
 		dispatch: PropTypes.func
@@ -26,6 +27,7 @@ class StreetView extends React.Component {
 
 		this.state = {
 			travel_time: 0,
+			start_timer: false,
 			position: null,
 			pov: { heading: 100, pitch: 0 }
 		};
@@ -34,13 +36,22 @@ class StreetView extends React.Component {
 	}
 
 	timer() {
-		this.setState({
-			travel_time: this.state.travel_time + 1
-		});
+		if (this.state.start_timer === true) {
+			this.setState({
+				travel_time: this.state.travel_time + 1
+			});
+		} else if (this.props.finish_get_last_position === true) {
+			this.setState({
+				travel_time: this.props.time,
+				start_timer: true
+			});
+		}
 	}
 
 	componentDidMount() {
-		if (this.props.account !== "") {
+		const { account, lat, lng, heading, pitch, time } = this.props;
+		if (account !== "") {
+			this.props.dispatch(get_last_position(account, lat, lng, heading, pitch, time));
 			setInterval(
 				() => this.timer(),
 				1000
@@ -49,29 +60,27 @@ class StreetView extends React.Component {
 	}
 
 	componentWillUpdate(nextProps, nextState) {
-		if (this.props.account !== "") {
-			if (this.state.position === null) {
-				this.props.dispatch(get_last_position(this.props.account, this.props.lat, this.props.lng, this.props.heading, this.props.pitch));
-			} else {
-				if (nextState.position !== this.state.position) {
+		const { account } = this.props;
+		if (account !== "") {
+			if (this.state.position !== null && nextState.position !== this.state.position) {
 
-					var position_str = JSON.stringify(this.state.position);
-					var position_res = position_str.replace(/\"/g, "").replace("{", "").replace("}", "").replace("lat:", "").replace("lng:", "").split(",");
+				var position_str = JSON.stringify(this.state.position);
+				var position_res = position_str.replace(/\"/g, "").replace("{", "").replace("}", "").replace("lat:", "").replace("lng:", "").split(",");
 
-					var lat = Number(position_res[0]);
-					var lng = Number(position_res[1]);
+				var lat = Number(position_res[0]);
+				var lng = Number(position_res[1]);
 
-					var heading = Number(this.state.pov.heading);
-					var pitch = Number(this.state.pov.pitch);
+				var heading = Number(this.state.pov.heading);
+				var pitch = Number(this.state.pov.pitch);
 
-					this.props.dispatch(store_current_position(this.props.account, lat, lng, heading, pitch));
-				}
+				this.props.dispatch(store_current_position(account, lat, lng, heading, pitch, this.state.travel_time));
 			}
 		}
 	}
 
 	componentWillUnmount() {
-		if (this.props.account !== "") {
+		const { account } = this.props;
+		if (account !== "") {
 
 			var position_str = JSON.stringify(this.state.position);
 			var position_res = position_str.replace(/\"/g, "").replace("{", "").replace("}", "").replace("lat:", "").replace("lng:", "").split(",");
@@ -82,14 +91,13 @@ class StreetView extends React.Component {
 			var heading = Number(this.state.pov.heading);
 			var pitch = Number(this.state.pov.pitch);
 
-			this.props.dispatch(store_current_position(this.props.account, lat, lng, heading, pitch));
-			this.props.dispatch(store_travel_time(this.props.account, this.state.travel_time));
+			this.props.dispatch(store_current_position(account, lat, lng, heading, pitch, this.state.travel_time));
 		}
 	}
 
 	render() {
 
-		const { lat, lng, heading, pitch, message, finish_get_last_position } = this.props;
+		const { lat, lng, heading, pitch, reminder, finish_get_last_position } = this.props;
 		const google_key = 'AIzaSyB2qGLOwrR1n-FrGskEn47AU1X6Nban0S4';
 
 		var streetViewPanoramaOptions = {
@@ -105,9 +113,9 @@ class StreetView extends React.Component {
 
 				<Button className='btn-form' onClick={this.handle_screenshot}>Screen Shot!</Button>
 
-				<h4>{message}</h4>
+				<h5>{reminder}</h5>
 
-				<h1>{this.state.travel_time}</h1>
+				{this.state.travel_time !== 0 && <h4>Travel Time: {this.state.travel_time} seconds</h4>}
 
 				{finish_get_last_position === true &&
 					<ReactStreetview
@@ -124,7 +132,8 @@ class StreetView extends React.Component {
 	}
 
 	handle_screenshot() {
-		if (this.props.account !== "" && this.state.position !== null && this.state.pov !== null) {
+		const { account } = this.props;
+		if (account !== "" && this.state.position !== null && this.state.pov !== null) {
 
 			var position_str = JSON.stringify(this.state.position);
 			var position_res = position_str.replace(/\"/g, "").replace("{", "").replace("}", "").replace("lat:", "").replace("lng:", "").split(",");
@@ -134,7 +143,7 @@ class StreetView extends React.Component {
 			var heading = Number(this.state.pov.heading);
 			var pitch = Number(this.state.pov.pitch);
 
-			this.props.dispatch(screenshot(this.props.account, lat, lng, heading, pitch));
+			this.props.dispatch(screenshot(account, lat, lng, heading, pitch));
 		}
 	}
 
