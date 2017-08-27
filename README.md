@@ -1,2 +1,2 @@
-# Terry Lin's Side Project
-The website about photography.
+# Terry Lin's Side Project Client
+The website is about photography.

@@ -1,7 +1,7 @@
 {
-  "name": "terrylin-side-project",
+  "name": "terrylin-side-project-client",
   "version": "1.0.0",
-  "description": "The website about the photography.",
+  "description": "The website is about the photography.",
   "main": "src/index.jsx",
   "scripts": {
     "build": "webpack -p",

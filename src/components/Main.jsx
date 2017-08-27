@@ -4,7 +4,7 @@ import {
     BrowserRouter as Router,
     Route,
     Link
-} from 'react-router-dom'
+} from 'react-router-dom';
 import {
     Collapse,
     Navbar,
@@ -21,12 +21,11 @@ import Collection from 'components/Collection.jsx';
 import Camera from 'components/Camera.jsx';
 import SignUp from 'components/SignUp.jsx';
 import LogIn from 'components/LogIn.jsx';
+import Chat from 'components/Chat.jsx';
 
 import { log_out } from 'states/account-actions.js';
 
-
 import './Main.css';
-
 
 class Main extends React.Component {
     static propTypes = {
@@ -59,6 +58,9 @@ class Main extends React.Component {
                                     <NavLink tag={Link} to='/Collection'>Collection</NavLink>
                                 </NavItem>
                                 <NavItem>
+                                    <NavLink tag={Link} to='/Chat'>Chat</NavLink>
+                                </NavItem>
+                                <NavItem>
                                     <NavLink tag={Link} to='/SigeUp'>SigeUp</NavLink>
                                 </NavItem>
                                 <NavItem>
@@ -77,6 +79,10 @@ class Main extends React.Component {
 
                     <Route exact path="/Collection" render={() => (
                         <Collection />
+                    )} />
+
+                    <Route exact path="/Chat" render={() => (
+                        <Chat />
                     )} />
 
                     <Route exact path="/SigeUp" render={() => (

@@ -5,12 +5,7 @@ const initMessageState = {
 
 export function account(state = initMessageState, action) {
     switch (action.type) {
-        case '@Account/SIGN_UP':
-            return {
-                ...state,
-                message: action.message
-            };
-        case '@Account/LOG_IN':
+        case '@Account/SHOW_MESSAGE':
             return {
                 ...state,
                 message: action.message
