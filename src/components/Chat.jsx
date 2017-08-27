@@ -24,6 +24,14 @@ class Chat extends React.Component {
 		};
 
 		this.handleSend = this.handleSend.bind(this);
+
+		socket.on('chat message', (id, msg) => {
+			console.log(socket.id);
+		});
+		socket.on('my message', (msg) => {
+			console.log("my message: " + msg);
+			this.change_msg(msg);
+		});
 	}
 
 	render() {
@@ -46,23 +54,15 @@ class Chat extends React.Component {
 		);
 	}
 
-	handleSend() {
-		socket.emit('chat message', this.state.send_msg);
-		// socket.on('chat message', function (msg) {
-		// 	this.setState({
-		// 		receive_msg: msg
-		// 	});
-		// });
+	change_msg(msg) {
+		this.setState({
+			receive_msg: msg
+		});
 	}
 
-	// handleReceive() {
-	// 	socket.on('chat message', function (msg) {
-	// 		this.setState({
-	// 			receive_msg: msg
-	// 		});
-	// 	});
-	// }
-
+	handleSend() {
+		socket.emit('chat message', socket.id, this.state.send_msg);
+	}
 }
 
 export default connect(state => ({
