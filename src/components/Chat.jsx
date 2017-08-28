@@ -7,8 +7,10 @@ import './StreetView.css';
 
 import io from 'socket.io-client';
 import Button from 'material-ui/Button';
+import { store_socket_id, get_target_socket_id } from 'api/chat.js';
 
 var socket = io.connect('http://localhost:8080', { reconnect: true });
+
 
 class Chat extends React.Component {
 	static propTypes = {
@@ -19,15 +21,24 @@ class Chat extends React.Component {
 		super(props);
 
 		this.state = {
+			send_target: null,
 			send_msg: null,
 			receive_msg: null
 		};
 
 		this.handleSend = this.handleSend.bind(this);
 
-		socket.on('chat message', (id, msg) => {
-			console.log(socket.id);
+		// socket.on('chat message', (id, msg) => {
+		// 	console.log(socket.id);
+		// });
+
+		store_socket_id(this.props.account, socket.id).then(result => {
+			console.log("Store Socket ID Success!");
+			console.log("My Socket ID is " + result.socket_id);
+		}).catch(err => {
+			console.log("Error Store Socket ID!");
 		});
+
 		socket.on('my message', (msg) => {
 			console.log("my message: " + msg);
 			this.change_msg(msg);
@@ -40,6 +51,11 @@ class Chat extends React.Component {
 				<h3>Chat!</h3>
 				<br />
 				<h2>{this.state.receive_msg}</h2>
+				<TextField
+					className='target'
+					label='Target'
+					onChange={event => this.setState({ send_target: event.target.value })}
+				/>
 				<TextField
 					className='message'
 					label='Message'
@@ -61,8 +77,13 @@ class Chat extends React.Component {
 	}
 
 	handleSend() {
-		socket.emit('chat message', socket.id, this.state.send_msg);
+		get_target_socket_id(this.state.send_target).then(result => {
+			socket.emit('chat message', result.socket_id, this.state.send_msg);
+		}).catch(err => {
+			console.log("Erro Send Message!");
+		});
 	}
+
 }
 
 export default connect(state => ({
