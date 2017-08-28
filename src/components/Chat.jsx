@@ -28,11 +28,13 @@ class Chat extends React.Component {
 
 		this.handleSend = this.handleSend.bind(this);
 
-		store_socket_id(this.props.account, socket.id).then(result => {
-			console.log("Store Socket ID Success!");
-		}).catch(err => {
-			console.log("Error Store Socket ID!");
-		});
+		if (this.props.account !== "") {
+			store_socket_id(this.props.account, socket.id).then(result => {
+				console.log("Store Socket ID Success!");
+			}).catch(err => {
+				console.log("Error Store Socket ID!");
+			});
+		}
 
 		socket.on('my message', (msg) => {
 			console.log("my message: " + msg);
