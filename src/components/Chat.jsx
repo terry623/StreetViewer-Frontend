@@ -22,6 +22,7 @@ class Chat extends React.Component {
 		super(props);
 
 		this.state = {
+			sender: "",
 			send_target: "",
 			send_msg: "",
 			receive_msg: "",
@@ -29,6 +30,7 @@ class Chat extends React.Component {
 		};
 
 		this.change_msg = this.change_msg.bind(this);
+		this.change_sender = this.change_sender.bind(this);
 		this.handleSend = this.handleSend.bind(this);
 		this.handle_send_target = this.handle_send_target.bind(this);
 
@@ -40,8 +42,11 @@ class Chat extends React.Component {
 			});
 		}
 
-		socket.on('my message', (msg) => {
-			if (this.refs.myRef) this.change_msg(msg);
+		socket.on('my message', (receive) => {
+			if (this.refs.myRef) {
+				this.change_sender(receive.sender);
+				this.change_msg(receive.msg);
+			}
 		});
 
 	}
@@ -62,12 +67,12 @@ class Chat extends React.Component {
 			));
 		}
 
-
-
 		return (
 			<div className='Chat' ref="myRef">
 				<h3>Chat!</h3>
 				{children}
+				<br />
+				<br />
 				<br />
 				<TextField
 					className='target'
@@ -85,7 +90,8 @@ class Chat extends React.Component {
 				<Button raised onClick={this.handleSend}>
 					Send
                 </Button>
-				<h2>{this.state.receive_msg}</h2>
+				{this.state.sender !== "" && <h2>{this.state.sender} : <h2>{this.state.receive_msg}</h2></h2>}
+
 			</div>
 		);
 	}
@@ -96,9 +102,15 @@ class Chat extends React.Component {
 		});
 	}
 
+	change_sender(sender) {
+		this.setState({
+			sender: sender
+		});
+	}
+
 	handleSend() {
 		get_target_socket_id(this.state.send_target).then(result => {
-			socket.emit('chat message', result.socket_id, this.state.send_msg);
+			socket.emit('chat message', result.socket_id, { sender: this.props.account, msg: this.state.send_msg });
 		}).catch(err => {
 			console.log("Erro Send Message!");
 		});

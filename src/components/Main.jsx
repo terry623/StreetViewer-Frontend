@@ -60,9 +60,6 @@ class Main extends React.Component {
                                     <NavLink tag={Link} to='/Collection'>Collection</NavLink>
                                 </NavItem>
                                 <NavItem>
-                                    <NavLink tag={Link} to='/Chat'>Chat</NavLink>
-                                </NavItem>
-                                <NavItem>
                                     <NavLink tag={Link} to='/SigeUp'>SigeUp</NavLink>
                                 </NavItem>
                                 <NavItem>
@@ -81,10 +78,6 @@ class Main extends React.Component {
 
                     <Route exact path="/Collection" render={() => (
                         <Collection />
-                    )} />
-
-                    <Route exact path="/Chat" render={() => (
-                        <Chat />
                     )} />
 
                     <Route exact path="/SigeUp" render={() => (
