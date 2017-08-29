@@ -29,7 +29,7 @@ class Photo extends React.Component {
         );
         if (photos.length) {
             children = photos.map(result => (
-                <img src={result.photo_url} />
+                <img key={result.id} src={result.photo_url} />
             ));
         }
 

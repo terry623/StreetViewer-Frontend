@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import { createStore, combineReducers, compose, applyMiddleware } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import { Provider } from 'react-redux';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 import Main from 'components/Main.jsx';
 import { camera } from 'states/camera-reducers.js';
@@ -11,6 +10,10 @@ import { account } from 'states/account-reducers.js';
 import { photos } from 'states/photos-reducers.js';
 
 import 'bootstrap/dist/css/bootstrap.css';
+import createMuiTheme from 'material-ui/styles/theme';
+import { MuiThemeProvider } from 'material-ui/styles';
+
+const theme = createMuiTheme();
 
 window.onload = function () {
     const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
@@ -20,7 +23,7 @@ window.onload = function () {
 
     ReactDOM.render(
         <Provider store={store}>
-            <MuiThemeProvider>
+            <MuiThemeProvider theme={theme}>
                 <Main />
             </MuiThemeProvider>
         </Provider>,

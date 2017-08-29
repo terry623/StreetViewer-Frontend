@@ -52,7 +52,7 @@ class StreetView extends React.Component {
 		const { account, lat, lng, heading, pitch, time } = this.props;
 		if (account !== "") {
 			this.props.dispatch(get_last_position(account, lat, lng, heading, pitch, time));
-			setInterval(
+			this.inter_id = setInterval(
 				() => this.timer(),
 				1000
 			);
@@ -92,6 +92,7 @@ class StreetView extends React.Component {
 			var pitch = Number(this.state.pov.pitch);
 
 			this.props.dispatch(store_current_position(account, lat, lng, heading, pitch, this.state.travel_time));
+			clearInterval(this.inter_id);
 		}
 	}
 

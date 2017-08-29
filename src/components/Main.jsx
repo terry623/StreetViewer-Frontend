@@ -12,9 +12,11 @@ import {
     NavbarBrand,
     Nav,
     NavItem,
-    NavLink,
-    Button
+    NavLink
 } from 'reactstrap';
+
+import Button from 'material-ui/Button';
+
 import { connect } from 'react-redux';
 
 import Collection from 'components/Collection.jsx';
