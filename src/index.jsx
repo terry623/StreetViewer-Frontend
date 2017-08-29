@@ -8,6 +8,7 @@ import Main from 'components/Main.jsx';
 import { camera } from 'states/camera-reducers.js';
 import { account } from 'states/account-reducers.js';
 import { photos } from 'states/photos-reducers.js';
+import { chat } from 'states/chat-reducers.js';
 
 import 'bootstrap/dist/css/bootstrap.css';
 import createMuiTheme from 'material-ui/styles/theme';
@@ -18,7 +19,7 @@ const theme = createMuiTheme();
 window.onload = function () {
     const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
     const store = createStore(combineReducers({
-        camera, account, photos
+        camera, account, photos, chat
     }), composeEnhancers(applyMiddleware(thunkMiddleware)));
 
     ReactDOM.render(

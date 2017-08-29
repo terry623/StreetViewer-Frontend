@@ -4,10 +4,10 @@ import { connect } from 'react-redux';
 
 import './StreetView.css';
 
-import { Button } from 'reactstrap';
+import Button from 'material-ui/Button';
 import ReactStreetview from 'react-streetview';
 import { store_current_position, screenshot, get_last_position } from 'states/camera-actions.js';
-
+import { find_friends_around_you } from 'states/chat-actions.js';
 
 class StreetView extends React.Component {
 	static propTypes = {
@@ -36,11 +36,13 @@ class StreetView extends React.Component {
 	}
 
 	timer() {
+		const { account } = this.props;
 		if (this.state.start_timer === true) {
 			this.setState({
 				travel_time: this.state.travel_time + 1
 			});
 		} else if (this.props.finish_get_last_position === true) {
+			this.props.dispatch(find_friends_around_you(account));
 			this.setState({
 				travel_time: this.props.time,
 				start_timer: true
@@ -74,6 +76,7 @@ class StreetView extends React.Component {
 				var pitch = Number(this.state.pov.pitch);
 
 				this.props.dispatch(store_current_position(account, lat, lng, heading, pitch, this.state.travel_time));
+				this.props.dispatch(find_friends_around_you(account));
 			}
 		}
 	}
@@ -112,7 +115,9 @@ class StreetView extends React.Component {
 		return (
 			<div className='StreetView'>
 
-				<Button className='btn-form' onClick={this.handle_screenshot}>Screen Shot!</Button>
+				<Button raised onClick={this.handle_screenshot}>
+					Screen Shot!
+                </Button>
 
 				<h5>{reminder}</h5>
 

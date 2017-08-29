@@ -34,3 +34,17 @@ export function get_target_socket_id(account) {
         return res.data;
     });
 }
+
+export function find_friends_around_you(account) {
+    let url = `${BaseUrl}/find_friends_around_you`;
+
+    console.log(`Making POST request to: ${url}`);
+    return axios.post(url, {
+        account
+    }).then(function (res) {
+        if (res.status !== 200)
+            throw new Error(`Unexpected response code: ${res.status}`);
+
+        return res.data;
+    });
+}

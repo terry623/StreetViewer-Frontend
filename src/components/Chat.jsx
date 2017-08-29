@@ -14,6 +14,7 @@ var socket = io.connect('http://localhost:8080', { reconnect: true });
 
 class Chat extends React.Component {
 	static propTypes = {
+		friends: PropTypes.array,
 		dispatch: PropTypes.func
 	};
 
@@ -21,12 +22,15 @@ class Chat extends React.Component {
 		super(props);
 
 		this.state = {
-			send_target: null,
-			send_msg: null,
-			receive_msg: null
+			send_target: "",
+			send_msg: "",
+			receive_msg: "",
+			friends: null
 		};
 
+		this.change_msg = this.change_msg.bind(this);
 		this.handleSend = this.handleSend.bind(this);
+		this.handle_send_target = this.handle_send_target.bind(this);
 
 		if (this.props.account !== "") {
 			store_socket_id(this.props.account, socket.id).then(result => {
@@ -37,20 +41,38 @@ class Chat extends React.Component {
 		}
 
 		socket.on('my message', (msg) => {
-			console.log("my message: " + msg);
-			this.change_msg(msg);
+			if (this.refs.myRef) this.change_msg(msg);
 		});
+
 	}
 
 	render() {
+
+		const { friends } = this.props;
+
+		let children = (
+			<div>No friends around you.</div>
+		);
+		if (friends.length) {
+			children = friends.map(result => (
+				<Button key={result.id} raised onClick={() => this.handle_send_target(result.client_1, result.client_2)}>
+					{result.client_1 !== this.props.account && result.client_1}
+					{result.client_2 !== this.props.account && result.client_2}
+				</Button>
+			));
+		}
+
+
+
 		return (
-			<div className='Chat'>
+			<div className='Chat' ref="myRef">
 				<h3>Chat!</h3>
+				{children}
 				<br />
-				<h2>{this.state.receive_msg}</h2>
 				<TextField
 					className='target'
 					label='Target'
+					value={this.state.send_target}
 					onChange={event => this.setState({ send_target: event.target.value })}
 				/>
 				<TextField
@@ -63,6 +85,7 @@ class Chat extends React.Component {
 				<Button raised onClick={this.handleSend}>
 					Send
                 </Button>
+				<h2>{this.state.receive_msg}</h2>
 			</div>
 		);
 	}
@@ -81,9 +104,20 @@ class Chat extends React.Component {
 		});
 	}
 
+	handle_send_target(client_1, client_2) {
+		var current_target;
+		if (client_1 !== this.props.account) current_target = client_1;
+		else if (client_2 !== this.props.account) current_target = client_2;
+
+		this.setState({
+			send_target: current_target
+		});
+	}
+
 }
 
 export default connect(state => ({
 	...state.camera,
-	...state.account
+	...state.account,
+	...state.chat
 }))(Chat);
