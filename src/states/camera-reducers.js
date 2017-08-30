@@ -1,22 +1,24 @@
-var user_real_lat = 0;
-var user_real_lng = 0;
-
-navigator.geolocation.getCurrentPosition(function (position) {
-    console.log("lat: " + position.coords.latitude);
-    console.log("lng: " + position.coords.longitude);
-    user_real_lat = position.coords.latitude;
-    user_real_lng = position.coords.longitude;
-});
+// navigator.geolocation.getCurrentPosition(function (position) {
+//     console.log("lat: " + position.coords.latitude);
+//     console.log("lng: " + position.coords.longitude);
+// });
 
 var initCameraState = {
-    lat: user_real_lat,
-    lng: user_real_lng,
+    lat: navigator.geolocation.getCurrentPosition(function (position) {
+        return position.coords.latitude
+    }),
+    lng: navigator.geolocation.getCurrentPosition(function (position) {
+        return position.coords.longitude
+    }),
     heading: 100,
     pitch: 0,
     time: 0,
     reminder: "",
     finish_get_last_position: false
 };
+
+console.log("initCameraState.lat: " + initCameraState.lat);
+console.log("initCameraState.lng: " + initCameraState.lng);
 
 export function camera(state = initCameraState, action) {
     switch (action.type) {
