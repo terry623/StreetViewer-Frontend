@@ -31,11 +31,11 @@ export function screenshot(account, lat, lng, heading, pitch) {
 export function get_last_position(account, lat, lng, heading, pitch, time) {
     return (dispatch, getState) => {
         return get_last_position_FromApi(account).then(infor => {
-
             if (infor.current_lat !== 0 && infor.current_lng !== 0) {
                 dispatch(start_location(infor.current_lat, infor.current_lng, infor.current_heading, infor.current_pitch, infor.travel_time));
-            } else dispatch(store_current_position(account, lat, lng, heading, pitch, time));
-
+            } else {
+                dispatch(store_current_position(account, lat, lng, heading, pitch, time));
+            }
             dispatch(remind_action("Finish Get Last Position!"));
         }).catch(err => {
             dispatch(remind_action("Get Last Position Error!"));

@@ -1,6 +1,16 @@
-const initCameraState = {
-    lat: 24.239660117363,
-    lng: 120.704508544016,
+var user_real_lat = 0;
+var user_real_lng = 0;
+
+navigator.geolocation.getCurrentPosition(function (position) {
+    console.log("lat: " + position.coords.latitude);
+    console.log("lng: " + position.coords.longitude);
+    user_real_lat = position.coords.latitude;
+    user_real_lng = position.coords.longitude;
+});
+
+var initCameraState = {
+    lat: user_real_lat,
+    lng: user_real_lng,
     heading: 100,
     pitch: 0,
     time: 0,
