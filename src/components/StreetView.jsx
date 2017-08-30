@@ -27,7 +27,6 @@ class StreetView extends React.Component {
 
 		this.state = {
 			travel_time: 0,
-			start_timer: false,
 			position: null,
 			pov: { heading: 100, pitch: 0 }
 		};
@@ -36,26 +35,39 @@ class StreetView extends React.Component {
 	}
 
 	timer() {
-		const { account } = this.props;
-		if (this.state.start_timer === true) {
+		this.setState({
+			travel_time: this.state.travel_time + 1
+		});
+	}
+
+	wait_get_last_position() {
+		if (this.props.finish_get_last_position === true) {
 			this.setState({
-				travel_time: this.state.travel_time + 1
+				travel_time: this.props.time
 			});
-		} else if (this.props.finish_get_last_position === true) {
-			this.props.dispatch(find_friends_around_you(account));
-			this.setState({
-				travel_time: this.props.time,
-				start_timer: true
-			});
+			this.timer_id = setInterval(
+				() => this.timer(),
+				1000
+			);
+			clearInterval(this.wait_get_last_position_id);
 		}
+	}
+
+	find_friends() {
+		const { account } = this.props;
+		this.props.dispatch(find_friends_around_you(account));
 	}
 
 	componentDidMount() {
 		const { account, lat, lng, heading, pitch, time } = this.props;
 		if (account !== "") {
 			this.props.dispatch(get_last_position(account, lat, lng, heading, pitch, time));
-			this.inter_id = setInterval(
-				() => this.timer(),
+			this.wait_get_last_position_id = setInterval(
+				() => this.wait_get_last_position(),
+				500
+			);
+			this.find_friends_id = setInterval(
+				() => this.find_friends(),
 				1000
 			);
 		}
@@ -76,7 +88,6 @@ class StreetView extends React.Component {
 				var pitch = Number(this.state.pov.pitch);
 
 				this.props.dispatch(store_current_position(account, lat, lng, heading, pitch, this.state.travel_time));
-				this.props.dispatch(find_friends_around_you(account));
 			}
 		}
 	}
@@ -95,7 +106,8 @@ class StreetView extends React.Component {
 			var pitch = Number(this.state.pov.pitch);
 
 			this.props.dispatch(store_current_position(account, lat, lng, heading, pitch, this.state.travel_time));
-			clearInterval(this.inter_id);
+			clearInterval(this.timer_id);
+			clearInterval(this.find_friends_id);
 		}
 	}
 
