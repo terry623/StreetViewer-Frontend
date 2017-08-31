@@ -4,8 +4,16 @@ import {
     get_last_position as get_last_position_FromApi
 } from 'api/photo.js';
 
+var getPosition = function (options) {
+    return new Promise(function (resolve, reject) {
+        navigator.geolocation.getCurrentPosition(resolve, reject, options);
+    });
+}
+
 export function store_current_position(account, lat, lng, heading, pitch, time) {
     return (dispatch, getState) => {
+        console.log("store current lat: " + lat);
+        console.log("store current lng: " + lng);
         return store_current_position_FromApi(account, lat, lng, heading, pitch, time).then(infor => {
             dispatch(start_location(infor.current_lat, infor.current_lng, infor.current_heading, infor.current_pitch, infor.travel_time));
             dispatch(remind_action("Finish Store Current Postition!"));
@@ -34,7 +42,11 @@ export function get_last_position(account, lat, lng, heading, pitch, time) {
             if (infor.current_lat !== 0 && infor.current_lng !== 0) {
                 dispatch(start_location(infor.current_lat, infor.current_lng, infor.current_heading, infor.current_pitch, infor.travel_time));
             } else {
-                dispatch(store_current_position(account, lat, lng, heading, pitch, time));
+                getPosition().then((position) => {
+                    dispatch(store_current_position(account, position.coords.latitude, position.coords.longitude, heading, pitch, time));
+                }).catch((err) => {
+                    console.error(err.message);
+                });
             }
             dispatch(remind_action("Finish Get Last Position!"));
         }).catch(err => {

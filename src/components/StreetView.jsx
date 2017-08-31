@@ -49,6 +49,10 @@ class StreetView extends React.Component {
 				() => this.timer(),
 				1000
 			);
+			this.find_friends_id = setInterval(
+				() => this.find_friends(),
+				1000
+			);
 			clearInterval(this.wait_get_last_position_id);
 		}
 	}
@@ -65,10 +69,6 @@ class StreetView extends React.Component {
 			this.wait_get_last_position_id = setInterval(
 				() => this.wait_get_last_position(),
 				500
-			);
-			this.find_friends_id = setInterval(
-				() => this.find_friends(),
-				1000
 			);
 		}
 	}

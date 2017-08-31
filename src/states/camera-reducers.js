@@ -1,24 +1,12 @@
-// navigator.geolocation.getCurrentPosition(function (position) {
-//     console.log("lat: " + position.coords.latitude);
-//     console.log("lng: " + position.coords.longitude);
-// });
-
 var initCameraState = {
-    lat: navigator.geolocation.getCurrentPosition(function (position) {
-        return position.coords.latitude
-    }),
-    lng: navigator.geolocation.getCurrentPosition(function (position) {
-        return position.coords.longitude
-    }),
+    lat: 24.162162,
+    lng: 120.646587,
     heading: 100,
     pitch: 0,
     time: 0,
     reminder: "",
     finish_get_last_position: false
 };
-
-console.log("initCameraState.lat: " + initCameraState.lat);
-console.log("initCameraState.lng: " + initCameraState.lng);
 
 export function camera(state = initCameraState, action) {
     switch (action.type) {
