@@ -31,7 +31,7 @@ class StreetView extends React.Component {
 			pov: { heading: 100, pitch: 0 }
 		};
 
-		this.handle_screenshot = this.handle_screenshot.bind(this);
+		this.handle_screenshot = this.handle_screenshot.bind(this); 
 	}
 
 	timer() {

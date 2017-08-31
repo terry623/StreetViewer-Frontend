@@ -12,8 +12,6 @@ var getPosition = function (options) {
 
 export function store_current_position(account, lat, lng, heading, pitch, time) {
     return (dispatch, getState) => {
-        console.log("store current lat: " + lat);
-        console.log("store current lng: " + lng);
         return store_current_position_FromApi(account, lat, lng, heading, pitch, time).then(infor => {
             dispatch(start_location(infor.current_lat, infor.current_lng, infor.current_heading, infor.current_pitch, infor.travel_time));
             dispatch(remind_action("Finish Store Current Postition!"));

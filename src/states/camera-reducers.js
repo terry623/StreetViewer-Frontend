@@ -1,6 +1,6 @@
 var initCameraState = {
-    lat: 24.162162,
-    lng: 120.646587,
+    lat: 0,
+    lng: 0,
     heading: 100,
     pitch: 0,
     time: 0,
