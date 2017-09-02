@@ -1,24 +1,8 @@
-   
-   .main {
-    	/* background-color: #000;
-		background-image: url("../../images/bg.png");
-		background-size: cover;
-        background-position: center;
+.main_menu{
+    margin-top: 5rem;
+}
 
-        background-repeat: no-repeat;
-        background-attachment: fixed; */
-    }
-        
-    .footer {
-		text-align: center;
-        padding: 4em 0 4em 0;
-        color: rgba(255, 255, 255, 0.65);
-    }
-
-    @media screen and (max-width: 1280px) {
-
-        .footer {
-            padding: 2em 0 2em 0;
-        }
-
-    }
+.banner{
+    padding-top: 5rem;
+    padding-right:5rem;
+}

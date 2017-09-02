@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import './Collection.css';
-import Banner from 'components/Banner.jsx';
 import PhotoDisplay from 'components/PhotoDisplay.jsx';
 
 class Collection extends React.Component {
@@ -19,7 +18,6 @@ class Collection extends React.Component {
 
 		return (
 			<div className='collection'>
-				<Banner />
 				<PhotoDisplay />
 			</div>
 

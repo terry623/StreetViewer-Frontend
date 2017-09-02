@@ -41,6 +41,8 @@ export function get_last_position(account, lat, lng, heading, pitch, time) {
                 dispatch(start_location(infor.current_lat, infor.current_lng, infor.current_heading, infor.current_pitch, infor.travel_time));
             } else {
                 getPosition().then((position) => {
+                    console.log("position.coords.latitude: " + position.coords.latitude);
+                    console.log("position.coords.longitude: " + position.coords.longitude);
                     dispatch(store_current_position(account, position.coords.latitude, position.coords.longitude, heading, pitch, time));
                 }).catch((err) => {
                     console.error(err.message);
