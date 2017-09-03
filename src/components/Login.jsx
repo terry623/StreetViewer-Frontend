@@ -4,6 +4,11 @@ import { connect } from 'react-redux';
 import TextField from 'material-ui/TextField';
 import Button from 'material-ui/Button';
 import { log_in } from 'states/account-actions.js';
+import Input from 'material-ui/Input/Input';
+import Grid from 'material-ui/Grid';
+
+import AccountcircleIcon from 'material-ui-icons/Accountcircle';
+import LockIcon from 'material-ui-icons/Lock';
 
 import './LogIn.css';
 
@@ -28,29 +33,47 @@ class LogIn extends React.Component {
 
         return (
             <div className='login'>
-                
-                <h3>Log In!</h3>
-                <h4>{message}</h4>
-                <br />
-                <TextField
-                    className='username'
-                    label='Username'
-                    onChange={event => this.setState({ temp_username: event.target.value })}
-                />
-                <br />
-                <TextField
-                    className='password'
-                    label='Password'
-                    type='password'
-                    onChange={event => this.setState({ temp_password: event.target.value })}
-                />
-                <br />
-                <Button raised onClick={this.handleLogin}>
-                    Submit
-                </Button>
-                <br />
 
-            </div>
+                <Grid
+                    container
+                    align='center'
+                    direction='column'
+                    justify='center'
+                    spacing={24}
+                >
+
+                    <h4>{message}</h4>
+
+                    <Grid item>
+                        <h3>Log In!</h3>
+                    </Grid>
+                    <Grid item className='username'>
+                        <AccountcircleIcon />
+                        <Input
+                            placeholder='Username'
+                            disableUnderline='true'
+                            onChange={event => this.setState({ temp_username: event.target.value })}
+                        />
+                    </Grid>
+                    <Grid item className='password'>
+                        <LockIcon />
+                        <Input
+                            placeholder='Password'
+                            type='password'
+                            disableUnderline='true'
+                            onChange={event => this.setState({ temp_username: event.target.value })}
+                        />
+                    </Grid>
+                    <Grid item>
+                        <Button className='submit' raised onClick={this.handleLogin}>
+                            LOG IN
+                        </Button>
+                    </Grid>
+                    <Grid item>
+                        Not a member? Sign up now
+                    </Grid>
+                </Grid>
+            </div >
         );
     }
 

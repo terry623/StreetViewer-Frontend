@@ -63,7 +63,11 @@ class Main extends React.Component {
                     >
 
                         <div className='banner'>
-                            <Badge badgeContent={4} color="primary">
+                            <Badge 
+                                badgeContent={10} 
+                                color='primary'
+                                className='person'
+                            >
                                 <PersonIcon />
                             </Badge>
 
@@ -71,6 +75,7 @@ class Main extends React.Component {
                                 aria-owns={this.state.open ? 'simple-menu' : null}
                                 aria-haspopup="true"
                                 onClick={this.handleClick}
+                                className='menu_icon'
                             >
                                 <MenuIcon />
                             </IconButton>
