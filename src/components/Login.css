@@ -1,11 +1,50 @@
-.username {
-    width: 15rem;
+.login {
+    background-color: #2c3338;
 }
 
-.password {
-    width: 15rem;
+.login h3 {
+    color: #fff;
+    margin: 1rem;
 }
 
-.submit {
-    width: 15rem;
+.login .username,
+.login .password,
+.login Button {
+    width: 20rem;
+    height: 3rem;
+    border-radius: 0.25rem;
+    color: #fff !important;
+}
+
+.login Input {
+    color: #fff;
+    padding-left: 0.5rem;
+}
+
+.login .username {
+    background-color: #3b4148;
+    margin-bottom: 1.25rem;
+    padding-right: 3rem;
+    padding-top: 0.5rem;
+}
+
+.login .password {
+    background-color: #3b4148;
+    margin-bottom: 0.25rem;
+    padding-right: 3rem;
+    padding-top: 0.5rem;
+}
+
+.log_in_icon {
+    color: #606468;
+    z-index: 999;
+}
+
+.login .msg {
+    color: #606468;
+    z-index: 999;
+}
+
+.login .msg a {
+    color: #fff;
 }

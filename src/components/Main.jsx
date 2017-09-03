@@ -32,7 +32,7 @@ class Main extends React.Component {
 
         this.state = {
             anchorEl: null,
-            open: false
+            open: true
         };
 
         this.handleClick = this.handleClick.bind(this);
