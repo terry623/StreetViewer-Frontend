@@ -37,92 +37,49 @@ class Photo extends React.Component {
         return (
             // <div className='photo'>
             //     {/* {children} */}
-            //     <img src='https://maps.googleapis.com/maps/api/streetview?size=300x200&location=46.414382,10.013988&heading=151.78&pitch=-0.76&key=AIzaSyB2qGLOwrR1n-FrGskEn47AU1X6Nban0S4' />
-            //     <img src='https://maps.googleapis.com/maps/api/streetview?size=300x200&location=46.414382,10.013988&heading=151.78&pitch=-0.76&key=AIzaSyB2qGLOwrR1n-FrGskEn47AU1X6Nban0S4' />
-            //     <img src='https://maps.googleapis.com/maps/api/streetview?size=300x200&location=46.414382,10.013988&heading=151.78&pitch=-0.76&key=AIzaSyB2qGLOwrR1n-FrGskEn47AU1X6Nban0S4' />
-            //     <img src='https://maps.googleapis.com/maps/api/streetview?size=300x200&location=46.414382,10.013988&heading=151.78&pitch=-0.76&key=AIzaSyB2qGLOwrR1n-FrGskEn47AU1X6Nban0S4' />
-            //     <img src='https://maps.googleapis.com/maps/api/streetview?size=300x200&location=46.414382,10.013988&heading=151.78&pitch=-0.76&key=AIzaSyB2qGLOwrR1n-FrGskEn47AU1X6Nban0S4' />
-            //     <img src='https://maps.googleapis.com/maps/api/streetview?size=300x200&location=46.414382,10.013988&heading=151.78&pitch=-0.76&key=AIzaSyB2qGLOwrR1n-FrGskEn47AU1X6Nban0S4' />
-            //     <img src='https://maps.googleapis.com/maps/api/streetview?size=300x200&location=46.414382,10.013988&heading=151.78&pitch=-0.76&key=AIzaSyB2qGLOwrR1n-FrGskEn47AU1X6Nban0S4' />
-            //     <img src='https://maps.googleapis.com/maps/api/streetview?size=300x200&location=46.414382,10.013988&heading=151.78&pitch=-0.76&key=AIzaSyB2qGLOwrR1n-FrGskEn47AU1X6Nban0S4' />
-            //     <img src='https://maps.googleapis.com/maps/api/streetview?size=300x200&location=46.414382,10.013988&heading=151.78&pitch=-0.76&key=AIzaSyB2qGLOwrR1n-FrGskEn47AU1X6Nban0S4' />
-            //     <img src='https://maps.googleapis.com/maps/api/streetview?size=300x200&location=46.414382,10.013988&heading=151.78&pitch=-0.76&key=AIzaSyB2qGLOwrR1n-FrGskEn47AU1X6Nban0S4' />            
-            // </div>
+            //  </div>
             <div>
                 <Grid container spacing={16}>
-                    <Grid item xs={4}>
-                        <Card className='each_card'>
+                    <Grid item lg={4} md={6} sm={12}>
+                        <Card raised className='each_card'>
                             <CardMedia
                                 className='each_card_media'
                                 image="https://maps.googleapis.com/maps/api/streetview?size=300x200&location=46.414382,10.013988&heading=151.78&pitch=-0.76&key=AIzaSyB2qGLOwrR1n-FrGskEn47AU1X6Nban0S4"
                             />
-                            <CardContent>
+                            <CardContent className='each_card_content'>
                                 Lizards are a widespread group of squamate reptiles.
                             </CardContent>
                         </Card>
                     </Grid>
-                    <Grid item xs={4}>
-                        <Card className='each_card'>
+                    <Grid item lg={4} md={6} sm={12}>
+                        <Card raised className='each_card'>
                             <CardMedia
                                 className='each_card_media'
                                 image="https://maps.googleapis.com/maps/api/streetview?size=300x200&location=46.414382,10.013988&heading=151.78&pitch=-0.76&key=AIzaSyB2qGLOwrR1n-FrGskEn47AU1X6Nban0S4"
                             />
-                            <CardContent>
+                            <CardContent className='each_card_content'>
                                 Lizards are a widespread group of squamate reptiles.
                             </CardContent>
                         </Card>
                     </Grid>
-                    <Grid item xs={4}>
-                        <Card className='each_card'>
+                    <Grid item lg={4} md={6} sm={12}>
+                        <Card raised className='each_card'>
                             <CardMedia
                                 className='each_card_media'
                                 image="https://maps.googleapis.com/maps/api/streetview?size=300x200&location=46.414382,10.013988&heading=151.78&pitch=-0.76&key=AIzaSyB2qGLOwrR1n-FrGskEn47AU1X6Nban0S4"
                             />
-                            <CardContent>
+                            <CardContent className='each_card_content'>
                                 Lizards are a widespread group of squamate reptiles.
                             </CardContent>
                         </Card>
                     </Grid>
-                    <Grid item xs={4}>
-                        <Card className='each_card'>
+                    <Grid item lg={4} md={6} sm={12}>
+                        <Card raised className='each_card'>
                             <CardMedia
                                 className='each_card_media'
                                 image="https://maps.googleapis.com/maps/api/streetview?size=300x200&location=46.414382,10.013988&heading=151.78&pitch=-0.76&key=AIzaSyB2qGLOwrR1n-FrGskEn47AU1X6Nban0S4"
                             />
-                            <CardContent>
-                                Lizards are a widespread group of squamate reptiles.
-                            </CardContent>
-                        </Card>
-                    </Grid>
-                    <Grid item xs={4}>
-                        <Card className='each_card'>
-                            <CardMedia
-                                className='each_card_media'
-                                image="https://maps.googleapis.com/maps/api/streetview?size=300x200&location=46.414382,10.013988&heading=151.78&pitch=-0.76&key=AIzaSyB2qGLOwrR1n-FrGskEn47AU1X6Nban0S4"
-                            />
-                            <CardContent>
-                                Lizards are a widespread group of squamate reptiles.
-                            </CardContent>
-                        </Card>
-                    </Grid>
-                    <Grid item xs={4}>
-                        <Card className='each_card'>
-                            <CardMedia
-                                className='each_card_media'
-                                image="https://maps.googleapis.com/maps/api/streetview?size=300x200&location=46.414382,10.013988&heading=151.78&pitch=-0.76&key=AIzaSyB2qGLOwrR1n-FrGskEn47AU1X6Nban0S4"
-                            />
-                            <CardContent>
-                                Lizards are a widespread group of squamate reptiles.
-                            </CardContent>
-                        </Card>
-                    </Grid>
-                    <Grid item xs={4}>
-                        <Card className='each_card'>
-                            <CardMedia
-                                className='each_card_media'
-                                image="https://maps.googleapis.com/maps/api/streetview?size=300x200&location=46.414382,10.013988&heading=151.78&pitch=-0.76&key=AIzaSyB2qGLOwrR1n-FrGskEn47AU1X6Nban0S4"
-                            />
-                            <CardContent>
+                            <CardContent className='each_card_content'>
                                 Lizards are a widespread group of squamate reptiles.
                             </CardContent>
                         </Card>

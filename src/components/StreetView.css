@@ -1,9 +1,4 @@
 .StreetView {
-    width: 300px;
-    height: 200px;
-    position: fixed;    
-}
-
-.btn-form {
-    margin-left: 700px;
+    width: 48rem;
+    height: 32rem;
 }

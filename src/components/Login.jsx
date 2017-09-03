@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import TextField from 'material-ui/TextField';
 import Button from 'material-ui/Button';
-import { log_in } from 'states/account-actions.js';
+import { log_in, show_message } from 'states/account-actions.js';
 import Input from 'material-ui/Input/Input';
 import Grid from 'material-ui/Grid';
 
@@ -29,17 +29,22 @@ class LogIn extends React.Component {
         this.state = {
             temp_username: null,
             temp_password: null,
-            open: false,
+            open: true
         };
 
         this.handleLogin = this.handleLogin.bind(this);
         this.handleRequestClose = this.handleRequestClose.bind(this);
     }
 
-    handleRequestClose = () => {
+    handleRequestClose() {
         this.setState({ open: false });
-        //need to clear message, else it will render and setstate again
-    };
+        this.props.dispatch(show_message("Nothing Happen"));
+
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.message === "Nothing Happen") this.setState({ open: true });
+    }
 
     render() {
         const { message } = this.props;
@@ -47,16 +52,12 @@ class LogIn extends React.Component {
         return (
             <div className='login'>
 
-                {message === "Wrong Account or Password!" && this.setState({ open: true })}
-
                 <Grid
                     container
                     align='center'
                     direction='column'
                     justify='center'
                 >
-                    <h4>{message}</h4>
-
                     <Grid item>
                         <h3>Join Us!</h3>
                     </Grid>
@@ -74,7 +75,7 @@ class LogIn extends React.Component {
                         <Grid item>
                             <Input
                                 placeholder='Username'
-                                disableUnderline='true'
+                                disableUnderline={true}
                                 onChange={event => this.setState({ temp_username: event.target.value })}
                             />
                         </Grid>
@@ -94,8 +95,8 @@ class LogIn extends React.Component {
                             <Input
                                 placeholder='Password'
                                 type='password'
-                                disableUnderline='true'
-                                onChange={event => this.setState({ temp_username: event.target.value })}
+                                disableUnderline={true}
+                                onChange={event => this.setState({ temp_password: event.target.value })}
                             />
                         </Grid>
                     </Grid>
@@ -108,23 +109,24 @@ class LogIn extends React.Component {
                     <Grid item className='msg'>
                         Not a member ? <a href="#">Sign up now</a>
                     </Grid>
+
                 </Grid>
 
-
-                <Dialog open={this.state.open} onRequestClose={this.handleRequestClose}>
-                    <DialogTitle>{"Use Google's location service?"}</DialogTitle>
-                    <DialogContent>
-                        <DialogContentText>
-                            Let Google help apps determine location. This means sending anonymous location data to
-                            Google, even when no apps are running.
+                {message === "Wrong Account or Password!" &&
+                    <Dialog open={this.state.open} onRequestClose={this.handleRequestClose}>
+                        <DialogTitle>{"Wrong Account or Password!"}</DialogTitle>
+                        <DialogContent>
+                            <DialogContentText>
+                                Please check it again!
                         </DialogContentText>
-                    </DialogContent>
-                    <DialogActions>
-                        <Button onClick={this.handleRequestClose} color="primary">
-                            Got it!
-                    </Button>
-                    </DialogActions>
-                </Dialog>
+                        </DialogContent>
+                        <DialogActions>
+                            <Button onClick={this.handleRequestClose} color="primary">
+                                Got it!
+                            </Button>
+                        </DialogActions>
+                    </Dialog>
+                }
 
             </div >
 

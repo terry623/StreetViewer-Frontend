@@ -1,5 +1,5 @@
 const initMessageState = {
-    message: "",
+    message: "Nothing Happen",
     account: ""
 };
 

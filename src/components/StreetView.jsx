@@ -8,6 +8,7 @@ import Button from 'material-ui/Button';
 import ReactStreetview from 'react-streetview';
 import { store_current_position, screenshot, get_last_position } from 'states/camera-actions.js';
 import { find_friends_around_you } from 'states/chat-actions.js';
+import Grid from 'material-ui/Grid';
 
 class StreetView extends React.Component {
 	static propTypes = {
@@ -31,7 +32,7 @@ class StreetView extends React.Component {
 			pov: { heading: 100, pitch: 0 }
 		};
 
-		this.handle_screenshot = this.handle_screenshot.bind(this); 
+		this.handle_screenshot = this.handle_screenshot.bind(this);
 	}
 
 	timer() {
@@ -116,9 +117,17 @@ class StreetView extends React.Component {
 		const { lat, lng, heading, pitch, reminder, finish_get_last_position } = this.props;
 		const google_key = 'AIzaSyB2qGLOwrR1n-FrGskEn47AU1X6Nban0S4';
 
+		// var streetViewPanoramaOptions = {
+		// 	position: { lat: lat, lng: lng },
+		// 	pov: { heading: heading, pitch: pitch },
+		// 	zoom: 1,
+		// 	disableDefaultUI: true,
+		// 	disableDoubleClickZoom: true
+		// };
+
 		var streetViewPanoramaOptions = {
-			position: { lat: lat, lng: lng },
-			pov: { heading: heading, pitch: pitch },
+			position: { lat: 24.2380776016828, lng: 120.706591870597 },
+			pov: { heading: 100, pitch: 0 },
 			zoom: 1,
 			disableDefaultUI: true,
 			disableDoubleClickZoom: true
@@ -127,22 +136,42 @@ class StreetView extends React.Component {
 		return (
 			<div className='StreetView'>
 
-				<Button raised onClick={this.handle_screenshot}>
+				{/* <Button raised onClick={this.handle_screenshot}>
 					Screen Shot!
-                </Button>
+                </Button> */}
 
-				<h5>{reminder}</h5>
+				{/* <h5>{reminder}</h5> */}
 
-				{this.state.travel_time !== 0 && <h4>Travel Time: {this.state.travel_time} seconds</h4>}
+				{/* {this.state.travel_time !== 0 && <h4>Travel Time: {this.state.travel_time} seconds</h4>} */}
 
-				{finish_get_last_position === true &&
+
+				<ReactStreetview
+					apiKey={google_key}
+					streetViewPanoramaOptions={streetViewPanoramaOptions}
+				/>
+
+				{/* <Grid
+					container
+					align='center'
+					direction='row'
+					justify='center'
+				>
+					<Grid item>
+						<ReactStreetview
+							apiKey={google_key}
+							streetViewPanoramaOptions={streetViewPanoramaOptions}
+						/>
+					</Grid>
+				</Grid> */}
+
+				{/* {finish_get_last_position === true &&
 					<ReactStreetview
 						apiKey={google_key}
 						streetViewPanoramaOptions={streetViewPanoramaOptions}
 						onPositionChanged={position => this.setState({ position: position })}
 						onPovChanged={pov => this.setState({ pov: pov })}
 					/>
-				}
+				} */}
 
 			</div>
 
