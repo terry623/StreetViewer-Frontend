@@ -117,17 +117,9 @@ class StreetView extends React.Component {
 		const { lat, lng, heading, pitch, reminder, finish_get_last_position } = this.props;
 		const google_key = 'AIzaSyB2qGLOwrR1n-FrGskEn47AU1X6Nban0S4';
 
-		// var streetViewPanoramaOptions = {
-		// 	position: { lat: lat, lng: lng },
-		// 	pov: { heading: heading, pitch: pitch },
-		// 	zoom: 1,
-		// 	disableDefaultUI: true,
-		// 	disableDoubleClickZoom: true
-		// };
-
 		var streetViewPanoramaOptions = {
-			position: { lat: 24.2380776016828, lng: 120.706591870597 },
-			pov: { heading: 100, pitch: 0 },
+			position: { lat: lat, lng: lng },
+			pov: { heading: heading, pitch: pitch },
 			zoom: 1,
 			disableDefaultUI: true,
 			disableDoubleClickZoom: true
@@ -144,34 +136,14 @@ class StreetView extends React.Component {
 
 				{/* {this.state.travel_time !== 0 && <h4>Travel Time: {this.state.travel_time} seconds</h4>} */}
 
-
-				<ReactStreetview
-					apiKey={google_key}
-					streetViewPanoramaOptions={streetViewPanoramaOptions}
-				/>
-
-				{/* <Grid
-					container
-					align='center'
-					direction='row'
-					justify='center'
-				>
-					<Grid item>
-						<ReactStreetview
-							apiKey={google_key}
-							streetViewPanoramaOptions={streetViewPanoramaOptions}
-						/>
-					</Grid>
-				</Grid> */}
-
-				{/* {finish_get_last_position === true &&
+				{finish_get_last_position === true &&
 					<ReactStreetview
 						apiKey={google_key}
 						streetViewPanoramaOptions={streetViewPanoramaOptions}
 						onPositionChanged={position => this.setState({ position: position })}
 						onPovChanged={pov => this.setState({ pov: pov })}
 					/>
-				} */}
+				}
 
 			</div>
 

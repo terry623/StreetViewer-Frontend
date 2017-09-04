@@ -3,6 +3,15 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import TextField from 'material-ui/TextField';
 
+import Snackbar from 'material-ui/Snackbar';
+import IconButton from 'material-ui/IconButton';
+import CloseIcon from 'material-ui-icons/Close';
+
+import Avatar from 'material-ui/Avatar';
+import Chip from 'material-ui/Chip';
+import FaceIcon from 'material-ui-icons/Face';
+import Grid from 'material-ui/Grid';
+
 import './StreetView.css';
 
 import io from 'socket.io-client';
@@ -10,7 +19,6 @@ import Button from 'material-ui/Button';
 import { store_socket_id, get_target_socket_id } from 'api/chat.js';
 
 var socket = io.connect('http://localhost:8080', { reconnect: true });
-
 
 class Chat extends React.Component {
 	static propTypes = {
@@ -26,7 +34,8 @@ class Chat extends React.Component {
 			send_target: "",
 			send_msg: "",
 			receive_msg: "",
-			friends: null
+			friends: null,
+			open: false
 		};
 
 		this.change_msg = this.change_msg.bind(this);
@@ -51,6 +60,20 @@ class Chat extends React.Component {
 
 	}
 
+	handleRequestClose = (event, reason) => {
+		if (reason === 'clickaway') {
+			return;
+		}
+
+		this.setState({ open: false });
+	}
+
+	componentDidUpdate(prevProps, prevState) {
+		if (prevState.receive_msg !== this.state.receive_msg) {
+			this.setState({ open: true });
+		}
+	}
+
 	render() {
 
 		const { friends } = this.props;
@@ -60,19 +83,35 @@ class Chat extends React.Component {
 		);
 		if (friends.length) {
 			children = friends.map(result => (
-				<Button key={result.id} raised onClick={() => this.handle_send_target(result.client_1, result.client_2)}>
-					{result.client_1 !== this.props.account && result.client_1}
-					{result.client_2 !== this.props.account && result.client_2}
-				</Button>
+				<Grid item>
+					<Chip
+						key={result.id}
+						avatar={
+							<Avatar>
+								<FaceIcon />
+							</Avatar>
+						}
+						label={(result.client_1 !== this.props.account && result.client_1) || (result.client_2 !== this.props.account && result.client_2)}
+						onClick={() => this.handle_send_target(result.client_1, result.client_2)}
+					/>
+				</Grid>
 			));
 		}
+
+		var complete_msg = this.state.sender + " : " + this.state.receive_msg;
 
 		return (
 			<div className='Chat' ref="myRef">
 				<h3>Chat!</h3>
+				<Grid
+                    container
+                    align='flex-start'
+                    direction='row'
+                    justify='flex-start'
+					spacing={16}
+                >
 				{children}
-				<br />
-				<br />
+				</Grid>
 				<br />
 				<TextField
 					className='target'
@@ -90,8 +129,30 @@ class Chat extends React.Component {
 				<Button raised onClick={this.handleSend}>
 					Send
                 </Button>
-				{this.state.sender !== "" && <h2>{this.state.sender} : <h2>{this.state.receive_msg}</h2></h2>}
 
+				<Snackbar
+					anchorOrigin={{
+						vertical: 'bottom',
+						horizontal: 'right',
+					}}
+					open={this.state.open}
+					autoHideDuration={6e3}
+					onRequestClose={this.handleRequestClose}
+					message={complete_msg}
+					action={[
+						<Button key="undo" color="accent" dense onClick={this.handleRequestClose}>
+							REPLY
+            			</Button>,
+						<IconButton
+							key="close"
+							aria-label="Close"
+							color="inherit"
+							onClick={this.handleRequestClose}
+						>
+							<CloseIcon />
+						</IconButton>,
+					]}
+				/>
 			</div>
 		);
 	}

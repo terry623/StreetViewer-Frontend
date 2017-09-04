@@ -39,7 +39,6 @@ class LogIn extends React.Component {
     handleRequestClose() {
         this.setState({ open: false });
         this.props.dispatch(show_message("Nothing Happen"));
-
     }
 
     componentWillReceiveProps(nextProps) {
@@ -50,6 +49,7 @@ class LogIn extends React.Component {
         const { message } = this.props;
 
         return (
+
             <div className='login'>
 
                 <Grid
@@ -59,7 +59,7 @@ class LogIn extends React.Component {
                     justify='center'
                 >
                     <Grid item>
-                        <h3>Join Us!</h3>
+                        <h3>Welcome!</h3>
                     </Grid>
 
                     <Grid
@@ -106,10 +106,7 @@ class LogIn extends React.Component {
                             LOG IN
                         </Button>
                     </Grid>
-                    <Grid item className='msg'>
-                        Not a member ? <a href="#">Sign up now</a>
-                    </Grid>
-
+                    
                 </Grid>
 
                 {message === "Wrong Account or Password!" &&
@@ -127,10 +124,7 @@ class LogIn extends React.Component {
                         </DialogActions>
                     </Dialog>
                 }
-
             </div >
-
-
         );
     }
 

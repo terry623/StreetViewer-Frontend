@@ -33,6 +33,10 @@ class Camera extends React.Component {
 						</Paper>
 					</Grid>
 
+					<Grid item>
+						<Chat className='Chat'/>
+					</Grid>
+
 				</Grid>
 
 			</div>

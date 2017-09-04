@@ -17,6 +17,7 @@ import Badge from 'material-ui/Badge';
 import Camera from 'components/Camera.jsx';
 import Collection from 'components/Collection.jsx';
 import LogIn from 'components/LogIn.jsx';
+import SignUp from 'components/SignUp.jsx';
 
 import { log_out } from 'states/account-actions.js';
 
@@ -45,11 +46,11 @@ class Main extends React.Component {
 
     handleClick = event => {
         this.setState({ open: true, anchorEl: event.currentTarget });
-    };
+    }
 
     handleRequestClose = () => {
         this.setState({ open: false });
-    };
+    }
 
     render() {
         return (
@@ -90,6 +91,7 @@ class Main extends React.Component {
                                 <MenuItem onClick={this.handleRequestClose} component={Link} to={'/Camera'}>Camera</MenuItem>
                                 <MenuItem onClick={this.handleRequestClose} component={Link} to={'/Collection'}>Collection</MenuItem>
                                 <MenuItem onClick={this.handleRequestClose} component={Link} to={'/LogIn'}>Log In</MenuItem>
+                                <MenuItem onClick={this.handleRequestClose} component={Link} to={'/SignUp'}>SignUp</MenuItem>
                             </Menu>
 
                         </div>
@@ -107,6 +109,10 @@ class Main extends React.Component {
 
                     <Route exact path="/LogIn" render={() => (
                         <LogIn />
+                    )} />
+
+                    <Route exact path="/SignUp" render={() => (
+                        <SignUp />
                     )} />
 
                 </div>
