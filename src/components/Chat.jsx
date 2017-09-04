@@ -76,43 +76,10 @@ class Chat extends React.Component {
 
 	render() {
 
-		const { friends } = this.props;
-
-		let children = (
-			<div>No friends around you.</div>
-		);
-		if (friends.length) {
-			children = friends.map(result => (
-				<Grid item>
-					<Chip
-						key={result.id}
-						avatar={
-							<Avatar>
-								<FaceIcon />
-							</Avatar>
-						}
-						label={(result.client_1 !== this.props.account && result.client_1) || (result.client_2 !== this.props.account && result.client_2)}
-						onClick={() => this.handle_send_target(result.client_1, result.client_2)}
-					/>
-				</Grid>
-			));
-		}
-
 		var complete_msg = this.state.sender + " : " + this.state.receive_msg;
 
 		return (
 			<div className='Chat' ref="myRef">
-				<h3>Chat!</h3>
-				<Grid
-                    container
-                    align='flex-start'
-                    direction='row'
-                    justify='flex-start'
-					spacing={16}
-                >
-				{children}
-				</Grid>
-				<br />
 				<TextField
 					className='target'
 					label='Target'

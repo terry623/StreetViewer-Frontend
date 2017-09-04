@@ -1,16 +1,12 @@
-.person {
-    padding: 0.5rem;
+.banner {
+    padding-top: 5rem;
+    padding-right: 5rem;
 }
 
-.menu_icon {
-    padding: 1rem;
+.main_contact {
+    margin-top: 3.5rem;
 }
 
 .main_menu {
-    margin-top: 5rem;
-}
-
-.banner {
-    margin-top: 5rem;
-    margin-right: 5rem;
+    margin-top: 3.5rem;
 }
