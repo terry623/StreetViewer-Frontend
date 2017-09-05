@@ -36,13 +36,12 @@ class Chat extends React.Component {
 			receive_msg: "",
 			friends: null,
 			open: false,
-			open_send: true
+			open_send: false
 		};
 
 		this.change_msg = this.change_msg.bind(this);
 		this.change_sender = this.change_sender.bind(this);
 		this.handleSend = this.handleSend.bind(this);
-		this.handle_send_target = this.handle_send_target.bind(this);
 
 		if (this.props.account !== "") {
 			store_socket_id(this.props.account, socket.id).then(result => {
@@ -61,11 +60,16 @@ class Chat extends React.Component {
 
 	}
 
-	handleRequestClose = (event, reason) => {
-		if (reason === 'clickaway') {
-			return;
-		}
+	change_msg(msg) {
+		this.setState({ receive_msg: msg });
+	}
 
+	change_sender(sender) {
+		this.setState({ sender: sender });
+	}
+
+	handleRequestClose = (event, reason) => {
+		if (reason === 'clickaway') return;
 		this.setState({ open: false });
 	}
 
@@ -75,29 +79,16 @@ class Chat extends React.Component {
 		}
 	}
 
+	componentWillReceiveProps(nextProps) {
+        if (nextProps.select_friend !== this.props.select_friend) this.setState({ open_send: true });
+    }
+
 	render() {
 
 		var complete_msg = this.state.sender + " : " + this.state.receive_msg;
 
 		return (
 			<div className='Chat' ref="myRef">
-				{/* <TextField
-					className='target'
-					label='Target'
-					value={this.state.send_target}
-					onChange={event => this.setState({ send_target: event.target.value })}
-				/>
-				<TextField
-					className='message'
-					label='Message'
-					onChange={event => this.setState({ send_msg: event.target.value })}
-				/>
-				<br />
-				<br />
-				<Button raised onClick={this.handleSend}>
-					Send
-                </Button> */}
-
 				<Snackbar
 					anchorOrigin={{
 						vertical: 'bottom',
@@ -136,7 +127,7 @@ class Chat extends React.Component {
 							disableUnderline={true}
 							onChange={event => this.setState({ send_msg: event.target.value })}
 						/>,
-						<Button key="undo" color="accent" dense onClick={this.handleRequestClose}>
+						<Button key="undo" color="accent" dense onClick={this.handleSend}>
 							SEND
             			</Button>,
 						<IconButton
@@ -153,34 +144,14 @@ class Chat extends React.Component {
 		);
 	}
 
-	change_msg(msg) {
-		this.setState({
-			receive_msg: msg
-		});
-	}
-
-	change_sender(sender) {
-		this.setState({
-			sender: sender
-		});
-	}
-
 	handleSend() {
 		get_target_socket_id(this.state.send_target).then(result => {
 			socket.emit('chat message', result.socket_id, { sender: this.props.account, msg: this.state.send_msg });
 		}).catch(err => {
 			console.log("Erro Send Message!");
 		});
-	}
 
-	handle_send_target(client_1, client_2) {
-		var current_target;
-		if (client_1 !== this.props.account) current_target = client_1;
-		else if (client_2 !== this.props.account) current_target = client_2;
-
-		this.setState({
-			send_target: current_target
-		});
+		this.setState({ open: false });
 	}
 
 }

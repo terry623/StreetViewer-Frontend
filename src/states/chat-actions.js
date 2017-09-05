@@ -16,3 +16,10 @@ export function find_friends_around_you(account) {
         }).catch(err => {});
     };
 }
+
+export function select_friend(select_friend) {
+    return {
+        type: '@Chat/SELECT_FRIEND',
+        select_friend
+    };
+}

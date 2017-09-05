@@ -25,6 +25,8 @@ import LogIn from 'components/LogIn.jsx';
 import SignUp from 'components/SignUp.jsx';
 
 import { log_out } from 'states/account-actions.js';
+import { select_friend } from 'states/chat-actions.js';
+
 
 const emails = ['username@gmail.com', 'user02@gmail.com'];
 
@@ -63,27 +65,18 @@ class Main extends React.Component {
     }
 
     handleRequestClose_contact = value => {
-        var current_target;
-        console.log("value 1 : " + value.client_1);
-        console.log("value 2 : " + value.client_2);
-
-        if (client_1 !== this.props.account) current_target = value.client_1;
-        else if (client_2 !== this.props.account) current_target = value.client_2;
-
         this.setState({ open_contact: false });
-
-        this.props.dispatch(select_friend(current_target));
+        this.props.dispatch(select_friend(value));
     };
 
 
     render() {
 
-        const { friends } = this.props;
+        const { account, friends } = this.props;
 
         return (
             <Router>
                 <div className='main'>
-
                     <div className='banner'>
 
                         <Grid
@@ -118,10 +111,13 @@ class Main extends React.Component {
 
                         </Grid>
 
-                        <SimpleDialog
-                            open={this.state.open_contact}
-                            onRequestClose={this.handleRequestClose_contact}
-                        />
+                        {account !== "" &&
+                            <SimpleDialog
+                                open={this.state.open_contact}
+                                onRequestClose={this.handleRequestClose_contact}
+                                friends={friends}
+                                account={account}
+                            />}
 
                         <Menu
                             id='menu'
@@ -164,12 +160,28 @@ class Main extends React.Component {
 
 class SimpleDialog extends React.Component {
 
+    static propTypes = {
+        account: PropTypes.string,
+        friends: PropTypes.array
+    };
+
+    constructor(props) {
+        super(props);
+
+        this.handleRequestClose = this.handleRequestClose.bind(this);
+        this.handleListItemClick = this.handleListItemClick.bind(this);
+    }
+
     handleRequestClose = () => {
         this.props.onRequestClose();
     };
 
-    handleListItemClick = value => {
-        this.props.onRequestClose(value);
+    handleListItemClick(client_1, client_2) {
+        var current_target;
+
+        if (client_1 !== this.props.account) current_target = client_1;
+        else if (client_2 !== this.props.account) current_target = client_2;
+        this.props.onRequestClose(current_target);
     };
 
     render() {
@@ -178,8 +190,9 @@ class SimpleDialog extends React.Component {
         let children = (
             <div>No friends around you.</div>
         );
-        if (friends.length) {
-            children = friends.map(result => (
+
+        if (this.props.friends.length) {
+            children = this.props.friends.map(result => (
                 <ListItem button onClick={() => this.handleListItemClick(result.client_1, result.client_2)} key={result.id}>
                     <ListItemAvatar>
                         <Avatar>
