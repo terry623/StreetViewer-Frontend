@@ -125,6 +125,9 @@ class StreetView extends React.Component {
 			disableDoubleClickZoom: true
 		};
 
+		// console.log("finish_get_last_position : " + finish_get_last_position);
+		// console.log("lat: " + lat + ", lng: " + lng +", heading: " + heading + ", pitch: " + pitch + ", reminder: " + reminder);
+
 		return (
 			<div className='StreetView'>
 

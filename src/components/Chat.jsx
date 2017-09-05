@@ -18,6 +18,7 @@ import './StreetView.css';
 import io from 'socket.io-client';
 import Button from 'material-ui/Button';
 import { store_socket_id, get_target_socket_id } from 'api/chat.js';
+import { select_friend } from 'states/chat-actions.js';
 
 var socket = io.connect('http://localhost:8080', { reconnect: true });
 
@@ -32,8 +33,8 @@ class Chat extends React.Component {
 
 		this.state = {
 			sender: "",
-			send_msg: "",
 			receive_msg: "",
+			send_msg: "",
 			friends: null,
 			open: false,
 			open_send: false
@@ -41,6 +42,9 @@ class Chat extends React.Component {
 
 		this.change_msg = this.change_msg.bind(this);
 		this.change_sender = this.change_sender.bind(this);
+		this.handleReply = this.handleReply.bind(this);
+		this.handleRequestClose_msg = this.handleRequestClose_msg.bind(this);
+		this.handleRequestClose_send = this.handleRequestClose_send.bind(this);
 		this.handleSend = this.handleSend.bind(this);
 
 		if (this.props.account !== "") {
@@ -68,9 +72,16 @@ class Chat extends React.Component {
 		this.setState({ sender: sender });
 	}
 
-	handleRequestClose = (event, reason) => {
+	handleRequestClose_msg = (event, reason) => {
 		if (reason === 'clickaway') return;
 		this.setState({ open: false });
+		
+	}
+
+	handleRequestClose_send = (event, reason) => {
+		if (reason === 'clickaway') return;
+		this.setState({ open_send: false });
+		this.props.dispatch(select_friend(""));
 	}
 
 	componentDidUpdate(prevProps, prevState) {
@@ -80,84 +91,102 @@ class Chat extends React.Component {
 	}
 
 	componentWillReceiveProps(nextProps) {
-        if (nextProps.select_friend !== this.props.select_friend) this.setState({ open_send: true });
-    }
+		if (nextProps.select_friend !== this.props.select_friend) this.setState({ open_send: true });
+	}
 
 	render() {
 
-		var complete_msg = this.state.sender + " : " + this.state.receive_msg;
+		var complete_receive_msg = this.state.sender + " : " + this.state.receive_msg;
+		var complete_send_title = "To " + this.props.select_friend + " : "
 
 		return (
 			<div className='Chat' ref="myRef">
-				<Snackbar
-					anchorOrigin={{
-						vertical: 'bottom',
-						horizontal: 'right',
-					}}
-					open={this.state.open}
-					autoHideDuration={6e3}
-					onRequestClose={this.handleRequestClose}
-					message={complete_msg}
-					action={[
-						<Button key="undo" color="accent" dense onClick={this.handleRequestClose}>
-							REPLY
-            			</Button>,
-						<IconButton
-							key="close"
-							aria-label="Close"
-							color="inherit"
-							onClick={this.handleRequestClose}
-						>
-							<CloseIcon />
-						</IconButton>
-					]}
-				/>
 
-				<Snackbar
-					anchorOrigin={{
-						vertical: 'bottom',
-						horizontal: 'right',
-					}}
-					open={this.state.open_send}
-					onRequestClose={this.handleRequestClose}
-					message={"To" + this.props.select_friend + " : "}
-					action={[
-						<Input
-							placeholder='message'
-							disableUnderline={true}
-							onChange={event => this.setState({ send_msg: event.target.value })}
-						/>,
-						<Button key="undo" color="accent" dense onClick={this.handleSend}>
-							SEND
-            			</Button>,
-						<IconButton
-							key="close"
-							aria-label="Close"
-							color="inherit"
-							onClick={this.handleRequestClose}
-						>
-							<CloseIcon />
-						</IconButton>
-					]}
-				/>
+				{this.state.receive_msg !== "" &&
+					<Snackbar
+						anchorOrigin={{
+							vertical: 'bottom',
+							horizontal: 'right',
+						}}
+						key="snack_msg"
+						open={this.state.open}
+						onRequestClose={this.handleRequestClose_msg}
+						SnackbarContentProps={{
+							'aria-describedby': 'received_message_id',
+						}}
+						message={<span id="received_message_id">{complete_receive_msg}</span>}
+						action={[
+							<Button key="reply" color="accent" dense onClick={this.handleReply}>
+								REPLY
+            				</Button>,
+							<IconButton
+								key="close_1"
+								aria-label="Close"
+								color="inherit"
+								onClick={this.handleRequestClose_msg}
+							>
+								<CloseIcon />
+							</IconButton>
+						]}
+					/>
+				}
+
+				{this.props.select_friend !== "" &&
+					<Snackbar
+						anchorOrigin={{
+							vertical: 'bottom',
+							horizontal: 'right',
+						}}
+						key="snack_send"
+						open={this.state.open_send}
+						onRequestClose={this.handleRequestClose_send}
+						SnackbarContentProps={{
+							'aria-describedby': 'send_title_id',
+						}}
+						message={<span id="send_title_id">{complete_send_title}</span>}
+						action={[
+							<Input
+								key="input"
+								placeholder='message'
+								disableUnderline={true}
+								onChange={event => this.setState({ send_msg: event.target.value })}
+							/>,
+							<Button key="send" color="accent" dense onClick={this.handleSend}>
+								SEND
+            				</Button>,
+							<IconButton
+								key="close_2"
+								aria-label="Close"
+								color="inherit"
+								onClick={this.handleRequestClose_send}
+							>
+								<CloseIcon />
+							</IconButton>
+						]}
+					/>
+				}
 			</div>
 		);
 	}
 
+	handleReply(){
+		this.props.dispatch(select_friend(this.state.sender));
+	}
+
 	handleSend() {
-		get_target_socket_id(this.state.send_target).then(result => {
+		get_target_socket_id(this.props.select_friend).then(result => {
 			socket.emit('chat message', result.socket_id, { sender: this.props.account, msg: this.state.send_msg });
 		}).catch(err => {
 			console.log("Erro Send Message!");
 		});
 
-		this.setState({ open: false });
+		this.setState({ open_send: false });
+		this.props.dispatch(select_friend(""));
 	}
 
 }
 
 export default connect(state => ({
-	...state.camera,
 	...state.account,
 	...state.chat
 }))(Chat);

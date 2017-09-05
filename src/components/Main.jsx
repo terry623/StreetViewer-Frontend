@@ -27,7 +27,6 @@ import SignUp from 'components/SignUp.jsx';
 import { log_out } from 'states/account-actions.js';
 import { select_friend } from 'states/chat-actions.js';
 
-
 const emails = ['username@gmail.com', 'user02@gmail.com'];
 
 class Main extends React.Component {
@@ -85,6 +84,7 @@ class Main extends React.Component {
                             direction='row'
                             justify='flex-end'
                         >
+                            {"Hello~" + this.props.account + "!"}
                             <Badge
                                 badgeContent={friends.length}
                                 color='primary'
@@ -185,21 +185,21 @@ class SimpleDialog extends React.Component {
     };
 
     render() {
-        const { onRequestClose, ...other } = this.props;
+        const { onRequestClose, friends, account, ...other } = this.props;
 
         let children = (
             <div>No friends around you.</div>
         );
 
-        if (this.props.friends.length) {
-            children = this.props.friends.map(result => (
+        if (friends.length) {
+            children = friends.map(result => (
                 <ListItem button onClick={() => this.handleListItemClick(result.client_1, result.client_2)} key={result.id}>
                     <ListItemAvatar>
                         <Avatar>
                             {result.distance.toString()}
                         </Avatar>
                     </ListItemAvatar>
-                    <ListItemText primary={(result.client_1 !== this.props.account && result.client_1) || (result.client_2 !== this.props.account && result.client_2)} />
+                    <ListItemText primary={(result.client_1 !== account && result.client_1) || (result.client_2 !== account && result.client_2)} />
                 </ListItem>
             ));
         }
@@ -207,11 +207,9 @@ class SimpleDialog extends React.Component {
         return (
             <Dialog onRequestClose={this.handleRequestClose} {...other}>
                 <DialogTitle>Friends around you</DialogTitle>
-                <div>
-                    <List>
-                        {children}
-                    </List>
-                </div>
+                <List>
+                    {children}
+                </List>
             </Dialog>
         );
     }
