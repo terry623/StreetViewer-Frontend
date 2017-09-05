@@ -15,6 +15,8 @@ import Grid from 'material-ui/Grid';
 import Badge from 'material-ui/Badge';
 import Avatar from 'material-ui/Avatar';
 import CommentIcon from 'material-ui-icons/Comment';
+import List, { ListItem, ListItemAvatar, ListItemText } from 'material-ui/List';
+import Dialog, { DialogTitle } from 'material-ui/Dialog';
 
 import Camera from 'components/Camera.jsx';
 import Collection from 'components/Collection.jsx';
@@ -22,6 +24,8 @@ import LogIn from 'components/LogIn.jsx';
 import SignUp from 'components/SignUp.jsx';
 
 import { log_out } from 'states/account-actions.js';
+
+const emails = ['username@gmail.com', 'user02@gmail.com'];
 
 class Main extends React.Component {
     static propTypes = {
@@ -37,7 +41,8 @@ class Main extends React.Component {
             open_menu: false,
             anchorEl_menu: undefined,
             open_contact: false,
-            anchorEl_contact: undefined
+            anchorEl_contact: undefined,
+            selectedValue: emails[1]
         };
 
         this.handle_click_menu = this.handle_click_menu.bind(this);
@@ -62,37 +67,39 @@ class Main extends React.Component {
         this.setState({ open_menu: false });
     }
 
-    handleRequestClose_contact = () => {
-        this.setState({ open_contact: false });
-    }
+    handleRequestClose_contact = value => {
+        this.setState({ selectedValue: value, open_contact: false });
+    };
 
     render() {
 
         const { friends } = this.props;
 
-        let children = (
-            <div>No friends around you.</div>
-        );
-        if (friends.length) {
-            children = friends.map(result => (
-                <MenuItem key={result.id} onClick={this.handleRequestClose_contact}>
-                    <Avatar>
-                        {result.distance.toString()}
-                    </Avatar>
-                    {(result.client_1 !== this.props.account && result.client_1) || (result.client_2 !== this.props.account && result.client_2)}
-                    <IconButton
-                        onClick={() => this.handle_send_target(result.client_1, result.client_2)}
-                    >
-                        <CommentIcon />
-                    </IconButton>
-                </MenuItem>
-            ));
-        }
+        // let children = (
+        //     <div>No friends around you.</div>
+        // );
+        // if (friends.length) {
+        //     children = friends.map(result => (
+        //         <MenuItem key={result.id} onClick={this.handleRequestClose_contact}>
+        //             <Avatar>
+        //                 {result.distance.toString()}
+        //             </Avatar>
+        //             {(result.client_1 !== this.props.account && result.client_1) || (result.client_2 !== this.props.account && result.client_2)}
+        //             <IconButton
+        //                 onClick={() => this.handle_send_target(result.client_1, result.client_2)}
+        //             >
+        //                 <CommentIcon />
+        //             </IconButton>
+        //         </MenuItem>
+        //     ));
+        // }
+
         return (
             <Router>
                 <div className='main'>
 
                     <div className='banner'>
+
                         <Grid
                             container
                             align='flex-start'
@@ -107,7 +114,7 @@ class Main extends React.Component {
                                 <IconButton
                                     aria-owns={this.state.open_contact ? 'contact' : null}
                                     aria-haspopup="true"
-                                    onClick={this.handle_click_contact}
+                                    onClick={() => this.setState({ open_contact: true })}
                                     className='contact_icon'
                                 >
                                     <PersonIcon />
@@ -125,18 +132,11 @@ class Main extends React.Component {
 
                         </Grid>
 
-                        <Menu
-                            id='contact'
-                            anchorEl={this.state.anchorEl_contact}
-                            anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
-                            transformOrigin={{ vertical: 'top', horizontal: 'center' }}
+                        <SimpleDialog
+                            selectedValue={this.state.selectedValue}
                             open={this.state.open_contact}
                             onRequestClose={this.handleRequestClose_contact}
-                            className='main_contact'
-                        >
-                            {children}
-
-                        </Menu>
+                        />
 
                         <Menu
                             id='menu'
@@ -152,6 +152,7 @@ class Main extends React.Component {
                             <MenuItem onClick={this.handleRequestClose_menu} component={Link} to={'/LogIn'}>Log In</MenuItem>
                             <MenuItem onClick={this.handleRequestClose_menu} component={Link} to={'/SignUp'}>SignUp</MenuItem>
                         </Menu>
+
                     </div>
 
                     <Route exact path="/Camera" render={() => (
@@ -174,7 +175,41 @@ class Main extends React.Component {
             </Router >
         );
     }
+}
 
+class SimpleDialog extends React.Component {
+
+    handleRequestClose = () => {
+        this.props.onRequestClose(this.props.selectedValue);
+    };
+
+    handleListItemClick = value => {
+        this.props.onRequestClose(value);
+    };
+
+    render() {
+        const { onRequestClose, selectedValue, ...other } = this.props;
+
+        return (
+            <Dialog onRequestClose={this.handleRequestClose} {...other}>
+                <DialogTitle>Friends around you</DialogTitle>
+                <div>
+                    <List>
+                        {emails.map(email => (
+                            <ListItem button onClick={() => this.handleListItemClick(email)} key={email}>
+                                <ListItemAvatar>
+                                    <Avatar>
+                                        <PersonIcon />
+                                    </Avatar>
+                                </ListItemAvatar>
+                                <ListItemText primary={email} />
+                            </ListItem>
+                        ))}
+                    </List>
+                </div>
+            </Dialog>
+        );
+    }
 }
 
 export default connect(state => ({

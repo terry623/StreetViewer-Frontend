@@ -5,8 +5,14 @@
 
 .main_contact {
     margin-top: 3.5rem;
+    width:10rem;
 }
 
 .main_menu {
     margin-top: 3.5rem;
 }
+
+/* .main_contact MenuItem{
+    width:200px;
+    height:2rem;
+} */
