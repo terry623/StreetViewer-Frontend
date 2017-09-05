@@ -17,6 +17,7 @@ import Avatar from 'material-ui/Avatar';
 import CommentIcon from 'material-ui-icons/Comment';
 import List, { ListItem, ListItemAvatar, ListItemText } from 'material-ui/List';
 import Dialog, { DialogTitle } from 'material-ui/Dialog';
+import Input from 'material-ui/Input/Input';
 
 import Camera from 'components/Camera.jsx';
 import Collection from 'components/Collection.jsx';
@@ -31,6 +32,7 @@ class Main extends React.Component {
     static propTypes = {
         account: PropTypes.string,
         store: PropTypes.object,
+        friends: PropTypes.array,
         dispatch: PropTypes.func
     };
 
@@ -40,13 +42,10 @@ class Main extends React.Component {
         this.state = {
             open_menu: false,
             anchorEl_menu: undefined,
-            open_contact: false,
-            anchorEl_contact: undefined,
-            selectedValue: emails[1]
+            open_contact: false
         };
 
         this.handle_click_menu = this.handle_click_menu.bind(this);
-        this.handle_click_contact = this.handle_click_contact.bind(this);
         this.handleRequestClose_menu = this.handleRequestClose_menu.bind(this);
         this.handleRequestClose_contact = this.handleRequestClose_contact.bind(this);
     }
@@ -59,40 +58,27 @@ class Main extends React.Component {
         this.setState({ open_menu: true, anchorEl_menu: event.currentTarget });
     }
 
-    handle_click_contact = event => {
-        this.setState({ open_contact: true, anchorEl_contact: event.currentTarget });
-    }
-
     handleRequestClose_menu = () => {
         this.setState({ open_menu: false });
     }
 
     handleRequestClose_contact = value => {
-        this.setState({ selectedValue: value, open_contact: false });
+        var current_target;
+        console.log("value 1 : " + value.client_1);
+        console.log("value 2 : " + value.client_2);
+
+        if (client_1 !== this.props.account) current_target = value.client_1;
+        else if (client_2 !== this.props.account) current_target = value.client_2;
+
+        this.setState({ open_contact: false });
+
+        this.props.dispatch(select_friend(current_target));
     };
+
 
     render() {
 
         const { friends } = this.props;
-
-        // let children = (
-        //     <div>No friends around you.</div>
-        // );
-        // if (friends.length) {
-        //     children = friends.map(result => (
-        //         <MenuItem key={result.id} onClick={this.handleRequestClose_contact}>
-        //             <Avatar>
-        //                 {result.distance.toString()}
-        //             </Avatar>
-        //             {(result.client_1 !== this.props.account && result.client_1) || (result.client_2 !== this.props.account && result.client_2)}
-        //             <IconButton
-        //                 onClick={() => this.handle_send_target(result.client_1, result.client_2)}
-        //             >
-        //                 <CommentIcon />
-        //             </IconButton>
-        //         </MenuItem>
-        //     ));
-        // }
 
         return (
             <Router>
@@ -133,7 +119,6 @@ class Main extends React.Component {
                         </Grid>
 
                         <SimpleDialog
-                            selectedValue={this.state.selectedValue}
                             open={this.state.open_contact}
                             onRequestClose={this.handleRequestClose_contact}
                         />
@@ -180,7 +165,7 @@ class Main extends React.Component {
 class SimpleDialog extends React.Component {
 
     handleRequestClose = () => {
-        this.props.onRequestClose(this.props.selectedValue);
+        this.props.onRequestClose();
     };
 
     handleListItemClick = value => {
@@ -188,23 +173,30 @@ class SimpleDialog extends React.Component {
     };
 
     render() {
-        const { onRequestClose, selectedValue, ...other } = this.props;
+        const { onRequestClose, ...other } = this.props;
+
+        let children = (
+            <div>No friends around you.</div>
+        );
+        if (friends.length) {
+            children = friends.map(result => (
+                <ListItem button onClick={() => this.handleListItemClick(result.client_1, result.client_2)} key={result.id}>
+                    <ListItemAvatar>
+                        <Avatar>
+                            {result.distance.toString()}
+                        </Avatar>
+                    </ListItemAvatar>
+                    <ListItemText primary={(result.client_1 !== this.props.account && result.client_1) || (result.client_2 !== this.props.account && result.client_2)} />
+                </ListItem>
+            ));
+        }
 
         return (
             <Dialog onRequestClose={this.handleRequestClose} {...other}>
                 <DialogTitle>Friends around you</DialogTitle>
                 <div>
                     <List>
-                        {emails.map(email => (
-                            <ListItem button onClick={() => this.handleListItemClick(email)} key={email}>
-                                <ListItemAvatar>
-                                    <Avatar>
-                                        <PersonIcon />
-                                    </Avatar>
-                                </ListItemAvatar>
-                                <ListItemText primary={email} />
-                            </ListItem>
-                        ))}
+                        {children}
                     </List>
                 </div>
             </Dialog>

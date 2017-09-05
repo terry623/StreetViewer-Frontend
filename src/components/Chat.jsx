@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import TextField from 'material-ui/TextField';
+import Input from 'material-ui/Input/Input';
 
 import Snackbar from 'material-ui/Snackbar';
 import IconButton from 'material-ui/IconButton';
@@ -22,7 +23,7 @@ var socket = io.connect('http://localhost:8080', { reconnect: true });
 
 class Chat extends React.Component {
 	static propTypes = {
-		friends: PropTypes.array,
+		select_friend: PropTypes.string,
 		dispatch: PropTypes.func
 	};
 
@@ -31,11 +32,11 @@ class Chat extends React.Component {
 
 		this.state = {
 			sender: "",
-			send_target: "",
 			send_msg: "",
 			receive_msg: "",
 			friends: null,
-			open: false
+			open: false,
+			open_send: true
 		};
 
 		this.change_msg = this.change_msg.bind(this);
@@ -80,7 +81,7 @@ class Chat extends React.Component {
 
 		return (
 			<div className='Chat' ref="myRef">
-				<TextField
+				{/* <TextField
 					className='target'
 					label='Target'
 					value={this.state.send_target}
@@ -95,7 +96,7 @@ class Chat extends React.Component {
 				<br />
 				<Button raised onClick={this.handleSend}>
 					Send
-                </Button>
+                </Button> */}
 
 				<Snackbar
 					anchorOrigin={{
@@ -117,7 +118,35 @@ class Chat extends React.Component {
 							onClick={this.handleRequestClose}
 						>
 							<CloseIcon />
-						</IconButton>,
+						</IconButton>
+					]}
+				/>
+
+				<Snackbar
+					anchorOrigin={{
+						vertical: 'bottom',
+						horizontal: 'right',
+					}}
+					open={this.state.open_send}
+					onRequestClose={this.handleRequestClose}
+					message={"To" + this.props.select_friend + " : "}
+					action={[
+						<Input
+							placeholder='message'
+							disableUnderline={true}
+							onChange={event => this.setState({ send_msg: event.target.value })}
+						/>,
+						<Button key="undo" color="accent" dense onClick={this.handleRequestClose}>
+							SEND
+            			</Button>,
+						<IconButton
+							key="close"
+							aria-label="Close"
+							color="inherit"
+							onClick={this.handleRequestClose}
+						>
+							<CloseIcon />
+						</IconButton>
 					]}
 				/>
 			</div>
