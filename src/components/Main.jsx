@@ -65,7 +65,7 @@ class Main extends React.Component {
 
     handleRequestClose_contact = value => {
         this.setState({ open_contact: false });
-        this.props.dispatch(select_friend(value));
+        if(value)this.props.dispatch(select_friend(value));
     };
 
 
