@@ -48,11 +48,8 @@ class Main extends React.Component {
 
         this.handle_click_menu = this.handle_click_menu.bind(this);
         this.handleRequestClose_menu = this.handleRequestClose_menu.bind(this);
+        this.handleRequestClose_menu_logout = this.handleRequestClose_menu_logout.bind(this);
         this.handleRequestClose_contact = this.handleRequestClose_contact.bind(this);
-    }
-
-    handleLogout() {
-        this.props.dispatch(log_out());
     }
 
     handle_click_menu = event => {
@@ -61,6 +58,11 @@ class Main extends React.Component {
 
     handleRequestClose_menu = () => {
         this.setState({ open_menu: false });
+    }
+
+    handleRequestClose_menu_logout = () => {
+        this.setState({ open_menu: false });
+        this.props.dispatch(log_out());
     }
 
     handleRequestClose_contact = value => {
@@ -132,6 +134,7 @@ class Main extends React.Component {
                             <MenuItem onClick={this.handleRequestClose_menu} component={Link} to={'/Collection'}>Collection</MenuItem>
                             <MenuItem onClick={this.handleRequestClose_menu} component={Link} to={'/LogIn'}>Log In</MenuItem>
                             <MenuItem onClick={this.handleRequestClose_menu} component={Link} to={'/SignUp'}>SignUp</MenuItem>
+                            <MenuItem onClick={this.handleRequestClose_menu_logout} component={Link} to={'/LogIn'}>Log Out</MenuItem>
                         </Menu>
 
                     </div>
