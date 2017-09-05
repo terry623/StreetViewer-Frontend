@@ -27,17 +27,25 @@ class LogIn extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            temp_username: null,
-            temp_password: null,
-            open: true
+            temp_username: "",
+            temp_password: "",
+            open: true,
+            open_success: true
         };
 
         this.handleLogin = this.handleLogin.bind(this);
         this.handleRequestClose = this.handleRequestClose.bind(this);
+        this.handleRequestClose_success = this.handleRequestClose_success.bind(this);
     }
 
     handleRequestClose() {
         this.setState({ open: false });
+        this.props.dispatch(show_message("Nothing Happen"));
+    }
+
+    handleRequestClose_success() {
+        this.setState({ open: false });
+        this.setState({ temp_username: "", temp_password: "" });
         this.props.dispatch(show_message("Nothing Happen"));
     }
 
@@ -75,6 +83,7 @@ class LogIn extends React.Component {
                         <Grid item>
                             <Input
                                 placeholder='Username'
+                                value={this.state.temp_username}
                                 disableUnderline={true}
                                 onChange={event => this.setState({ temp_username: event.target.value })}
                             />
@@ -94,6 +103,7 @@ class LogIn extends React.Component {
                         <Grid item>
                             <Input
                                 placeholder='Password'
+                                value={this.state.temp_password}
                                 type='password'
                                 disableUnderline={true}
                                 onChange={event => this.setState({ temp_password: event.target.value })}
@@ -106,7 +116,7 @@ class LogIn extends React.Component {
                             LOG IN
                         </Button>
                     </Grid>
-                    
+
                 </Grid>
 
                 {message === "Wrong Account or Password!" &&
@@ -115,7 +125,7 @@ class LogIn extends React.Component {
                         <DialogContent>
                             <DialogContentText>
                                 Please check it again!
-                        </DialogContentText>
+                            </DialogContentText>
                         </DialogContent>
                         <DialogActions>
                             <Button onClick={this.handleRequestClose} color="primary">
@@ -124,6 +134,23 @@ class LogIn extends React.Component {
                         </DialogActions>
                     </Dialog>
                 }
+
+                {message === "Finish Log In!" &&
+                    <Dialog open={this.state.open} onRequestClose={this.handleRequestClose_success}>
+                        <DialogTitle>{"Log In Success!"}</DialogTitle>
+                        <DialogContent>
+                            <DialogContentText>
+                                Go to Camera!
+                            </DialogContentText>
+                        </DialogContent>
+                        <DialogActions>
+                            <Button onClick={this.handleRequestClose_success} color="primary">
+                                Got it!
+                            </Button>
+                        </DialogActions>
+                    </Dialog>
+                }
+
             </div >
         );
     }

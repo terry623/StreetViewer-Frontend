@@ -131,9 +131,9 @@ class StreetView extends React.Component {
 		return (
 			<div className='StreetView'>
 
-				{/* <Button raised onClick={this.handle_screenshot}>
+				<Button raised onClick={this.handle_screenshot}>
 					Screen Shot!
-                </Button> */}
+                </Button>
 
 				{/* <h5>{reminder}</h5> */}
 

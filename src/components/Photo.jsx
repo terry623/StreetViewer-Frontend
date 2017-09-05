@@ -23,67 +23,33 @@ class Photo extends React.Component {
     }
 
     render() {
-        // const { photos } = this.props;
+        const { photos } = this.props;
 
-        // let children = (
-        //     <div>No photo here.</div>
-        // );
-        // if (photos.length) {
-        //     children = photos.map(result => (
-        //         <img key={result.id} src={result.photo_url} />
-        //     ));
-        // }
+        let children = (
+            <div>No photo here.</div>
+        );
+
+        if (photos.length) {
+            children = photos.map(result => (
+                <Grid item lg={4} md={6} sm={12} key={result.id}>
+                    <Card raised className='each_card'>
+                        <CardMedia
+                            className='each_card_media'
+                            image={result.photo_url}
+                        />
+                        <CardContent className='each_card_content'>
+                            Lizards are a widespread group of squamate reptiles.
+                        </CardContent>
+                    </Card>
+                </Grid >
+            ));
+        }
 
         return (
-            // <div className='photo'>
-            //     {/* {children} */}
-            //  </div>
-            <div>
+            
+            <div className='photo'>
                 <Grid container spacing={16}>
-                    <Grid item lg={4} md={6} sm={12}>
-                        <Card raised className='each_card'>
-                            <CardMedia
-                                className='each_card_media'
-                                image="https://maps.googleapis.com/maps/api/streetview?size=300x200&location=46.414382,10.013988&heading=151.78&pitch=-0.76&key=AIzaSyB2qGLOwrR1n-FrGskEn47AU1X6Nban0S4"
-                            />
-                            <CardContent className='each_card_content'>
-                                Lizards are a widespread group of squamate reptiles.
-                            </CardContent>
-                        </Card>
-                    </Grid>
-                    <Grid item lg={4} md={6} sm={12}>
-                        <Card raised className='each_card'>
-                            <CardMedia
-                                className='each_card_media'
-                                image="https://maps.googleapis.com/maps/api/streetview?size=300x200&location=46.414382,10.013988&heading=151.78&pitch=-0.76&key=AIzaSyB2qGLOwrR1n-FrGskEn47AU1X6Nban0S4"
-                            />
-                            <CardContent className='each_card_content'>
-                                Lizards are a widespread group of squamate reptiles.
-                            </CardContent>
-                        </Card>
-                    </Grid>
-                    <Grid item lg={4} md={6} sm={12}>
-                        <Card raised className='each_card'>
-                            <CardMedia
-                                className='each_card_media'
-                                image="https://maps.googleapis.com/maps/api/streetview?size=300x200&location=46.414382,10.013988&heading=151.78&pitch=-0.76&key=AIzaSyB2qGLOwrR1n-FrGskEn47AU1X6Nban0S4"
-                            />
-                            <CardContent className='each_card_content'>
-                                Lizards are a widespread group of squamate reptiles.
-                            </CardContent>
-                        </Card>
-                    </Grid>
-                    <Grid item lg={4} md={6} sm={12}>
-                        <Card raised className='each_card'>
-                            <CardMedia
-                                className='each_card_media'
-                                image="https://maps.googleapis.com/maps/api/streetview?size=300x200&location=46.414382,10.013988&heading=151.78&pitch=-0.76&key=AIzaSyB2qGLOwrR1n-FrGskEn47AU1X6Nban0S4"
-                            />
-                            <CardContent className='each_card_content'>
-                                Lizards are a widespread group of squamate reptiles.
-                            </CardContent>
-                        </Card>
-                    </Grid>
+                    {children}
                 </Grid>
 
             </div>

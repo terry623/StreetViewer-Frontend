@@ -27,18 +27,25 @@ class SignUp extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            temp_username: null,
-            temp_password: null,
-            temp_password_2: null,
+            temp_username: "",
+            temp_password: "",
+            temp_password_2: "",
             open: true
         };
 
         this.handleSignup = this.handleSignup.bind(this);
         this.handleRequestClose = this.handleRequestClose.bind(this);
+        this.handleRequestClose_success = this.handleRequestClose_success.bind(this);
     }
 
     handleRequestClose() {
         this.setState({ open: false });
+        this.props.dispatch(show_message("Nothing Happen"));
+    }
+
+    handleRequestClose_success() {
+        this.setState({ open: false });
+        this.setState({ temp_username: "", temp_password: "", temp_password_2: "" });
         this.props.dispatch(show_message("Nothing Happen"));
     }
 
@@ -75,6 +82,7 @@ class SignUp extends React.Component {
                         <Grid item>
                             <Input
                                 placeholder='Username'
+                                value={this.state.temp_username}
                                 disableUnderline={true}
                                 onChange={event => this.setState({ temp_username: event.target.value })}
                             />
@@ -94,6 +102,7 @@ class SignUp extends React.Component {
                         <Grid item>
                             <Input
                                 placeholder='Password'
+                                value={this.state.temp_password}
                                 type='password'
                                 disableUnderline={true}
                                 onChange={event => this.setState({ temp_password: event.target.value })}
@@ -114,6 +123,7 @@ class SignUp extends React.Component {
                         <Grid item>
                             <Input
                                 placeholder='Password Again'
+                                value={this.state.temp_password_2}
                                 type='password'
                                 disableUnderline={true}
                                 onChange={event => this.setState({ temp_password_2: event.target.value })}
@@ -155,6 +165,22 @@ class SignUp extends React.Component {
                         </DialogContent>
                         <DialogActions>
                             <Button onClick={this.handleRequestClose} color="primary">
+                                Got it!
+                            </Button>
+                        </DialogActions>
+                    </Dialog>
+                }
+
+                {message === "Finish Sign Up!" &&
+                    <Dialog open={this.state.open} onRequestClose={this.handleRequestClose_success}>
+                        <DialogTitle>{"Sign Up Success!"}</DialogTitle>
+                        <DialogContent>
+                            <DialogContentText>
+                                Go to Log In!
+                            </DialogContentText>
+                        </DialogContent>
+                        <DialogActions>
+                            <Button onClick={this.handleRequestClose_success} color="primary">
                                 Got it!
                             </Button>
                         </DialogActions>
