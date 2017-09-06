@@ -75,7 +75,7 @@ class Chat extends React.Component {
 	handleRequestClose_msg = (event, reason) => {
 		if (reason === 'clickaway') return;
 		this.setState({ open: false });
-		
+
 	}
 
 	handleRequestClose_send = (event, reason) => {
@@ -169,7 +169,7 @@ class Chat extends React.Component {
 		);
 	}
 
-	handleReply(){
+	handleReply() {
 		this.props.dispatch(select_friend(this.state.sender));
 	}
 
