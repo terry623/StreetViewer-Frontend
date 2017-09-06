@@ -1,5 +1,14 @@
 .StreetView {
+    position: relative;
     width: 48rem;
     height: 32rem;
 }
 
+.StreetView .camera_icon {
+    position: absolute;
+    top: 7.5rem;
+    right: -14rem;
+    z-index: 100;
+    width: 5rem;
+    height: 5rem;
+}

@@ -1,12 +1,10 @@
 .each_card{
     width: 21rem;
-    opacity:0.8;
     border-radius: 0.25rem;
 }
 
 
 .each_card_media{
     height:14rem;
-    border-top-left-radius: 0.25rem;
-    border-top-right-radius: 0.25rem;
+    border-radius: 0.25rem;
 }

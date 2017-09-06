@@ -37,9 +37,6 @@ class Photo extends React.Component {
                             className='each_card_media'
                             image={result.photo_url}
                         />
-                        <CardContent className='each_card_content'>
-                            Lizards are a widespread group of squamate reptiles.
-                        </CardContent>
                     </Card>
                 </Grid >
             ));
@@ -48,7 +45,7 @@ class Photo extends React.Component {
         return (
             
             <div className='photo'>
-                <Grid container spacing={16}>
+                <Grid container spacing={24}>
                     {children}
                 </Grid>
 

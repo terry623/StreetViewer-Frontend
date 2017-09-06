@@ -9,7 +9,7 @@ import ReactStreetview from 'react-streetview';
 import { store_current_position, screenshot, get_last_position } from 'states/camera-actions.js';
 import { find_friends_around_you } from 'states/chat-actions.js';
 import Grid from 'material-ui/Grid';
-
+import CameraIcon from 'material-ui-icons/CameraAlt';
 
 class StreetView extends React.Component {
 	static propTypes = {
@@ -131,6 +131,9 @@ class StreetView extends React.Component {
 
 		return (
 			<div className='StreetView'>
+				<Button fab color="accent" className='camera_icon' onClick={this.handle_screenshot}>
+					<CameraIcon />
+				</Button>
 
 				{finish_get_last_position === true &&
 					<ReactStreetview

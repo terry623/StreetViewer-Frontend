@@ -123,9 +123,6 @@ class Chat extends React.Component {
 
 		return (
 			<div className='Chat' ref="myRef">
-				<Button fab color="accent" className='camera_icon' onClick={this.handle_screenshot}>
-					<CameraIcon />
-				</Button>
 				{/* {this.state.travel_time !== 0 &&
 						<CircularProgress
 							mode="determinate"

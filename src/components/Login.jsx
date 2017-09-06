@@ -15,6 +15,8 @@ import Dialog, {
     DialogContentText,
     DialogTitle,
 } from 'material-ui/Dialog';
+import { blue } from 'material-ui/colors';
+const primary = blue[500];
 
 import './LogIn.css';
 

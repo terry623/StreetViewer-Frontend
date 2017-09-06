@@ -86,11 +86,24 @@ class Main extends React.Component {
                             direction='row'
                             justify='flex-end'
                         >
-                            <Badge
-                                badgeContent={friends.length}
-                                color='primary'
-                                className='person'
-                            >
+                            {friends.length !== 0 &&
+                                <Badge
+                                    badgeContent={friends.length}
+                                    color='primary'
+                                    className='person'
+                                >
+                                    <IconButton
+                                        aria-owns={this.state.open_contact ? 'contact' : null}
+                                        aria-haspopup="true"
+                                        onClick={() => this.setState({ open_contact: true })}
+                                        className='contact_icon'
+                                    >
+                                        <PersonIcon />
+                                    </IconButton>
+                                </Badge>
+                            }
+
+                            {friends.length === 0 &&
                                 <IconButton
                                     aria-owns={this.state.open_contact ? 'contact' : null}
                                     aria-haspopup="true"
@@ -99,7 +112,8 @@ class Main extends React.Component {
                                 >
                                     <PersonIcon />
                                 </IconButton>
-                            </Badge>
+                            }
+
 
                             <IconButton
                                 aria-owns={this.state.open_menu ? 'menu' : null}
