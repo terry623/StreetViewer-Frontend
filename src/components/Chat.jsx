@@ -42,7 +42,8 @@ class Chat extends React.Component {
 			friends: null,
 			open: false,
 			open_send: false,
-			start_timer: false
+			start_timer: false,
+			open_time: false
 		};
 
 		this.change_msg = this.change_msg.bind(this);
@@ -114,12 +115,23 @@ class Chat extends React.Component {
 		this.setState({
 			travel_time: this.state.travel_time + 1
 		});
+
+		if (this.state.travel_time % 10 === 0) {
+			this.setState({
+				open_time: true
+			});
+		} else {
+			this.setState({
+				open_time: false
+			});
+		}
 	}
 
 	render() {
 
 		var complete_receive_msg = this.state.sender + " : " + this.state.receive_msg;
-		var complete_send_title = "To " + this.props.select_friend + " :"
+		var complete_send_title = "To " + this.props.select_friend + " :";
+		var complete_time = "Travel Time : " + this.state.travel_time;
 
 		return (
 			<div className='Chat' ref="myRef">
@@ -130,6 +142,19 @@ class Chat extends React.Component {
 							size={60}
 							value={100}
 						/>} */}
+
+				<Snackbar
+					anchorOrigin={{
+						vertical: 'top',
+						horizontal: 'left',
+					}}
+					key="snack_time"
+					open={this.state.open_time}
+					SnackbarContentProps={{
+						'aria-describedby': 'time_id',
+					}}
+					message={<span id="time_id">{complete_time}</span>}
+				/>
 				{this.state.receive_msg !== "" &&
 					<Snackbar
 						anchorOrigin={{
