@@ -67,7 +67,7 @@ class Main extends React.Component {
 
     handleRequestClose_contact = value => {
         this.setState({ open_contact: false });
-        if(value)this.props.dispatch(select_friend(value));
+        if (value) this.props.dispatch(select_friend(value));
     };
 
 
@@ -86,7 +86,6 @@ class Main extends React.Component {
                             direction='row'
                             justify='flex-end'
                         >
-                            {"Hello~" + this.props.account + "!"}
                             <Badge
                                 badgeContent={friends.length}
                                 color='primary'

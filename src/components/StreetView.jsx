@@ -9,7 +9,7 @@ import ReactStreetview from 'react-streetview';
 import { store_current_position, screenshot, get_last_position } from 'states/camera-actions.js';
 import { find_friends_around_you } from 'states/chat-actions.js';
 import Grid from 'material-ui/Grid';
-import { CircularProgress } from 'material-ui/Progress';
+
 
 class StreetView extends React.Component {
 	static propTypes = {
@@ -131,17 +131,6 @@ class StreetView extends React.Component {
 
 		return (
 			<div className='StreetView'>
-
-				{this.state.travel_time !== 0 &&
-					<CircularProgress
-						color="accent"
-						mode="determinate"
-						value={this.state.travel_time % 100}
-					/>}
-
-				<Button raised onClick={this.handle_screenshot}>
-					Screen Shot!
-                </Button>
 
 				{finish_get_last_position === true &&
 					<ReactStreetview

@@ -1,0 +1,27 @@
+.Chat {
+    position: relative;
+}
+
+.Chat .camera_icon {
+    position: absolute;
+    top: 6.5rem;
+    right: -1rem;
+    z-index: 100;
+    width: 5rem;
+    height: 5rem;
+}
+
+.Chat .progress {
+    position: absolute;
+    top: 5rem;
+    left: 5rem;
+    z-index: 90;
+    background: rgba(0%, 0%, 0%, 0);
+    width: 5rem;
+    height: 5rem;
+}
+
+.Chat .send_input {
+    color: #fff;
+    width: 7.5rem;
+}

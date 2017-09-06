@@ -12,8 +12,10 @@ import Avatar from 'material-ui/Avatar';
 import Chip from 'material-ui/Chip';
 import FaceIcon from 'material-ui-icons/Face';
 import Grid from 'material-ui/Grid';
+import { CircularProgress } from 'material-ui/Progress';
+import CameraIcon from 'material-ui-icons/CameraAlt';
 
-import './StreetView.css';
+import './Chat.css';
 
 import io from 'socket.io-client';
 import Button from 'material-ui/Button';
@@ -25,6 +27,7 @@ var socket = io.connect('http://localhost:8080', { reconnect: true });
 class Chat extends React.Component {
 	static propTypes = {
 		select_friend: PropTypes.string,
+		time: PropTypes.number,
 		dispatch: PropTypes.func
 	};
 
@@ -32,12 +35,14 @@ class Chat extends React.Component {
 		super(props);
 
 		this.state = {
+			travel_time: 0,
 			sender: "",
 			receive_msg: "",
 			send_msg: "",
 			friends: null,
 			open: false,
-			open_send: false
+			open_send: false,
+			start_timer: false
 		};
 
 		this.change_msg = this.change_msg.bind(this);
@@ -92,16 +97,42 @@ class Chat extends React.Component {
 
 	componentWillReceiveProps(nextProps) {
 		if (nextProps.select_friend !== this.props.select_friend) this.setState({ open_send: true });
+		if (nextProps.time !== 0 && this.state.start_timer === false) {
+			this.setState({ travel_time: nextProps.time, start_timer: true });
+			this.timer_id = setInterval(
+				() => this.timer(),
+				1000
+			);
+		}
+	}
+
+	componentWillUnmount() {
+		clearInterval(this.timer_id);
+	}
+
+	timer() {
+		this.setState({
+			travel_time: this.state.travel_time + 1
+		});
 	}
 
 	render() {
 
 		var complete_receive_msg = this.state.sender + " : " + this.state.receive_msg;
-		var complete_send_title = "To " + this.props.select_friend + " : "
+		var complete_send_title = "To " + this.props.select_friend + " :"
 
 		return (
 			<div className='Chat' ref="myRef">
-
+				<Button fab color="accent" className='camera_icon' onClick={this.handle_screenshot}>
+					<CameraIcon />
+				</Button>
+				{/* {this.state.travel_time !== 0 &&
+						<CircularProgress
+							mode="determinate"
+							className='progress'
+							size={60}
+							value={100}
+						/>} */}
 				{this.state.receive_msg !== "" &&
 					<Snackbar
 						anchorOrigin={{
@@ -149,6 +180,7 @@ class Chat extends React.Component {
 								key="input"
 								placeholder='message'
 								disableUnderline={true}
+								className='send_input'
 								onChange={event => this.setState({ send_msg: event.target.value })}
 							/>,
 							<Button key="send" color="accent" dense onClick={this.handleSend}>
@@ -188,5 +220,6 @@ class Chat extends React.Component {
 
 export default connect(state => ({
 	...state.account,
-	...state.chat
+	...state.chat,
+	...state.camera
 }))(Chat);
