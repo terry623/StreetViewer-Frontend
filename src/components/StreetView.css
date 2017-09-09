@@ -12,3 +12,7 @@
     width: 5rem;
     height: 5rem;
 }
+
+.StreetView .camera_icon:focus {
+    outline: none;
+}

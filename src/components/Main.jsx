@@ -7,6 +7,12 @@ import {
 } from 'react-router-dom';
 import { connect } from 'react-redux';
 import './Main.css';
+
+import LogIn from 'components/LogIn.jsx';
+import SignUp from 'components/SignUp.jsx';
+import Camera from 'components/Camera.jsx';
+import Collection from 'components/Collection.jsx';
+
 import Menu, { MenuItem } from 'material-ui/Menu';
 import IconButton from 'material-ui/IconButton';
 import MenuIcon from 'material-ui-icons/Menu';
@@ -18,11 +24,6 @@ import CommentIcon from 'material-ui-icons/Comment';
 import List, { ListItem, ListItemAvatar, ListItemText } from 'material-ui/List';
 import Dialog, { DialogTitle } from 'material-ui/Dialog';
 import Input from 'material-ui/Input/Input';
-
-import Camera from 'components/Camera.jsx';
-import Collection from 'components/Collection.jsx';
-import LogIn from 'components/LogIn.jsx';
-import SignUp from 'components/SignUp.jsx';
 
 import { log_out } from 'states/account-actions.js';
 import { select_friend } from 'states/chat-actions.js';
@@ -70,7 +71,6 @@ class Main extends React.Component {
         if (value) this.props.dispatch(select_friend(value));
     };
 
-
     render() {
 
         const { account, friends } = this.props;
@@ -96,7 +96,7 @@ class Main extends React.Component {
                                         aria-owns={this.state.open_contact ? 'contact' : null}
                                         aria-haspopup="true"
                                         onClick={() => this.setState({ open_contact: true })}
-                                        className='contact_icon'
+                                        className='contact_icon_1'
                                     >
                                         <PersonIcon />
                                     </IconButton>
@@ -105,15 +105,11 @@ class Main extends React.Component {
 
                             {friends.length === 0 &&
                                 <IconButton
-                                    aria-owns={this.state.open_contact ? 'contact' : null}
-                                    aria-haspopup="true"
-                                    onClick={() => this.setState({ open_contact: true })}
-                                    className='contact_icon'
+                                    className='contact_icon_2'
                                 >
                                     <PersonIcon />
                                 </IconButton>
                             }
-
 
                             <IconButton
                                 aria-owns={this.state.open_menu ? 'menu' : null}
@@ -151,6 +147,10 @@ class Main extends React.Component {
                         </Menu>
 
                     </div>
+
+                    <Route exact path="/" render={() => (
+                        <LogIn />
+                    )} />
 
                     <Route exact path="/Camera" render={() => (
                         <Camera />
@@ -204,7 +204,9 @@ class SimpleDialog extends React.Component {
         const { onRequestClose, friends, account, ...other } = this.props;
 
         let children = (
-            <div>No friends around you.</div>
+            <ListItem>
+                <ListItemText primary={"You have no friends"} />
+            </ListItem>
         );
 
         if (friends.length) {

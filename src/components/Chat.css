@@ -26,3 +26,9 @@
     width: 7.5rem;
 }
 
+.reply_button:focus,
+.send_button:focus,
+.close_button:focus{
+    outline:none;
+}
+

@@ -1,11 +1,15 @@
 .login {
     background-color: #2c3338;
     opacity: 0.8;
-    width:25rem;
+    width: 25rem;
     padding-top: 5rem;
     padding-bottom: 5rem;
     border-radius: 0.25rem;
-    margin:0 auto;
+    margin: 0 auto;
+}
+
+.login .submit Button:focus {
+    outline: none !important;
 }
 
 .login h3 {

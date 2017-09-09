@@ -51,6 +51,7 @@ class Chat extends React.Component {
 		this.handleReply = this.handleReply.bind(this);
 		this.handleRequestClose_msg = this.handleRequestClose_msg.bind(this);
 		this.handleRequestClose_send = this.handleRequestClose_send.bind(this);
+		this.handleRequestClose_time = this.handleRequestClose_time.bind(this);
 		this.handleSend = this.handleSend.bind(this);
 
 		if (this.props.account !== "") {
@@ -81,13 +82,17 @@ class Chat extends React.Component {
 	handleRequestClose_msg = (event, reason) => {
 		if (reason === 'clickaway') return;
 		this.setState({ open: false });
-
 	}
 
 	handleRequestClose_send = (event, reason) => {
 		if (reason === 'clickaway') return;
 		this.setState({ open_send: false });
 		this.props.dispatch(select_friend(""));
+	}
+
+	handleRequestClose_time = (event, reason) => {
+		if (reason === 'clickaway') return;
+		this.setState({ open_time: false });
 	}
 
 	componentDidUpdate(prevProps, prevState) {
@@ -102,7 +107,7 @@ class Chat extends React.Component {
 			this.setState({ travel_time: nextProps.time, start_timer: true });
 			this.timer_id = setInterval(
 				() => this.timer(),
-				1000
+				60000
 			);
 		}
 	}
@@ -113,42 +118,27 @@ class Chat extends React.Component {
 
 	timer() {
 		this.setState({
-			travel_time: this.state.travel_time + 1
+			travel_time: this.state.travel_time + 1,
+			open_time: true
 		});
-
-		if (this.state.travel_time % 10 === 0) {
-			this.setState({
-				open_time: true
-			});
-		} else {
-			this.setState({
-				open_time: false
-			});
-		}
 	}
 
 	render() {
 
 		var complete_receive_msg = this.state.sender + " : " + this.state.receive_msg;
 		var complete_send_title = "To " + this.props.select_friend + " :";
-		var complete_time = "Travel Time : " + this.state.travel_time;
+		var complete_time = "You have " + (100 - this.state.travel_time) + " minutes left to finish your trip";
 
 		return (
 			<div className='Chat' ref="myRef">
-				{/* {this.state.travel_time !== 0 &&
-						<CircularProgress
-							mode="determinate"
-							className='progress'
-							size={60}
-							value={100}
-						/>} */}
-
 				<Snackbar
 					anchorOrigin={{
 						vertical: 'top',
 						horizontal: 'left',
 					}}
 					key="snack_time"
+					autoHideDuration={5000}
+					onRequestClose={this.handleRequestClose_time}
 					open={this.state.open_time}
 					SnackbarContentProps={{
 						'aria-describedby': 'time_id',
@@ -169,13 +159,14 @@ class Chat extends React.Component {
 						}}
 						message={<span id="received_message_id">{complete_receive_msg}</span>}
 						action={[
-							<Button key="reply" color="accent" dense onClick={this.handleReply}>
+							<Button key="reply" color="accent" className="reply_button" dense onClick={this.handleReply}>
 								REPLY
             				</Button>,
 							<IconButton
 								key="close_1"
 								aria-label="Close"
 								color="inherit"
+								className="close_button"
 								onClick={this.handleRequestClose_msg}
 							>
 								<CloseIcon />
@@ -205,13 +196,14 @@ class Chat extends React.Component {
 								className='send_input'
 								onChange={event => this.setState({ send_msg: event.target.value })}
 							/>,
-							<Button key="send" color="accent" dense onClick={this.handleSend}>
+							<Button key="send" color="accent" className="send_button" dense onClick={this.handleSend}>
 								SEND
             				</Button>,
 							<IconButton
 								key="close_2"
 								aria-label="Close"
 								color="inherit"
+								className="close_button"
 								onClick={this.handleRequestClose_send}
 							>
 								<CloseIcon />

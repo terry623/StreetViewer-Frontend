@@ -49,7 +49,7 @@ class StreetView extends React.Component {
 			});
 			this.timer_id = setInterval(
 				() => this.timer(),
-				1000
+				60000
 			);
 			this.find_friends_id = setInterval(
 				() => this.find_friends(),

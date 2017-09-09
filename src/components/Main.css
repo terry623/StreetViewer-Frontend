@@ -5,14 +5,15 @@
 
 .main_contact {
     margin-top: 3.5rem;
-    width:10rem;
+    width: 10rem;
 }
 
 .main_menu {
     margin-top: 3.5rem;
 }
 
-/* .main_contact MenuItem{
-    width:200px;
-    height:2rem;
-} */
+.contact_icon_1:focus,
+.contact_icon_2:focus,
+.menu_icon:focus {
+    outline: none;
+}
