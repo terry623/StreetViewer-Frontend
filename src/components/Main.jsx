@@ -211,10 +211,11 @@ class SimpleDialog extends React.Component {
 
         if (friends.length) {
             children = friends.map(result => (
+
                 <ListItem button onClick={() => this.handleListItemClick(result.client_1, result.client_2)} key={result.id}>
                     <ListItemAvatar>
                         <Avatar>
-                            {result.distance.toString()}
+                            {(result.distance + 1).toString()}
                         </Avatar>
                     </ListItemAvatar>
                     <ListItemText primary={(result.client_1 !== account && result.client_1) || (result.client_2 !== account && result.client_2)} />

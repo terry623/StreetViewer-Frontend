@@ -1,7 +1,7 @@
 {
-  "name": "terrylin-side-project-client",
+  "name": "terrylin-streetviewer-client",
   "version": "1.0.0",
-  "description": "The website is about the photography.",
+  "description": "Begin a new journey in your life.",
   "main": "src/index.jsx",
   "scripts": {
     "build": "webpack -p",
