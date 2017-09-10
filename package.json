@@ -1,7 +1,7 @@
 {
   "name": "terrylin-streetviewer-client",
   "version": "1.0.0",
-  "description": "Begin a new journey in your life.",
+  "description": "Begin a new journey at your home.",
   "main": "src/index.jsx",
   "scripts": {
     "build": "webpack -p",
