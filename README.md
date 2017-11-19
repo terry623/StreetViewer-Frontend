@@ -15,4 +15,4 @@ $ npm install
 $ npm run watch
 ```
 
-此為 Client 端，進行更改後，將 build 完的 dist 資料夾移動移動並取代到 [Server](https://github.com/terry623/StreetViewer_Server) 裡的 dist
+此為 Frontend 端，進行更改後，將 build 完的 dist 資料夾移動移動並取代到 [Backend](https://github.com/terry623/StreetViewer_Backend) 裡的 dist
