@@ -12,6 +12,10 @@
     margin-top: 3.5rem;
 }
 
+.name {
+    margin-top: 0.5rem;
+}
+
 .contact_icon_1:focus,
 .contact_icon_2:focus,
 .menu_icon:focus {

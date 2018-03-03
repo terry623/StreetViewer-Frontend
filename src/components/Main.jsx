@@ -24,6 +24,7 @@ import CommentIcon from 'material-ui-icons/Comment';
 import List, { ListItem, ListItemAvatar, ListItemText } from 'material-ui/List';
 import Dialog, { DialogTitle } from 'material-ui/Dialog';
 import Input from 'material-ui/Input/Input';
+import Chip from 'material-ui/Chip';
 
 import { log_out } from 'states/account-actions.js';
 import { select_friend } from 'states/chat-actions.js';
@@ -74,6 +75,8 @@ class Main extends React.Component {
     render() {
 
         const { account, friends } = this.props;
+        // var name = account + " !";
+        var name = "Terry Lin !";
 
         return (
             <Router>
@@ -86,21 +89,30 @@ class Main extends React.Component {
                             direction='row'
                             justify='flex-end'
                         >
+
+                            {account !== "" &&
+                                <Chip
+                                    className='name'
+                                    avatar={<Avatar>Hi</Avatar>}
+                                    label={name}
+                                />
+                            }
+
                             {friends.length !== 0 &&
-                                <Badge
-                                    badgeContent={friends.length}
-                                    color='primary'
-                                    className='person'
+                                // <Badge
+                                //     badgeContent={friends.length}
+                                //     color='primary'
+                                //     className='person'
+                                // >
+                                <IconButton
+                                    aria-owns={this.state.open_contact ? 'contact' : null}
+                                    aria-haspopup="true"
+                                    onClick={() => this.setState({ open_contact: true })}
+                                    className='contact_icon_1'
                                 >
-                                    <IconButton
-                                        aria-owns={this.state.open_contact ? 'contact' : null}
-                                        aria-haspopup="true"
-                                        onClick={() => this.setState({ open_contact: true })}
-                                        className='contact_icon_1'
-                                    >
-                                        <PersonIcon />
-                                    </IconButton>
-                                </Badge>
+                                    <PersonIcon />
+                                </IconButton>
+                                // </Badge>
                             }
 
                             {friends.length === 0 &&
