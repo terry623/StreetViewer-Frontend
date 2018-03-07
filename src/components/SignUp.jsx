@@ -1,5 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {
+    Redirect,
+} from "react-router-dom";
 import { connect } from 'react-redux';
 import TextField from 'material-ui/TextField';
 import Button from 'material-ui/Button';
@@ -172,19 +175,7 @@ class SignUp extends React.Component {
                 }
 
                 {message === "Finish Sign Up!" &&
-                    <Dialog open={this.state.open} onRequestClose={this.handleRequestClose_success}>
-                        <DialogTitle>{"Sign Up Success!"}</DialogTitle>
-                        <DialogContent>
-                            <DialogContentText>
-                                Go to Log In!
-                            </DialogContentText>
-                        </DialogContent>
-                        <DialogActions>
-                            <Button onClick={this.handleRequestClose_success} color="primary">
-                                Got it!
-                            </Button>
-                        </DialogActions>
-                    </Dialog>
+                    <Redirect to="/LogIn" />
                 }
 
             </div>

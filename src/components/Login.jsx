@@ -143,12 +143,12 @@ class LogIn extends React.Component {
                         <DialogContent>
                             <DialogContentText>
                                 Go to Camera!
-                            </DialogContentText>
+                        </DialogContentText>
                         </DialogContent>
                         <DialogActions>
                             <Button onClick={this.handleRequestClose_success} color="primary">
                                 Got it!
-                            </Button>
+                        </Button>
                         </DialogActions>
                     </Dialog>
                 }

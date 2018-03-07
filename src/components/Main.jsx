@@ -75,8 +75,7 @@ class Main extends React.Component {
     render() {
 
         const { account, friends } = this.props;
-        // var name = account + " !";
-        var name = "Terry Lin !";
+        var name = account + " !";
 
         return (
             <Router>
@@ -155,7 +154,6 @@ class Main extends React.Component {
                             <MenuItem onClick={this.handleRequestClose_menu} component={Link} to={'/Collection'}>Collection</MenuItem>
                             <MenuItem onClick={this.handleRequestClose_menu} component={Link} to={'/LogIn'}>Log In</MenuItem>
                             <MenuItem onClick={this.handleRequestClose_menu} component={Link} to={'/SignUp'}>SignUp</MenuItem>
-                            <MenuItem onClick={this.handleRequestClose_menu_logout} component={Link} to={'/LogIn'}>Log Out</MenuItem>
                         </Menu>
 
                     </div>
